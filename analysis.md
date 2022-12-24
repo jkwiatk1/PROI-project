@@ -34,7 +34,7 @@ Patient {
 	string last_name;
 	Date date_of_birth;
 	enum status; // Hospitalized or Discharged
-	Room? room; // None iff Discharged, a Room iff not.
+	Room? room; // None iff Discharged, else a Room.
 	// Actions:
 	// - Hospitalize
 	// - Discharge
@@ -42,38 +42,21 @@ Patient {
 	// - PerformSurgeryOn(Doctor)
 }
 
-// Realizacja typów pracowników ma więcej sensu przez pole `enum
-// employee_type` niż przez hierarchię dziedziczenia. Dziedziczenie sprawia, że
-// dla każdego nowego typu pracownika musimy stworzyć nową klasę. Część z klas
-// pracowników nie ma żadnych pól lub akcji. Dodatkowo, w niektórych miejscach
-// tracimy informację o typie pracownika, gdzie byłaby ona porządana. Przykład:
-// klasa Action. Żeby wydrukować informacje o pracowniku trzeba się posłużyć
-// upcastem, żeby zamienić Employee na np. Doctor, żeby otrzymać pełne
-// informacje o osobie która wykonała akcję. Upcasty w C++ są skomplikowane i
-// działają lepiej w językach takich jak C# lub Java.
-
 Employee {
+	enum employee_type; // { Doctor, Nurse, Paramedic, AssistivePersonel }
 	string first_name;
 	string last_name;
 	Departament departament;
-}
 
-Doctor : Employee {
-	enum specialization;
+	// Doctor:
+	enum? specialization;
 	// Actions:
 	// - Examine (zbadaj pacjenta)
 	// - Prescribe (daj receptę)
-}
 
-Nurse : Employee {
+	// Nurse:
 	// Actions:
 	// - AdministerMedicine (podaj lekarstwo, również w formie zastrzyku)
-}
-
-Paramedic : Employee {
-}
-
-AssistivePersonel : Employee {
 }
 
 Department {
@@ -91,7 +74,7 @@ MedicalHistory { // To ma reprezentować "kartę zdrowia".
 	Patient patient;
 	Action[] history;
 	Disease[] past_diseases;
-	Disease[] current_diseases; 
+	Disease[] current_diseases;
 	// A Disease in past_diseases must have end_date != None.
 	// A Disease in current_diseases must have end_date == None.
 	// Actions:
