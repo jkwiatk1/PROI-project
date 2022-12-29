@@ -1,23 +1,3 @@
-# Procesy w Szpitalu
-
-Poniższa sekcja nie wynika z tematu zadania. Jest próbą połączenia wymagań,
-które stawia zadanie, oraz wiedzy ogólnej, żeby zbudować ściślejszy obraz
-projektu, który mamy wykonać.
-
-## Leczenie pacjenta
-
-1. Pacjent zostaje przyjęty do szpitala. Zakładana jest karta zdrowia.
-Odnotowywany jest sposób przybycia do szpitala.
-2. Pacjent jest kierowany na badanie wstępne, które zostaje umieszczone w
-karcie zdrowia.
-3. Jeżeli pacjent wymaga długotrwałego leczenia:
-3.1. Pacjent jest przydzielany do oddziału
-3.2. Pacjent umieszczany jest na sali
-3.3. Na pacjencie mogą być wykonywane badania oraz zabiegi. Pacjentowi mogą być
-     podawane leki. Każde badanie, zabieg lub podanie leku są odnotowywane na
-     karcie zdrowia.
-4. Pacjent jest zwalniany ze szpitala.
-
 # Encje
 
 Poniższa sekcja zawiera pewne wyobrażenie encji, które znajdą się w projekcie.
@@ -30,55 +10,24 @@ Poniższa sekcja zawiera pewne wyobrażenie encji, które znajdą się w projekc
 // - Querable
 
 Patient {
+	// PK: (id)
+  int id;
 	string first_name;
 	string last_name;
 	Date date_of_birth;
 	enum status; // Hospitalized or Discharged
 	Room? room; // None iff Discharged, else a Room.
-	// Actions:
-	// - Hospitalize
-	// - Discharge
-	// - Examine(Doctor)
-	// - PerformSurgeryOn(Doctor)
-}
-
-Employee {
-	enum employee_type; // { Doctor, Nurse, Paramedic, AssistivePersonel }
-	string first_name;
-	string last_name;
-	Departament departament;
-
-	// Doctor:
-	enum? specialization;
-	// Actions:
-	// - Examine (zbadaj pacjenta)
-	// - Prescribe (daj receptę)
-
-	// Nurse:
-	// Actions:
-	// - AdministerMedicine (podaj lekarstwo, również w formie zastrzyku)
-}
-
-Department {
-	string name;
-}
-
-Room {
-	Departament departament;
-	string number;
-	string capacity;
-	Patient[] patients;
-}
-
-MedicalHistory { // To ma reprezentować "kartę zdrowia".
-	Patient patient;
 	Action[] history;
 	Disease[] past_diseases;
 	Disease[] current_diseases;
+
 	// A Disease in past_diseases must have end_date != None.
 	// A Disease in current_diseases must have end_date == None.
+
 	// Actions:
-	// AddAction(Employee)
+	// - Hospitalize
+	// - Discharge
+	// - AddAction(Employee)
 }
 
 Action {
@@ -92,4 +41,73 @@ Disease {
 	Date start_date;
 	Date? end_date;
 }
+
+Employee {
+	PK: (id)
+	int id;
+	enum employee_type; // { Doctor, Nurse, Paramedic, AssistivePersonel }
+	// AssistivePersonel odpowiada Salowej.
+	string first_name;
+	string last_name;
+	Departament departament;
+
+
+	// Doctor:
+	enum? specialization;
+	// Actions:
+	// - Examine (zbadaj pacjenta)
+	// - Prescribe (daj receptę) (proponuję pominąć)
+	// - PerformSurgery (wykonaj operację)
+
+	// Nurse:
+	// Actions:
+	// - AdministerMedicine (podaj lekarstwo, również w formie zastrzyku)
+}
+
+Department {
+	// PK: (id)
+	string id; // czytelny kod, np. CARDIO
+	string name;
+}
+
+Room {
+	// PK: (departament, number)
+	Departament departament;
+	string number;
+	string capacity;
+	Patient[] patients;
+}
 ```
+
+# Polecenia REPL
+
+Poniżej znajdują się listy poleceń, które musi wspierać REPL. Składnia polecenia
+nie została jeszcze opracowana, więc zapisano je w formie abstrakcyjnej.
+Polecenie ma nazwę i argumenty.
+
+DML:
+
+- `Add(Patient)`
+- `Delete(Patient)`
+- `Modify(Patient)`
+- `Add(Employee)`
+- `Delete(Employee)`
+- `Modify(Employee)`
+- `Add(Departament)`
+- `Delete(Departament)`
+- `Modify(Departament)`
+
+DML, ale te ważne:
+
+- `Hospitalize(Patient, Room)` (przyjmij do szpitala)
+- `Discharge(Patient)` (zwolnij ze szpitala)
+- `Examine(Employee{Doctor}, Patient)` (badanie lub konsultacja ze specjalistą)
+- `Prescribe(Employee{Doctor}, Patient, string[] medicine)` (przypisanie leków)
+- `AdministerMedicine(Employee{Nurse}, Patient, string medicine)`
+- `PerformSurgery(Employee{Doctor}, Patient)`
+
+DQL:
+
+- `Show(Patient)` (odpowiednik SELECT)
+- `Show(Employee)`
+- `Show(Departament)`
