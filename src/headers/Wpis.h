@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Pracownik.h"
+#include "Employee.h"
 #include <string>
 
 class Wpis
 {
 private:
     std::string czynnosc;
-    Pracownik* wypisujacy;
+    Employee* wypisujacy;
 public:
     Wpis(/* args */);
 };
