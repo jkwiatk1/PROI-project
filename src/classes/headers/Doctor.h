@@ -3,16 +3,17 @@
 #include "Employee.h"
 #include "Patient.h"
 
-enum Specialities {okulista, chirurg, kardiolog, neurolog}; //itp. mozna dopisac
+enum Specialities {oculist, surgeon, cardiologist, neurologist};
 
 class Doctor : public Employee
 {
 private:
     Specialities speciality;
 public:
-    Doctor(/* args */);
+    Doctor(std::string first_name, std::string last_name, Specialities speciality);
     
     void examine(Patient& patient);
+    // pytanie czy robic klase Medicine
     void prescribeMedicine(Patient& patient);
 };
 

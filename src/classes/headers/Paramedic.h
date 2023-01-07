@@ -6,10 +6,9 @@
 class Paramedic : public Employee
 {
 private:
-    /* data */
 public:
-    Paramedic(/* args */);
+    Paramedic(std::string first_name, std::string last_name);
     
-    void ratuj(Patient& patient); // idk metody jakies
+    void doFirstAid(Patient& patient);
 };
 

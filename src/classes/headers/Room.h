@@ -6,11 +6,14 @@
 class Room
 {
 private:
-    int capacity;
     int nr;
+    int capacity;
     std::vector<Patient*> patients;
 public:
-    Room(/* args */);
+    Room(int nr, int capacity);
+    
+    void addPatient(Patient* patient);
+    void removePatient(Patient* patient);
 
 };
 

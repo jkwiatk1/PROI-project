@@ -6,9 +6,9 @@
 class Nurse : public Employee
 {
 private:
-    /* data */
 public:
-    Nurse(/* args */);
+    Nurse(std::string first_name, std::string last_name);
 
+    // pytanie czy robic klase Medicine
     void administerMedicine(Patient& patient);
 };
