@@ -2,8 +2,6 @@
 
 ## DML
 
-TODO: refine
-
 Create:
 
 ```
@@ -63,15 +61,58 @@ examine doctor { id = <integer> } patient { id = <integer> }
                   patient { id = <integer> }
         | examine doctor { first_name = <first_name>, last_name = <last_name> }
                   patient { first_name = <first_name>, last_name = <last_name> }
-prescribe_meds doctor { id = <integer> }
+prescribe doctor { id = <integer> }
                patient { id = <integer> }
                meds [ med1 [, med2][, med3][...] ]
-administer_med nurse { id = <integer> }
+administer nurse { id = <integer> }
                patient { id = <integer> }
                med <med1>
-perform_surgery doctor { id = <integer> } patient { id = <integer> }
+surgery doctor { id = <integer> } patient { id = <integer> }
 ```
 
 ## DQL
 
-TODO: design
+```
+search patient {}
+search doctor {}
+search nurse {}
+search paramedic {}
+search assistant_personnel {}
+search departament {}
+```
+
+# BNF
+
+```
+LF ::= `\r\n' | `\n'
+command ::= add command LF
+        |   delete command LF
+        |   update command LF
+        |   examine LF
+        |   prescribe meds LF
+        |   administer med LF
+        |   surgery LF
+        |   search command LF
+
+object ::= type `{' keyvals `}'
+keyvals ::= `'
+        |   keyval
+        |   keyval, keyvals
+keyval ::= string `=' string
+type ::= `patient' | `doctor' | `nurse' | `paramedic' | `assistive_personnel'
+     |   `departament' | `room'
+
+add command ::= `add' object<identity>
+delete command ::= `delete` object<identity>
+update command ::= `update' object
+
+examine ::= `examine' object<identity, doctor> object<identity, patient>
+prescribe meds ::= `prescribe' object<identity, doctor> `meds' medlist
+medlist ::= med
+        |   med, medlist
+med ::= string
+administer med ::= `administer' object<identity, nurse> object<identity, patient> `med' med
+surgery ::= `surgery' object<identity, doctor> object<identity, patient>
+
+search ::= `search` object
+```
