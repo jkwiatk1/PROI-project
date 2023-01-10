@@ -68,6 +68,8 @@ administer nurse { id = <integer> }
                patient { id = <integer> }
                med <med1>
 surgery doctor { id = <integer> } patient { id = <integer> }
+hospitalize patient {}
+discharge patient {}
 ```
 
 ## DQL
