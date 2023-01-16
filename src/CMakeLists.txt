@@ -5,6 +5,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # compiler must be 17
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # required if linking to static library
 add_definitions(-DANTLR4CPP_STATIC)
@@ -43,12 +44,20 @@ list(APPEND HDB_REPL_CXX_FILES
             ReplCommandsBaseListener.cpp
             ReplCommandsLexer.cpp
             ReplCommandsListener.cpp
-            ReplCommandsParser.cpp)
+            ReplCommandsParser.cpp
+            Repl.cpp)
 list(TRANSFORM HDB_REPL_CXX_FILES PREPEND "${HDB_REPL_SOURCES_DIR}/")
 include_directories(${HDB_REPL_SOURCES_DIR})
 
+set(HDB_DATACONTAINER_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data_container)
+list(APPEND HDB_DATACONTAINER_CXX_FILES 
+            DataContainer.cpp
+            InMemoryDataContainer.cpp)
+list(TRANSFORM HDB_DATACONTAINER_CXX_FILES PREPEND "${HDB_DATACONTAINER_SOURCES_DIR}/")
+include_directories(${HDB_DATACONTAINER_SOURCES_DIR})
+
 
 # add generated grammar to binary target
-add_executable(hdb main.cpp ${HDB_REPL_CXX_FILES})
+add_executable(hdb main.cpp ${HDB_REPL_CXX_FILES} ${HDB_DATACONTAINER_CXX_FILES})
 
 target_link_libraries(hdb antlr4_static Threads::Threads)
