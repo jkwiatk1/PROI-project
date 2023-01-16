@@ -13,9 +13,9 @@ Repl::Repl(std::istream &is, std::ostream &os, DataContainer &data_container)
 
 void Repl::run(void)
 {
-    std::cout << "$ ";
+    os << "$ ";
     std::string line;
-    std::getline(std::cin, line);
+    std::getline(is, line);
     line += '\n';
 
     antlr4::ANTLRInputStream input(line);
@@ -24,11 +24,11 @@ void Repl::run(void)
 
     tokens.fill();
     for (auto token : tokens.getTokens()) {
-        std::cout << token->toString() << std::endl;
+        os << token->toString() << std::endl;
     }
 
     ReplCommandsParser parser(&tokens);
     antlr4::tree::ParseTree *tree = parser.commandLine();
 
-    std::cout << tree->toStringTree(&parser) << std::endl << std::endl;
+    os << tree->toStringTree(&parser) << std::endl << std::endl;
 }
