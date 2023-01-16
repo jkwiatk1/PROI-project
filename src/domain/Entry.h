@@ -5,11 +5,11 @@
 
 class Entry
 {
-private:
+  private:
     std::string action;
-    Employee* performer;
-public:
-    Entry(std::string action, Employee* performer);
-};
+    Employee *performer;
 
+  public:
+    Entry(std::string action, Employee *performer);
+};
 

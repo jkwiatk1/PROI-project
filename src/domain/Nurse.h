@@ -5,10 +5,11 @@
 
 class Nurse : public Employee
 {
-private:
-public:
+  private:
+  public:
     Nurse(std::string first_name, std::string last_name);
 
     // pytanie czy robic klase Medicine
-    void administerMedicine(Patient& patient);
+    void administerMedicine(Patient &patient);
 };
+

@@ -4,16 +4,16 @@
 
 class Person
 {
-protected:
+  protected:
     static int ID_control;
     int ID;
     std::string first_name;
     std::string last_name;
-public:
+
+  public:
     Person();
     Person(std::string first_name, std::string last_name);
 
-    std::pair<std::string,std::string> getName() const;
+    std::pair<std::string, std::string> getName() const;
 };
-
 

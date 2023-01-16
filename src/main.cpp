@@ -1,12 +1,12 @@
 #include <iostream>
 
+#include "InMemoryDataContainer.h"
 #include "Repl.h"
-#include "DataContainer.h"
 
 
 int main(void)
 {
-    DataContainer dataContainer;
+    InMemoryDataContainer dataContainer;
     Repl repl(std::cin, std::cout, dataContainer);
     repl.run();
     return 0;

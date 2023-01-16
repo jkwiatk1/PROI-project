@@ -5,15 +5,15 @@
 
 class Room
 {
-private:
+  private:
     int nr;
     int capacity;
-    std::vector<Patient*> patients;
-public:
-    Room(int nr, int capacity);
-    
-    void addPatient(Patient* patient);
-    void removePatient(Patient* patient);
+    std::vector<Patient *> patients;
 
+  public:
+    Room(int nr, int capacity);
+
+    void addPatient(Patient *patient);
+    void removePatient(Patient *patient);
 };
 

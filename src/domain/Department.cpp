@@ -1,13 +1,16 @@
-#include "headers/Department.h"
+#include "Department.h"
+#include "Room.h"
 
 using namespace std;
 
-Department::Department(string ID, string name) {
+Department::Department(string ID, string name)
+{
     this->ID = ID;
     this->name = name;
     rooms = vector<Room>();
 }
 
-void Department::addRoom(Room room) {
+void Department::addRoom(Room room)
+{
     rooms.push_back(room);
 }

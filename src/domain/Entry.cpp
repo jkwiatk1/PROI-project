@@ -1,6 +1,7 @@
-#include "headers/Entry.h"
+#include "Entry.h"
 
-Entry::Entry(std::string action, Employee* performer) {
+Entry::Entry(std::string action, Employee *performer)
+{
     this->action = action;
     this->performer = performer;
 }

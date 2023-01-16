@@ -1,4 +1,4 @@
-#include "headers/Person.h"
+#include "Person.h"
 
 using namespace std;
 
@@ -16,6 +16,7 @@ Person::Person(std::string first_name, std::string last_name) : Person()
     this->last_name = last_name;
 }
 
-pair<string, string> Person::getName() const {
+pair<string, string> Person::getName() const
+{
     return pair<string, string>(first_name, last_name);
 }

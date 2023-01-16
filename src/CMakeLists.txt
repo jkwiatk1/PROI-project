@@ -38,7 +38,8 @@ find_package(Threads REQUIRED)
 # Call macro to add lexer and grammar to your build dependencies.
 # antlr_target(ReplCommands ReplCommands.g4 LEXER PARSER LISTENER)
 
-# include generated files in project environment
+# Include modules:
+# Repl
 set(HDB_REPL_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/repl)
 list(APPEND HDB_REPL_CXX_FILES 
             ReplCommandsBaseListener.cpp
@@ -49,6 +50,7 @@ list(APPEND HDB_REPL_CXX_FILES
 list(TRANSFORM HDB_REPL_CXX_FILES PREPEND "${HDB_REPL_SOURCES_DIR}/")
 include_directories(${HDB_REPL_SOURCES_DIR})
 
+# DataContainer
 set(HDB_DATACONTAINER_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data_container)
 list(APPEND HDB_DATACONTAINER_CXX_FILES 
             DataContainer.cpp
@@ -56,8 +58,26 @@ list(APPEND HDB_DATACONTAINER_CXX_FILES
 list(TRANSFORM HDB_DATACONTAINER_CXX_FILES PREPEND "${HDB_DATACONTAINER_SOURCES_DIR}/")
 include_directories(${HDB_DATACONTAINER_SOURCES_DIR})
 
+# Domain
+set(HDB_DOMAIN_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/domain)
+list(APPEND HDB_DOMAIN_CXX_FILES 
+            Assistant.cpp
+            Department.cpp
+            Doctor.cpp
+            Employee.cpp
+            Entry.cpp
+            Nurse.cpp
+            Paramedic.cpp
+            Patient.cpp
+            Person.cpp
+            Room.cpp)
+list(TRANSFORM HDB_DOMAIN_CXX_FILES PREPEND "${HDB_DOMAIN_SOURCES_DIR}/")
+include_directories(${HDB_DOMAIN_SOURCES_DIR})
 
 # add generated grammar to binary target
-add_executable(hdb main.cpp ${HDB_REPL_CXX_FILES} ${HDB_DATACONTAINER_CXX_FILES})
+add_executable(hdb main.cpp 
+                   ${HDB_REPL_CXX_FILES} 
+                   ${HDB_DATACONTAINER_CXX_FILES}
+                   ${HDB_DOMAIN_CXX_FILES})
 
 target_link_libraries(hdb antlr4_static Threads::Threads)

@@ -2,5 +2,5 @@
 
 #include "DataContainer.h"
 
-class InMemoryDataContainer : DataContainer {
+class InMemoryDataContainer : public DataContainer {
 };

@@ -1,15 +1,15 @@
 #pragma once
 
 #include "Person.h"
-#include "Patient.h"
-#include "Entry.h"
+
+class Patient;
 
 class Employee : public Person
 {
-private:
-public:
+  private:
+  public:
     Employee(std::string first_name, std::string last_name);
 
-    void addEntry(Patient& patient, std::string action);
+    void addEntry(Patient &patient, std::string action);
 };
 

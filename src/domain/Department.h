@@ -4,11 +4,12 @@
 
 class Department
 {
-private:
+  private:
     std::vector<Room> rooms;
     std::string ID;
     std::string name;
-public:
+
+  public:
     Department(std::string ID, std::string name);
 
     void addRoom(Room room);
