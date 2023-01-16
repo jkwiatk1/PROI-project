@@ -1,0 +1,1 @@
+prescribe doctor { id = 1 } patient { id = 1 } meds Aspiryna, Paracetamol

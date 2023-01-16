@@ -10,7 +10,7 @@ add doctor { first_name = <first_name>, last_name = <last_name>, speciality =
 <doctor_speciality> }
 add nurse { first_name = <first_name>, last_name = <last_name> }
 add paramedic { first_name = <first_name>, last_name = <last_name> }
-add assistive_personnel { first_name = <first_name>, last_name = <last_name> }
+add assistant { first_name = <first_name>, last_name = <last_name> }
 add departament { name = <departament_name> }
 add room { departament = <departament_name>, room_no = <integer> }
 ```
@@ -22,7 +22,7 @@ delete patient { id = <integer> }
 delete doctor { id = <integer> }
 delete nurse { id = <integer> }
 delete paramedic { id = <integer> }
-delete assistive_personnel { id = <integer> }
+delete assistant { id = <integer> }
 delete departament { departament = <departament_name> }
 delete room { departament = <departament_name>, room_no = <integer> }
 ```
@@ -43,7 +43,7 @@ update nurse { id = <integer>
 update paramedic { id = <integer>
                    [, first_name = <first_name>]
                    [, last_name = <last_name>] }
-update assistive_personnel { id = <integer>
+update assistant { id = <integer>
                              [, first_name = <first_name>]
                              [, last_name = <last_name>] }
 update departament { departament_name = <departament_name>,
@@ -79,7 +79,7 @@ search patient {}
 search doctor {}
 search nurse {}
 search paramedic {}
-search assistant_personnel {}
+search assistant {}
 search departament {}
 ```
 
@@ -101,7 +101,7 @@ keyvals ::= `'
         |   keyval
         |   keyval, keyvals
 keyval ::= string `=' string
-type ::= `patient' | `doctor' | `nurse' | `paramedic' | `assistive_personnel'
+type ::= `patient' | `doctor' | `nurse' | `paramedic' | `assistant'
      |   `departament' | `room'
 
 add command ::= `add' object<identity>
