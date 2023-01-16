@@ -11,9 +11,30 @@ Repl::Repl(std::istream &is, std::ostream &os, DataContainer &data_container)
 {
 }
 
+void Repl::prompt(void)
+{
+    os << "$ ";
+}
+
+void Repl::print_greeting(void)
+{
+    std::string greeting(
+            "Hospital Database (c) 2022 Kwiatkowski, Marczak, Targosiński\n"
+            "Enter commands below:");
+    os << greeting << std::endl;
+}
+
+void Repl::print_exit_message(void)
+{
+    std::string farewell("Exiting...");
+    os << farewell << std::endl;
+}
+
 void Repl::run(void)
 {
-    for (std::string line; std::getline(is, line); os << "$ ") {
+    print_greeting();
+    prompt();
+    for (std::string line; std::getline(is, line); prompt()) {
         line += '\n';
 
         antlr4::ANTLRInputStream input(line);
@@ -30,4 +51,6 @@ void Repl::run(void)
 
         os << tree->toStringTree(&parser) << std::endl << std::endl;
     }
+    os << std::endl;
+    print_exit_message();
 }
