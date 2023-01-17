@@ -19,8 +19,8 @@ void Repl::prompt(void)
 void Repl::print_greeting(void)
 {
     std::string greeting(
-            "Hospital Database (c) 2022 Kwiatkowski, Marczak, Targosiński\n"
-            "Enter commands below:");
+        "Hospital Database (c) 2022 Kwiatkowski, Marczak, Targosiński\n"
+        "Enter commands below:");
     os << greeting << std::endl;
 }
 
@@ -36,21 +36,26 @@ void Repl::run(void)
     prompt();
     for (std::string line; std::getline(is, line); prompt()) {
         line += '\n';
+        {
+            // TODO: this seems to be leaking. Check.
+            antlr4::ANTLRInputStream input(line);
+            ReplCommandsLexer lexer(&input);
+            antlr4::CommonTokenStream tokens(&lexer);
 
-        antlr4::ANTLRInputStream input(line);
-        ReplCommandsLexer lexer(&input);
-        antlr4::CommonTokenStream tokens(&lexer);
+            tokens.fill();
+            for (auto token : tokens.getTokens()) {
+                os << token->toString() << std::endl;
+            }
 
-        tokens.fill();
-        for (auto token : tokens.getTokens()) {
-            os << token->toString() << std::endl;
+            ReplCommandsParser parser(&tokens);
+            antlr4::tree::ParseTree *tree = parser.commandLine();
+            os << tree->toStringTree(&parser) << std::endl;
         }
-
-        ReplCommandsParser parser(&tokens);
-        antlr4::tree::ParseTree *tree = parser.commandLine();
-
-        os << tree->toStringTree(&parser) << std::endl << std::endl;
     }
     os << std::endl;
     print_exit_message();
 }
+
+// void Repl::execute_command(antlr4::tree::ParseTree *tree)
+// {
+// }
