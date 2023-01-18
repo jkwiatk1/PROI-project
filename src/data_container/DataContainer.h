@@ -1,10 +1,15 @@
 #pragma once
 #include <string>
-#include "../classes/headers/Doctor.h"
-#include "../classes/headers/Department.h"
-#include "../classes/headers/Nurse.h"
-#include "../classes/headers/Paramedic.h"
-#include "../classes/headers/Assistant.h"
+// #include "../classes/headers/Doctor.h"
+// #include "../classes/headers/Department.h"
+// #include "../classes/headers/Nurse.h"
+// #include "../classes/headers/Paramedic.h"
+// #include "../classes/headers/Assistant.h"
+#include "../domain/Doctor.h"
+#include "../domain/Department.h"
+#include "../domain/Nurse.h"
+#include "../domain/Paramedic.h"
+#include "../domain/Assistant.h"
 
 
 
@@ -41,11 +46,11 @@ public:
     virtual void AdministerMedicine(int nurse_id, int patient_id, std::string medicine) = 0;
     virtual void PerformSurgery(int doctor_id, int patient_id) = 0;
 
-    virtual Patient FindPatients() = 0;
-    virtual Doctor FindDoctors() = 0;
-    virtual Nurse FindNurses() = 0;
-    virtual Paramedic FindParamedics() = 0;
-    virtual Assistant FindAssistivePersonnel() = 0;
-    virtual Department FindDepartament() = 0;
+    virtual Patient FindPatients(Patient) = 0;
+    virtual Doctor FindDoctors(Doctor) = 0;
+    virtual Nurse FindNurses(Nurse) = 0;
+    virtual Paramedic FindParamedics(Paramedic) = 0;
+    virtual Assistant FindAssistivePersonnel(Assistant) = 0;
+    //virtual Department FindDepartament(std::string departament_name) = 0;
 };
  
