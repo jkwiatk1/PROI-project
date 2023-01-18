@@ -1,8 +1,9 @@
 #include <iostream>
+#include <antlr4-runtime.h>
+#include "Command.h"
+#include "ReplConstants.h"
 #include "Repl.h"
 #include "DataContainer.h"
-#include <antlr4-runtime.h>
-#include <tree/ParseTreeWalker.h>
 #include "ReplCommandsLexer.h"
 #include "ReplCommandsParser.h"
 #include "ReplCommandsBaseListener.h"
@@ -60,6 +61,8 @@ void Repl::execute_command(std::string &commandline)
     // Process the tree
     auto command = parse_tree_to_command(tree);
 
+    std::cout << command << std::endl;
+
     // Validate the command
     if (!is_valid(command)) {
         os << "Error: invalid command (TODO: make this message more helpful)."
@@ -67,27 +70,26 @@ void Repl::execute_command(std::string &commandline)
         return;
     }
 
-    os << "Command type: " << command["command_type"] << std::endl;
-
     // Perform operations on data
     perform_data_operation(command);
 }
 
-Repl::CommandData Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
+Command Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
 {
     antlr4::tree::ParseTreeWalker walker;
     TreeListener listener;
     walker.walk(&listener, tree);
-    return listener.getCommandData();
+    return listener.getCommand();
 }
 
-bool Repl::is_valid(CommandData command)
+bool Repl::is_valid(Command &command)
 {
     // TODO: implement
     return true;
 }
 
-void Repl::perform_data_operation(CommandData command)
+void Repl::perform_data_operation(Command &command)
 {
     // TODO: implement
+    os << "Command type: " << command.getCommandType() << std::endl;
 }

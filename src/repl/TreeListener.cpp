@@ -4,60 +4,71 @@
 #include "Repl.h"
 #include "ReplCommandsParser.h"
 #include "TreeListener.h"
+#include "Command.h"
+#include "ReplConstants.h"
 
 
-// TODO: finish implementing the following methods
+using namespace ReplConstants;
+
+// TODO: finish implementing
 void TreeListener::enterAddCommand(ReplCommandsParser::AddCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = ADD_COMMAND;
+    command.setCommandType(ADD_COMMAND);
+    auto object = ctx->object();
+    command.setObjectType(OBJ1, object->ID()->getText());
+    for (auto keyval : object->keyvals()->keyval()) {
+        auto key = keyval->ID()->getText();
+        auto val = keyval->val()->getText();
+        command.addObjectProperty(OBJ1, key, val);
+    }
 }
 void TreeListener::enterDeleteCommand(
     ReplCommandsParser::DeleteCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = DELETE_COMMAND;
+    command.setCommandType(DELETE_COMMAND);
 }
 void TreeListener::enterUpdateCommand(
     ReplCommandsParser::UpdateCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = UPDATE_COMMAND;
+    command.setCommandType(UPDATE_COMMAND);
 }
 void TreeListener::enterSearchCommand(
     ReplCommandsParser::SearchCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = SEARCH_COMMAND;
+    command.setCommandType(SEARCH_COMMAND);
 }
 void TreeListener::enterExamineCommand(
     ReplCommandsParser::ExamineCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = EXAMINE_COMMAND;
+    command.setCommandType(EXAMINE_COMMAND);
 }
 void TreeListener::enterPrescribeCommand(
     ReplCommandsParser::PrescribeCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = PRESCRIBE_COMMAND;
+    command.setCommandType(PRESCRIBE_COMMAND);
 }
 void TreeListener::enterAdministerCommand(
     ReplCommandsParser::AdministerCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = ADMINISTER_COMMAND;
+    command.setCommandType(ADMINISTER_COMMAND);
 }
 void TreeListener::enterSurgeryCommand(
     ReplCommandsParser::SurgeryCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = SURGERY_COMMAND;
+    command.setCommandType(SURGERY_COMMAND);
 }
 void TreeListener::enterHospitalizeCommand(
     ReplCommandsParser::HospitalizeCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = HOSPITALIZE_COMMAND;
+    command.setCommandType(HOSPITALIZE_COMMAND);
 }
 void TreeListener::enterDischargeCommand(
     ReplCommandsParser::DischargeCommandContext *ctx)
 {
-    command[COMMAND_TYPE] = DISCHARGE_COMMAND;
+    command.setCommandType(DISCHARGE_COMMAND);
 }
 
-Repl::CommandData TreeListener::getCommandData(void) const
+Command TreeListener::getCommand(void) const
 {
     return command;
 }
