@@ -16,7 +16,10 @@ void TreeListener::enterAddCommand(ReplCommandsParser::AddCommandContext *ctx)
     command.setCommandType(ADD_COMMAND);
     auto object = ctx->object();
     command.setObjectType(OBJ1, object->ID()->getText());
-    for (auto keyval : object->keyvals()->keyval()) {
+    auto keyvals = object->keyvals();
+    if (keyvals == 0)
+        return;
+    for (auto keyval : keyvals->keyval()) {
         auto key = keyval->ID()->getText();
         auto val = keyval->val()->getText();
         command.addObjectProperty(OBJ1, key, val);

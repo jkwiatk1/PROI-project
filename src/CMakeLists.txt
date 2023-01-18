@@ -48,6 +48,7 @@ list(APPEND HDB_REPL_CXX_FILES
             ReplCommandsParser.cpp
             Repl.cpp
             Command.cpp
+            CommandValidator.cpp
             TreeListener.cpp)
 list(TRANSFORM HDB_REPL_CXX_FILES PREPEND "${HDB_REPL_SOURCES_DIR}/")
 include_directories(${HDB_REPL_SOURCES_DIR})

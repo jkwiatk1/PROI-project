@@ -7,6 +7,7 @@
 #include "ReplCommandsLexer.h"
 #include "ReplCommandsParser.h"
 #include "ReplCommandsBaseListener.h"
+#include "CommandValidator.h"
 #include "TreeListener.h"
 
 Repl::Repl(std::istream &is, std::ostream &os, DataContainer &data_container)
@@ -64,7 +65,7 @@ void Repl::execute_command(std::string &commandline)
     std::cout << command << std::endl;
 
     // Validate the command
-    if (!is_valid(command)) {
+    if (!CommandValidator::is_valid(command)) {
         os << "Error: invalid command (TODO: make this message more helpful)."
            << std::endl;
         return;
@@ -82,14 +83,7 @@ Command Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
     return listener.getCommand();
 }
 
-bool Repl::is_valid(Command &command)
-{
-    // TODO: implement
-    return true;
-}
-
 void Repl::perform_data_operation(Command &command)
 {
     // TODO: implement
-    os << "Command type: " << command.getCommandType() << std::endl;
 }

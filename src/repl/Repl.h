@@ -17,7 +17,6 @@ class Repl {
         void print_exit_message(void);
         void execute_command(std::string &commandline);
         Command parse_tree_to_command(antlr4::tree::ParseTree *tree);
-        bool is_valid(Command &command);
         void perform_data_operation(Command &command);
 
       public:
