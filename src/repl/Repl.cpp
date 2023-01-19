@@ -44,6 +44,13 @@ void Repl::print_failure_message(std::string operation)
     os << operation << " failed!" << std::endl;
 }
 
+void Repl::print_errors(ValidationErrors &errors)
+{
+    os << "Error! The following errors were encountered:" << std::endl;
+    for (auto e : errors)
+        os << "- " << e << "." << std::endl;
+}
+
 void Repl::run(void)
 {
     print_greeting();
@@ -71,13 +78,12 @@ void Repl::execute_command(std::string &commandline)
 
     // Process the tree
     auto command = parse_tree_to_command(tree);
-
     std::cout << command << std::endl;
 
     // Validate the command
-    if (!CommandValidator::is_valid(command)) {
-        os << "Error: invalid command (TODO: make this message more helpful)."
-           << std::endl;
+    auto errors = CommandValidator::validate(command);
+    if (errors.exist()) {
+        print_errors(errors);
         return;
     }
 

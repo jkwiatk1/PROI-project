@@ -1,35 +1,62 @@
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 
 #include "CommandObject.h"
 #include "CommandValidator.h"
 #include "Command.h"
+#include "ValidationErrors.h"
 
 
 // TODO: make this function return more specific errors.
 // TODO: Replace string constants with enumerations.
-bool CommandValidator::is_valid(Command &command)
+ValidationErrors CommandValidator::validate(Command &command)
 {
+    ValidationErrors errors;
+
     auto command_type = command.getType();
     if (command_type == Command::ADD_COMMAND) {
-        return validate_add(command);
+        validate_add(command, errors);
     } else {
-        return false;
+        std::stringstream error;
+        error << "Invalid command: `" << command_type << "`";
+        errors.addError(error.str());
+    }
+    return errors;
+}
+
+void CommandValidator::validate_add(Command &command, ValidationErrors &errors)
+{
+    if (command.objectCount() != 1)
+        errors.addError("`add` should have a single object argument.");
+
+
+    auto object = command.getObject(0);
+    auto type = object.getType();
+
+    if (type == CommandObject::PATIENT) {
+        has_first_name_last_name(object, errors);
+    } else {
+        std::string error;
+        error = "Invalid object type: `" + type + "`";
+        errors.addError(error);
     }
 }
 
-bool CommandValidator::validate_add(Command &command)
+void CommandValidator::has_first_name_last_name(CommandObject &object,
+                                                ValidationErrors &errors)
 {
-    if (command.objectCount() != 1)
-        return false;
+    has_property(object, CommandObject::FIRST_NAME, errors);
+    has_property(object, CommandObject::LAST_NAME, errors);
+}
 
-    auto object = command.getObject(0);
-    if (object.getType() != CommandObject::PATIENT)
-        return false;
-    if (!object.hasProperty(CommandObject::FIRST_NAME))
-        return false;
-    if (!object.hasProperty(CommandObject::LAST_NAME))
-        return false;
-
-    return true;
+void CommandValidator::has_property(CommandObject &object, std::string property,
+                                    ValidationErrors &errors)
+{
+    if (!object.hasProperty(property)) {
+        std::string error;
+        error = "Object '" + object.getType() + "' should have property '"
+                + property + "'";
+        errors.addError(error);
+    }
 }

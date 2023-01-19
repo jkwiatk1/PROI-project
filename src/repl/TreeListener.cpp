@@ -13,17 +13,17 @@ void TreeListener::enterAddCommand(ReplCommandsParser::AddCommandContext *ctx)
 {
     command.setType(Command::ADD_COMMAND);
     auto object = ctx->object();
-    CommandObject patient;
-    patient.setType(object->ID()->getText());
+    CommandObject command_object;
+    command_object.setType(object->ID()->getText());
     auto keyvals = object->keyvals();
-    if (keyvals == 0)
-        return;
-    for (auto keyval : keyvals->keyval()) {
-        auto key = keyval->ID()->getText();
-        auto val = keyval->val()->getText();
-        patient.addProperty(key, val);
+    if (keyvals != nullptr) {
+        for (auto keyval : keyvals->keyval()) {
+            auto key = keyval->ID()->getText();
+            auto val = keyval->val()->getText();
+            command_object.addProperty(key, val);
+        }
     }
-    command.addObject(patient);
+    command.addObject(command_object);
 }
 // void TreeListener::enterDeleteCommand(
 //     ReplCommandsParser::DeleteCommandContext *ctx)

@@ -1,9 +1,17 @@
 #pragma once
 
 #include "Command.h"
-class CommandValidator {
-    public:
-        static bool is_valid(Command &command);
-    private:
-        static bool validate_add(Command &command);
+#include "ValidationErrors.h"
+
+class CommandValidator
+{
+  public:
+    static ValidationErrors validate(Command &command);
+
+  private:
+    static void validate_add(Command &command, ValidationErrors &errors);
+    static void has_first_name_last_name(CommandObject &object,
+                                         ValidationErrors &errors);
+    static void has_property(CommandObject &object, std::string property,
+                             ValidationErrors &errors);
 };
