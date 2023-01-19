@@ -34,6 +34,16 @@ void Repl::print_exit_message(void)
     os << farewell << std::endl;
 }
 
+void Repl::print_success_message(std::string operation)
+{
+    os << operation << " completed succesfully!" << std::endl;
+}
+
+void Repl::print_failure_message(std::string operation)
+{
+    os << operation << " failed!" << std::endl;
+}
+
 void Repl::run(void)
 {
     print_greeting();
@@ -83,7 +93,14 @@ Command Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
     return listener.getCommand();
 }
 
+// TODO: implement
 void Repl::perform_data_operation(Command &command)
 {
-    // TODO: implement
+    if (command.getType() == ReplConstants::ADD_COMMAND) {
+        auto patient = command.getObject(0);
+        auto first_name = patient.getProperty("first_name");
+        auto last_name = patient.getProperty("last_name");
+        data_container.addPatient(first_name, last_name);
+        print_success_message("Patient addition");
+    }
 }

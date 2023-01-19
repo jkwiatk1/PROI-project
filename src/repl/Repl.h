@@ -18,6 +18,8 @@ class Repl {
         void execute_command(std::string &commandline);
         Command parse_tree_to_command(antlr4::tree::ParseTree *tree);
         void perform_data_operation(Command &command);
+        void print_success_message(std::string operation);
+        void print_failure_message(std::string operation);
 
       public:
         Repl(std::istream &is, std::ostream &os, DataContainer &data_container);

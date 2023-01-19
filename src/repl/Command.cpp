@@ -48,10 +48,29 @@ std::string Command::getType(void) const
     return type;
 }
 
-// TODO: implement
+std::ostream &operator<<(std::ostream &s, const std::vector<std::string> v)
+{
+    s << "[";
+    bool first_iteration = true;
+    for (auto x : v) {
+        if (!first_iteration)
+            s << ", ";
+        s << x;
+        if (first_iteration)
+            first_iteration = false;
+    }
+    return s << "]";
+}
+
 std::ostream &operator<<(std::ostream &s, const Command &command)
 {
     s << "Command{" << std::endl;
+    for (int i = 0; i < command.objectCount(); i++) {
+        s << "\t" << command.getObject(i) << std::endl;
+    }
+    for (int i = 0; i < command.arrayCount(); i++) {
+        s << "\tCommandArray{" << command.getArray(i) << "}" << std::endl;
+    }
     s << "}" << std::endl;
     return s;
 }
