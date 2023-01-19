@@ -1,6 +1,20 @@
 #include <iostream>
 
 #include "CommandObject.h"
+
+// Type constants
+const std::string CommandObject::PATIENT = "patient";
+const std::string CommandObject::DOCTOR = "doctor";
+const std::string CommandObject::NURSE = "nurse";
+const std::string CommandObject::PARAMEDIC = "paramedic";
+const std::string CommandObject::ASSISTANT = "assistant";
+const std::string CommandObject::DEPARTMENT = "department";
+const std::string CommandObject::ROOM = "room";
+
+// Fields constants
+const std::string CommandObject::FIRST_NAME = "first_name";
+const std::string CommandObject::LAST_NAME = "last_name";
+
 void CommandObject::addProperty(std::string key, std::string value)
 {
     properties[key] = value;

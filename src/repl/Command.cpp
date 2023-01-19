@@ -4,9 +4,19 @@
 #include <vector>
 
 #include "Command.h"
-#include "ReplConstants.h"
 
-using ReplConstants::COMMAND_TYPE, ReplConstants::OBJECT_TYPE;
+
+const std::string Command::ADD_COMMAND = "add";
+const std::string Command::DELETE_COMMAND = "delete";
+const std::string Command::UPDATE_COMMAND = "modify";
+const std::string Command::SEARCH_COMMAND = "search";
+const std::string Command::EXAMINE_COMMAND = "examine";
+const std::string Command::PRESCRIBE_COMMAND = "prescribe";
+const std::string Command::ADMINISTER_COMMAND = "asminister";
+const std::string Command::SURGERY_COMMAND = "surgery";
+const std::string Command::HOSPITALIZE_COMMAND = "hospitalize";
+const std::string Command::DISCHARGE_COMMAND = "discharge";
+
 
 void Command::setType(std::string type)
 {

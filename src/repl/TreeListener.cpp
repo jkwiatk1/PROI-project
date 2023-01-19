@@ -6,15 +6,12 @@
 #include "ReplCommandsParser.h"
 #include "TreeListener.h"
 #include "Command.h"
-#include "ReplConstants.h"
 
-
-using namespace ReplConstants;
 
 // TODO: finish implementing
 void TreeListener::enterAddCommand(ReplCommandsParser::AddCommandContext *ctx)
 {
-    command.setType(ADD_COMMAND);
+    command.setType(Command::ADD_COMMAND);
     auto object = ctx->object();
     CommandObject patient;
     patient.setType(object->ID()->getText());

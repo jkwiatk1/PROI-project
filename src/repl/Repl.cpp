@@ -1,7 +1,7 @@
 #include <iostream>
 #include <antlr4-runtime.h>
 #include "Command.h"
-#include "ReplConstants.h"
+#include "CommandObject.h"
 #include "Repl.h"
 #include "DataContainer.h"
 #include "ReplCommandsLexer.h"
@@ -96,10 +96,10 @@ Command Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
 // TODO: implement
 void Repl::perform_data_operation(Command &command)
 {
-    if (command.getType() == ReplConstants::ADD_COMMAND) {
+    if (command.getType() == Command::ADD_COMMAND) {
         auto patient = command.getObject(0);
-        auto first_name = patient.getProperty("first_name");
-        auto last_name = patient.getProperty("last_name");
+        auto first_name = patient.getProperty(CommandObject::FIRST_NAME);
+        auto last_name = patient.getProperty(CommandObject::LAST_NAME);
         data_container.addPatient(first_name, last_name);
         print_success_message("Patient addition");
     }

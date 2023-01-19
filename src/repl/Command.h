@@ -20,6 +20,17 @@ class Command
     std::string getType(void) const;
     friend std::ostream &operator<<(std::ostream &o, const Command &c);
 
+    static const std::string ADD_COMMAND;
+    static const std::string DELETE_COMMAND;
+    static const std::string UPDATE_COMMAND;
+    static const std::string SEARCH_COMMAND;
+    static const std::string EXAMINE_COMMAND;
+    static const std::string PRESCRIBE_COMMAND;
+    static const std::string ADMINISTER_COMMAND;
+    static const std::string SURGERY_COMMAND;
+    static const std::string HOSPITALIZE_COMMAND;
+    static const std::string DISCHARGE_COMMAND;
+
   private:
     std::string type;
     std::vector<CommandObject> objects;
