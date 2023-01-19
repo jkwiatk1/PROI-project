@@ -11,7 +11,7 @@
 #include "TreeListener.h"
 
 Repl::Repl(std::istream &is, std::ostream &os, DataContainer &data_container)
-    : is(is), os(os), data_container(data_container)
+    : is(is), os(os), command_executor(data_container)
 {
 }
 
@@ -88,7 +88,7 @@ void Repl::execute_command(std::string &commandline)
     }
 
     // Perform operations on data
-    perform_data_operation(command);
+    command_executor.executeCommand(command);
 }
 
 Command Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
@@ -97,16 +97,4 @@ Command Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
     TreeListener listener;
     walker.walk(&listener, tree);
     return listener.getCommand();
-}
-
-// TODO: implement
-void Repl::perform_data_operation(Command &command)
-{
-    if (command.getType() == Command::ADD_COMMAND) {
-        auto patient = command.getObject(0);
-        auto first_name = patient.getProperty(CommandObject::FIRST_NAME);
-        auto last_name = patient.getProperty(CommandObject::LAST_NAME);
-        data_container.addPatient(first_name, last_name);
-        print_success_message("Patient addition");
-    }
 }

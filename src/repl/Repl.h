@@ -3,6 +3,7 @@
 #include <iostream>
 #include <antlr4-runtime.h>
 
+#include "CommandExecutor.h"
 #include "DataContainer.h"
 #include "ReplCommandsParser.h"
 #include "Command.h"
@@ -13,7 +14,7 @@ class Repl {
         friend class TreeListener;
         std::istream &is;
         std::ostream &os;
-        DataContainer &data_container;
+        CommandExecutor command_executor;
         void prompt(void);
         void print_greeting(void);
         void print_exit_message(void);
