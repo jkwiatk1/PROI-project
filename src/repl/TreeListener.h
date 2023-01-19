@@ -8,6 +8,7 @@
 #include "ReplCommandsBaseListener.h"
 #include "Command.h"
 
+// TODO: replace this with a Visitor
 class TreeListener : public ReplCommandsBaseListener
 {
   private:
