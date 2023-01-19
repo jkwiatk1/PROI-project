@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include "Doctor.h"
+#include "Person.h"
+#include "Patient.h"
 #include "Department.h"
 #include "Nurse.h"
 #include "Paramedic.h"

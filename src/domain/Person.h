@@ -14,6 +14,9 @@ class Person
     Person();
     Person(std::string first_name, std::string last_name);
 
+    const int& getID() const;
+
     std::pair<std::string, std::string> getName() const;
+    
 };
 

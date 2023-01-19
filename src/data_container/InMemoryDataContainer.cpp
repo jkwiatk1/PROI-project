@@ -1,37 +1,39 @@
 #include "InMemoryDataContainer.h"
-
-
-// InMemoryDataContainer& InMemoryDataContainer::getInstance(){
-//     static InMemoryDataContainer s_instance;
-//     return s_instance;
-// }
-
-//InMemoryDataContainer::InMemoryDataContainer() {
-  // constructor implementation
-//}
+#include <iostream>
 
 void InMemoryDataContainer::AddPatient(std::string first_name, std::string last_name)
 {
+    Patient *patient = new Patient(first_name, last_name);
+    Patients_DC.insert({patient->getID(), patient});
 }
 
 void InMemoryDataContainer::AddDoctor(std::string first_name, std::string last_name, Specialities speciality)
 {
+    Doctor *doctor = new Doctor(first_name, last_name, speciality);
+    Doctors_DC.insert({doctor->getID(), doctor});
 }
 
 void InMemoryDataContainer::AddNurse(std::string first_name, std::string last_name)
 {
+    Nurse *nurse = new Nurse(first_name, last_name);
+    Nurses_DC.insert({nurse->getID(), nurse});
 }
 
 void InMemoryDataContainer::AddParamedic(std::string first_name, std::string last_name)
 {
+    Paramedic *paramedic = new Paramedic(first_name, last_name);
+    Paramedics_DC.insert({paramedic->getID(), paramedic});
 }
 
 void InMemoryDataContainer::AddAssistivePersonnel(std::string first_name, std::string last_name)
 {
+    Assistant *assistant = new Assistant(first_name, last_name);
+    Assistants_DC.insert({assistant->getID(), assistant});
 }
 
 void InMemoryDataContainer::AddDepartament(std::string departament_name)
 {
+
 }
 
 void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no)
@@ -42,26 +44,32 @@ void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no)
 
 void InMemoryDataContainer::DeletePatient(int id)
 {
+    Patients_DC.erase(id);
 }
 
 void InMemoryDataContainer::DeleteDoctor(int id)
 {
+    Doctors_DC.erase(id);
 }
 
 void InMemoryDataContainer::DeleteNurse(int id)
 {
+    Nurses_DC.erase(id);
 }
 
 void InMemoryDataContainer::DeleteParamedic(int id)
 {
+    Paramedics_DC.erase(id);
 }
 
 void InMemoryDataContainer::DeleteAssistivePersonnel(int id)
 {
+    Assistants_DC.erase(id);
 }
 
 void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
 {
+
 }
 
 void InMemoryDataContainer::DeleteRoom(int room_no)
@@ -70,24 +78,44 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
 
 
 
-void InMemoryDataContainer::ModifyPatient(int id, Patient)
+void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 {
+    if(Patients_DC.count(id)>0)
+        Patients_DC[id] = &modified_patient;
+    else
+        throw std::runtime_error("ID not found in the map\n.");
 }
 
-void InMemoryDataContainer::ModifyDoctor(int id, Doctor)
+void InMemoryDataContainer::ModifyDoctor(int id, Doctor modified_doctor)
 {
+    if(Doctors_DC.count(id)>0)
+        Doctors_DC[id] = &modified_doctor;
+    else
+        throw std::runtime_error("ID not found in the map\n.");   
 }
 
-void InMemoryDataContainer::ModifyNurse(int id, Nurse)
+void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
 {
+    if(Nurses_DC.count(id)>0)
+        Nurses_DC[id] = &modified_nurse;
+    else
+        throw std::runtime_error("ID not found in the map\n.");      
 }
 
-void InMemoryDataContainer::ModifyParamedic(int id, Paramedic)
+void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic)
 {
+    if(Paramedics_DC.count(id)>0)
+        Paramedics_DC[id] = &modified_paramedic;
+    else
+        throw std::runtime_error("ID not found in the map\n.");       
 }
 
-void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant)
+void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant modified_assistant)
 {
+    if(Assistants_DC.count(id)>0)
+        Assistants_DC[id] = &modified_assistant;
+    else
+        throw std::runtime_error("ID not found in the map\n.");     
 }
 
 void InMemoryDataContainer::ModifyDepartament(int departament_name, Department)

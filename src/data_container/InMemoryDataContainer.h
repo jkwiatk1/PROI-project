@@ -8,14 +8,15 @@
 #include "Assistant.h"
 #include <map>
 #include <string>
+#include <stdexcept>
 
 class InMemoryDataContainer : public DataContainer {
 private:
     std::map<int, Patient*> Patients_DC;
     std::map<int, Doctor*> Doctors_DC;
-    std::map<int, Nurse*> NursesDC;
-    std::map<int, Paramedic*> ParamedicsDC;
-    std::map<int, Assistant*> AssistantsDC;
+    std::map<int, Nurse*> Nurses_DC;
+    std::map<int, Paramedic*> Paramedics_DC;
+    std::map<int, Assistant*> Assistants_DC;
 
     InMemoryDataContainer() {}; 
     InMemoryDataContainer(const InMemoryDataContainer&) = delete;
