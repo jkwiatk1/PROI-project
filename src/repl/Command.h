@@ -5,19 +5,23 @@
 #include <string>
 #include <vector>
 
+#include "CommandObject.h"
+
 class Command
 {
   public:
-    void setCommandType(std::string type);
-    void addProperty(std::string key, std::string value);
-    void addObjectProperty(std::string object_tag, std::string key,
-                           std::string value);
-    void setObjectType(std::string object_tag, std::string type);
-    std::string getCommandType(void) const;
-    std::string getProperty(std::string key) const;
-    std::map<std::string, std::string> getObject(std::string object_tag) const;
-    friend std::ostream &operator<<(std::ostream &s, const Command command);
+    void setType(std::string type);
+    void addObject(CommandObject &o);
+    void addArray(std::vector<std::string> &a);
+    int objectCount(void) const;
+    int arrayCount(void) const;
+    CommandObject getObject(int i) const;
+    std::vector<std::string> getArray(int i) const;
+    std::string getType(void) const;
+    friend std::ostream &operator<<(std::ostream &o, const Command &c);
 
   private:
-    std::map<std::string, std::string> properties;
+    std::string type;
+    std::vector<CommandObject> objects;
+    std::vector<std::vector<std::string>> arrays;
 };

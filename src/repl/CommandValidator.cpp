@@ -3,6 +3,7 @@
 
 #include "CommandValidator.h"
 #include "ReplConstants.h"
+#include "Command.h"
 
 using namespace ReplConstants;
 
@@ -11,7 +12,7 @@ using namespace ReplConstants;
 // TODO: Make Command class more structured.
 bool CommandValidator::is_valid(Command &command)
 {
-    auto command_type = command.getCommandType();
+    auto command_type = command.getType();
     if (command_type == ADD_COMMAND) {
         return validate_add(command);
     } else {
@@ -21,12 +22,16 @@ bool CommandValidator::is_valid(Command &command)
 
 bool CommandValidator::validate_add(Command &command)
 {
-    auto object = command.getObject(OBJ1);
-    if (!(object[OBJECT_TYPE] == PATIENT))
+    if (command.objectCount() != 1)
         return false;
-    if (!(object.count("first_name") == 1))
+
+    auto object = command.getObject(0);
+    if (object.getType() != PATIENT)
         return false;
-    if (!(object.count("last_name") == 1))
+    if (!object.hasProperty("first_name"))
         return false;
+    if (!object.hasProperty("last_name"))
+        return false;
+
     return true;
 }

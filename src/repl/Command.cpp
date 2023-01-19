@@ -8,60 +8,50 @@
 
 using ReplConstants::COMMAND_TYPE, ReplConstants::OBJECT_TYPE;
 
-void Command::setCommandType(std::string type)
+void Command::setType(std::string type)
 {
-    properties[COMMAND_TYPE] = type;
+    this->type = type;
 }
 
-void Command::addProperty(std::string key, std::string value)
+void Command::addObject(CommandObject &o)
 {
-    properties[key] = value;
+    objects.push_back(o);
 }
 
-void Command::setObjectType(std::string object_tag, std::string type)
+void Command::addArray(std::vector<std::string> &a)
 {
-    properties[object_tag + "_" + OBJECT_TYPE] = type;
+    arrays.push_back(a);
 }
 
-void Command::addObjectProperty(std::string object_tag, std::string key,
-                                std::string value)
+int Command::objectCount(void) const
 {
-    properties[object_tag + "_" + key] = value;
+    return objects.size();
 }
 
-std::string Command::getCommandType(void) const
+int Command::arrayCount(void) const
 {
-    return properties.at(COMMAND_TYPE);
+    return arrays.size();
 }
 
-std::string Command::getProperty(std::string key) const
+CommandObject Command::getObject(int i) const
 {
-    return properties.at(key);
+    return objects[i];
 }
 
-std::map<std::string, std::string>
-Command::getObject(std::string object_tag) const
+std::vector<std::string> Command::getArray(int i) const
 {
-    std::map<std::string, std::string> object;
-    for (auto kv : properties) {
-        auto k = kv.first;
-        auto v = kv.second;
-        if (k.rfind(object_tag, 0))
-            continue;
-        k.erase(0, object_tag.size() + 1);
-        object[k] = v;
-    }
-    return object;
+    return arrays[i];
 }
 
-std::ostream &operator<<(std::ostream &s, const Command command)
+std::string Command::getType(void) const
+{
+    return type;
+}
+
+// TODO: implement
+std::ostream &operator<<(std::ostream &s, const Command &command)
 {
     s << "Command{" << std::endl;
-    for (auto kv : command.properties) {
-        auto k = kv.first;
-        auto v = kv.second;
-        s << "\t" << k << " = " << v << std::endl;
-    }
     s << "}" << std::endl;
     return s;
 }
