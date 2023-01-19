@@ -1,15 +1,10 @@
 #pragma once
 #include <string>
-// #include "../classes/headers/Doctor.h"
-// #include "../classes/headers/Department.h"
-// #include "../classes/headers/Nurse.h"
-// #include "../classes/headers/Paramedic.h"
-// #include "../classes/headers/Assistant.h"
-#include "../domain/Doctor.h"
-#include "../domain/Department.h"
-#include "../domain/Nurse.h"
-#include "../domain/Paramedic.h"
-#include "../domain/Assistant.h"
+#include "Doctor.h"
+#include "Department.h"
+#include "Nurse.h"
+#include "Paramedic.h"
+#include "Assistant.h"
 
 
 
@@ -22,7 +17,7 @@ public:
     virtual void AddNurse(std::string first_name, std::string last_name) = 0;
     virtual void AddParamedic(std::string first_name, std::string last_name) = 0;
     virtual void AddAssistivePersonnel(std::string first_name, std::string last_name) = 0;
-    virtual void AddDepartament(std::string ID, std::string departament_name) = 0;
+    virtual void AddDepartament(std::string departament_name) = 0;
     virtual void AddRoom(std::string departament_name, int room_no) = 0;
 
     virtual void DeletePatient(int id) = 0;
@@ -38,19 +33,19 @@ public:
     virtual void ModifyNurse(int id, Nurse) = 0; 
     virtual void ModifyParamedic(int id, Paramedic) = 0; 
     virtual void ModifyAssistivePersonnel(int id, Assistant) = 0; 
-    virtual void ModifyDepartament(std::string departament_name, Department) = 0; 
+    virtual void ModifyDepartament(int departament_name, Department) = 0; 
     virtual void ModifyRoom(int room_no, Room) = 0; 
 
     virtual void PerformExamination(int doctor_id, int patient_id) = 0;
-    virtual void PrescribeMedication(int doctor_id, int patient_id, std::string medicine[]) = 0;
+    virtual void PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines) = 0;
     virtual void AdministerMedicine(int nurse_id, int patient_id, std::string medicine) = 0;
     virtual void PerformSurgery(int doctor_id, int patient_id) = 0;
 
-    virtual Patient FindPatients(Patient) = 0;
-    virtual Doctor FindDoctors(Doctor) = 0;
-    virtual Nurse FindNurses(Nurse) = 0;
-    virtual Paramedic FindParamedics(Paramedic) = 0;
-    virtual Assistant FindAssistivePersonnel(Assistant) = 0;
-    //virtual Department FindDepartament(std::string departament_name) = 0;
+    virtual std::vector<Patient> findPatients(Patient patient_template) = 0;
+    virtual std::vector<Doctor> findDoctors(Doctor doctor_template) = 0;
+    virtual std::vector<Nurse> findNurses(Nurse nurse_template) = 0;
+    virtual std::vector<Paramedic> findParamedics(Paramedic paramedic_template) = 0;
+    virtual std::vector<Assistant> findAssistants(Assistant assistant_template) = 0;
+    virtual std::vector<Department> findDepartments(std::string department_name_template) = 0;
 };
  

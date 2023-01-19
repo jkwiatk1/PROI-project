@@ -6,7 +6,7 @@
 
 int main(void)
 {
-    InMemoryDataContainer dataContainer;
+    InMemoryDataContainer& dataContainer = InMemoryDataContainer::getInstance();
     Repl repl(std::cin, std::cout, dataContainer);
     repl.run();
     return 0;

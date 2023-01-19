@@ -30,7 +30,7 @@ void InMemoryDataContainer::AddAssistivePersonnel(std::string first_name, std::s
 {
 }
 
-void InMemoryDataContainer::AddDepartament(std::string ID, std::string departament_name)
+void InMemoryDataContainer::AddDepartament(std::string departament_name)
 {
 }
 
@@ -90,7 +90,7 @@ void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant)
 {
 }
 
-void InMemoryDataContainer::ModifyDepartament(std::string departament_name, Department)
+void InMemoryDataContainer::ModifyDepartament(int departament_name, Department)
 {
 }
 
@@ -104,7 +104,7 @@ void InMemoryDataContainer::PerformExamination(int doctor_id, int patient_id)
 {
 }
 
-void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, std::string medicine[])
+void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines)
 {
 }
 
@@ -118,32 +118,26 @@ void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
 
 
 
-Patient InMemoryDataContainer::FindPatients(Patient patient)
+std::vector<Patient> InMemoryDataContainer::findPatients(Patient patient_template)
 {
-    return patient;
 }
 
-Doctor InMemoryDataContainer::FindDoctors(Doctor doctor)
+std::vector<Doctor> InMemoryDataContainer::findDoctors(Doctor doctor_template)
 {
-    return doctor;
 }
 
-Nurse InMemoryDataContainer::FindNurses(Nurse nurse)
+std::vector<Nurse> InMemoryDataContainer::findNurses(Nurse nurse_template)
 {
-    return nurse;
 }
 
-Paramedic InMemoryDataContainer::FindParamedics(Paramedic paramedic)
+std::vector<Paramedic> InMemoryDataContainer::findParamedics(Paramedic paramedic_template)
 {
-    return paramedic;
 }
 
-Assistant InMemoryDataContainer::FindAssistivePersonnel(Assistant assistant)
+std::vector<Assistant> InMemoryDataContainer::findAssistants(Assistant assistant_template)
 {
-    return assistant;
 }
 
-// Department InMemoryDataContainer::FindDepartament(std::string departament_name)
-// {
-//     return;
-// }
+std::vector<Department> InMemoryDataContainer::findDepartments(std::string department_name_template)
+{
+}

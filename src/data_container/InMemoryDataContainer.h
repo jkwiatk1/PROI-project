@@ -1,12 +1,11 @@
 #pragma once
 
 #include "DataContainer.h"
-#include "TestPerson.h"
-#include "../domain/Doctor.h"
-#include "../domain/Department.h"
-#include "../domain/Nurse.h"
-#include "../domain/Paramedic.h"
-#include "../domain/Assistant.h"
+#include "Doctor.h"
+#include "Department.h"
+#include "Nurse.h"
+#include "Paramedic.h"
+#include "Assistant.h"
 #include <map>
 #include <string>
 
@@ -32,7 +31,7 @@ public:
     void AddNurse(std::string first_name, std::string last_name) override;
     void AddParamedic(std::string first_name, std::string last_name) override;
     void AddAssistivePersonnel(std::string first_name, std::string last_name) override;
-    void AddDepartament(std::string ID, std::string departament_name) override;
+    void AddDepartament(std::string departament_name) override;
     void AddRoom(std::string departament_name, int room_no) override;
 
     void DeletePatient(int id) override;
@@ -48,20 +47,20 @@ public:
     void ModifyNurse(int id, Nurse) override; 
     void ModifyParamedic(int id, Paramedic) override; 
     void ModifyAssistivePersonnel(int id, Assistant) override; 
-    void ModifyDepartament(std::string departament_name, Department) override; 
+    void ModifyDepartament(int departament_name, Department) override; 
     void ModifyRoom(int room_no, Room) override; 
 
     void PerformExamination(int doctor_id, int patient_id) override;
-    void PrescribeMedication(int doctor_id, int patient_id, std::string medicine[]) override;
+    void PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines) override;
     void AdministerMedicine(int nurse_id, int patient_id, std::string medicine) override;
     void PerformSurgery(int doctor_id, int patient_id) override;
 
-    Patient FindPatients(Patient) override;
-    Doctor FindDoctors(Doctor) override;
-    Nurse FindNurses(Nurse) override;
-    Paramedic FindParamedics(Paramedic) override;
-    Assistant FindAssistivePersonnel(Assistant) override;
-   // Department FindDepartament(std::string departament_name) override;
+    std::vector<Patient> findPatients(Patient patient_template) override;
+    std::vector<Doctor> findDoctors(Doctor doctor_template) override;
+    std::vector<Nurse> findNurses(Nurse nurse_template) override;
+    std::vector<Paramedic> findParamedics(Paramedic paramedic_template) override;
+    std::vector<Assistant> findAssistants(Assistant assistant_template) override;
+    std::vector<Department> findDepartments(std::string department_name_template) override;
 
 };
 
