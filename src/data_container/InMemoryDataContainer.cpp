@@ -1,5 +1,6 @@
-#include "InMemoryDataContainer.h"
 #include <iostream>
+
+#include "InMemoryDataContainer.h"
 
 void InMemoryDataContainer::AddPatient(std::string first_name, std::string last_name)
 {
@@ -91,7 +92,7 @@ void InMemoryDataContainer::ModifyDoctor(int id, Doctor modified_doctor)
     if(Doctors_DC.count(id)>0)
         Doctors_DC[id] = &modified_doctor;
     else
-        throw std::runtime_error("ID not found in the map\n.");   
+        throw std::runtime_error("ID not found in the map\n.");
 }
 
 void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
@@ -99,7 +100,7 @@ void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
     if(Nurses_DC.count(id)>0)
         Nurses_DC[id] = &modified_nurse;
     else
-        throw std::runtime_error("ID not found in the map\n.");      
+        throw std::runtime_error("ID not found in the map\n.");
 }
 
 void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic)
@@ -107,7 +108,7 @@ void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic
     if(Paramedics_DC.count(id)>0)
         Paramedics_DC[id] = &modified_paramedic;
     else
-        throw std::runtime_error("ID not found in the map\n.");       
+        throw std::runtime_error("ID not found in the map\n.");
 }
 
 void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant modified_assistant)
@@ -115,7 +116,7 @@ void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant modified_
     if(Assistants_DC.count(id)>0)
         Assistants_DC[id] = &modified_assistant;
     else
-        throw std::runtime_error("ID not found in the map\n.");     
+        throw std::runtime_error("ID not found in the map\n.");
 }
 
 void InMemoryDataContainer::ModifyDepartament(int departament_name, Department)

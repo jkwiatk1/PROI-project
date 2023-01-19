@@ -18,12 +18,12 @@ private:
     std::map<int, Paramedic*> Paramedics_DC;
     std::map<int, Assistant*> Assistants_DC;
 
-    InMemoryDataContainer() {}; 
+    InMemoryDataContainer() {};
     InMemoryDataContainer(const InMemoryDataContainer&) = delete;
-    InMemoryDataContainer& operator=(const InMemoryDataContainer&) = delete;    
+    InMemoryDataContainer& operator=(const InMemoryDataContainer&) = delete;
 public:
-    static InMemoryDataContainer& getInstance() {    
-        static InMemoryDataContainer s_instance; 
+    static InMemoryDataContainer& getInstance() {
+        static InMemoryDataContainer s_instance;
         return s_instance;
     };
 
@@ -41,15 +41,15 @@ public:
     void DeleteParamedic(int id) override;
     void DeleteAssistivePersonnel(int id) override;
     void DeleteDepartament(std::string departament_name) override;
-    void DeleteRoom(int room_no) override; 
+    void DeleteRoom(int room_no) override;
 
-    void ModifyPatient(int id, Patient) override; 
-    void ModifyDoctor(int id, Doctor) override; 
-    void ModifyNurse(int id, Nurse) override; 
-    void ModifyParamedic(int id, Paramedic) override; 
-    void ModifyAssistivePersonnel(int id, Assistant) override; 
-    void ModifyDepartament(int departament_name, Department) override; 
-    void ModifyRoom(int room_no, Room) override; 
+    void ModifyPatient(int id, Patient) override;
+    void ModifyDoctor(int id, Doctor) override;
+    void ModifyNurse(int id, Nurse) override;
+    void ModifyParamedic(int id, Paramedic) override;
+    void ModifyAssistivePersonnel(int id, Assistant) override;
+    void ModifyDepartament(int departament_name, Department) override;
+    void ModifyRoom(int room_no, Room) override;
 
     void PerformExamination(int doctor_id, int patient_id) override;
     void PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines) override;
@@ -62,7 +62,6 @@ public:
     std::vector<Paramedic> findParamedics(Paramedic paramedic_template) override;
     std::vector<Assistant> findAssistants(Assistant assistant_template) override;
     std::vector<Department> findDepartments(std::string department_name_template) override;
-
 };
 
 
