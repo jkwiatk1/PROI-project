@@ -12,6 +12,7 @@ class Department
   public:
     Department(std::string ID, std::string name);
 
+    std::string getName() const;
     void addRoom(Room room);
 
     // TODO: implement

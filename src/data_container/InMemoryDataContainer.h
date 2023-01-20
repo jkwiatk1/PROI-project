@@ -18,6 +18,7 @@ private:
     std::map<int, Nurse*> Nurses_DC;
     std::map<int, Paramedic*> Paramedics_DC;
     std::map<int, Assistant*> Assistants_DC;
+    std::map<std::string, Department*> Department_DC;
 
     InMemoryDataContainer() {};
     InMemoryDataContainer(const InMemoryDataContainer&) = delete;
