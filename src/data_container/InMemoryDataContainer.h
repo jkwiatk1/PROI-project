@@ -13,6 +13,7 @@
 class InMemoryDataContainer : public DataContainer {
 private:
     std::map<int, Patient*> Patients_DC;
+    std::map<int, Patient*> HospitalizedPatients_DC;
     std::map<int, Doctor*> Doctors_DC;
     std::map<int, Nurse*> Nurses_DC;
     std::map<int, Paramedic*> Paramedics_DC;

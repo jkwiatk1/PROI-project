@@ -16,7 +16,7 @@ Person::Person(std::string first_name, std::string last_name) : Person()
     this->last_name = last_name;
 }
 
-const int &Person::getID() const
+int Person::getID() const
 {
     return ID;
 }
