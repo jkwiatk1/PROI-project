@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "InMemoryDataContainer.h"
 
 void InMemoryDataContainer::AddPatient(std::string first_name, std::string last_name)
@@ -147,26 +145,26 @@ void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
 
 
 
-std::vector<Patient> InMemoryDataContainer::findPatients(Patient patient_template)
+std::vector<Patient *> InMemoryDataContainer::findPatients(Patient patient_template)
 {
 }
 
-std::vector<Doctor> InMemoryDataContainer::findDoctors(Doctor doctor_template)
+std::vector<Doctor *> InMemoryDataContainer::findDoctors(Doctor doctor_template)
 {
 }
 
-std::vector<Nurse> InMemoryDataContainer::findNurses(Nurse nurse_template)
+std::vector<Nurse *> InMemoryDataContainer::findNurses(Nurse nurse_template)
 {
 }
 
-std::vector<Paramedic> InMemoryDataContainer::findParamedics(Paramedic paramedic_template)
+std::vector<Paramedic *> InMemoryDataContainer::findParamedics(Paramedic paramedic_template)
 {
 }
 
-std::vector<Assistant> InMemoryDataContainer::findAssistants(Assistant assistant_template)
+std::vector<Assistant *> InMemoryDataContainer::findAssistants(Assistant assistant_template)
 {
 }
 
-std::vector<Department> InMemoryDataContainer::findDepartments(std::string department_name_template)
+std::vector<Department *> InMemoryDataContainer::findDepartments(std::string department_name_template)
 {
 }

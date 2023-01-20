@@ -57,12 +57,12 @@ public:
     void AdministerMedicine(int nurse_id, int patient_id, std::string medicine) override;
     void PerformSurgery(int doctor_id, int patient_id) override;
 
-    std::vector<Patient> findPatients(Patient patient_template) override;
-    std::vector<Doctor> findDoctors(Doctor doctor_template) override;
-    std::vector<Nurse> findNurses(Nurse nurse_template) override;
-    std::vector<Paramedic> findParamedics(Paramedic paramedic_template) override;
-    std::vector<Assistant> findAssistants(Assistant assistant_template) override;
-    std::vector<Department> findDepartments(std::string department_name_template) override;
+    std::vector<Patient *> findPatients(Patient patient_template) override;
+    std::vector<Doctor *> findDoctors(Doctor doctor_template) override;
+    std::vector<Nurse *> findNurses(Nurse nurse_template) override;
+    std::vector<Paramedic *> findParamedics(Paramedic paramedic_template) override;
+    std::vector<Assistant *> findAssistants(Assistant assistant_template) override;
+    std::vector<Department *> findDepartments(std::string department_name_template) override;
 };
 
 

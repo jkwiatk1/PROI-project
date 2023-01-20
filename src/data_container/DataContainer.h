@@ -42,11 +42,11 @@ class DataContainer
     virtual void AdministerMedicine(int nurse_id, int patient_id, std::string medicine) = 0;
     virtual void PerformSurgery(int doctor_id, int patient_id) = 0;
 
-    virtual std::vector<Patient> findPatients(Patient patient_template) = 0;
-    virtual std::vector<Doctor> findDoctors(Doctor doctor_template) = 0;
-    virtual std::vector<Nurse> findNurses(Nurse nurse_template) = 0;
-    virtual std::vector<Paramedic> findParamedics(Paramedic paramedic_template) = 0;
-    virtual std::vector<Assistant> findAssistants(Assistant assistant_template) = 0;
-    virtual std::vector<Department> findDepartments(std::string department_name_template) = 0;
+    virtual std::vector<Patient *> findPatients(Patient patient_template) = 0;
+    virtual std::vector<Doctor *> findDoctors(Doctor doctor_template) = 0;
+    virtual std::vector<Nurse *> findNurses(Nurse nurse_template) = 0;
+    virtual std::vector<Paramedic *> findParamedics(Paramedic paramedic_template) = 0;
+    virtual std::vector<Assistant *> findAssistants(Assistant assistant_template) = 0;
+    virtual std::vector<Department *> findDepartments(std::string department_name_template) = 0;
 };
 
