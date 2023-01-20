@@ -32,16 +32,13 @@ void InMemoryDataContainer::AddAssistivePersonnel(std::string first_name, std::s
 
 void InMemoryDataContainer::AddDepartament(std::string departament_name)
 {
-    std::string ID = "1";
-    Department *department = new Department(ID, departament_name);
+    Department *department = new Department(departament_name);
     Department_DC.insert({department->getName(), department});
 }
 
 void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no)
 {
 }
-
-
 
 void InMemoryDataContainer::DeletePatient(int id)
 {

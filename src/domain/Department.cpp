@@ -3,9 +3,8 @@
 
 using namespace std;
 
-Department::Department(string ID, string name)
+Department::Department(string name)
 {
-    this->ID = ID;
     this->name = name;
     rooms = vector<Room>();
 }
