@@ -147,22 +147,72 @@ void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
 
 std::vector<Patient *> InMemoryDataContainer::findPatients(Patient patient_template)
 {
+    std::vector<Patient *> foundPatients;
+    std::string template_name = patient_template.getName().first;
+    std::string template_lastName = patient_template.getName().second;
+
+    for(const auto& [key, value] : Patients_DC) {
+        if(value->getName().first.find(template_name) == 0 && value->getName().second.find(template_lastName) == 0)
+            foundPatients.push_back(value);
+    }   
+
+    return foundPatients;  
 }
 
 std::vector<Doctor *> InMemoryDataContainer::findDoctors(Doctor doctor_template)
 {
+    std::vector<Doctor *> foundDoctors;
+    std::string template_name = doctor_template.getName().first;
+    std::string template_lastName = doctor_template.getName().second;
+
+    for(const auto& [key, value] : Doctors_DC) {
+        if(value->getName().first.find(template_name) == 0 && value->getName().second.find(template_lastName) == 0)
+            foundDoctors.push_back(value);
+    }   
+
+    return foundDoctors;      
 }
 
 std::vector<Nurse *> InMemoryDataContainer::findNurses(Nurse nurse_template)
 {
+    std::vector<Nurse *> foundNurses;
+    std::string template_name = nurse_template.getName().first;
+    std::string template_lastName = nurse_template.getName().second;
+
+    for(const auto& [key, value] : Nurses_DC) {
+        if(value->getName().first.find(template_name) == 0 && value->getName().second.find(template_lastName) == 0)
+            foundNurses.push_back(value);
+    }   
+
+    return foundNurses;  
 }
 
 std::vector<Paramedic *> InMemoryDataContainer::findParamedics(Paramedic paramedic_template)
 {
+    std::vector<Paramedic *> foundParamedics;
+    std::string template_name = paramedic_template.getName().first;
+    std::string template_lastName = paramedic_template.getName().second;
+
+    for(const auto& [key, value] : Paramedics_DC) {
+        if(value->getName().first.find(template_name) == 0 && value->getName().second.find(template_lastName) == 0)
+            foundParamedics.push_back(value);
+    }   
+
+    return foundParamedics;  
 }
 
 std::vector<Assistant *> InMemoryDataContainer::findAssistants(Assistant assistant_template)
 {
+    std::vector<Assistant *> foundAssistans;
+    std::string template_name = assistant_template.getName().first;
+    std::string template_lastName = assistant_template.getName().second;
+
+    for(const auto& [key, value] : Assistants_DC) {
+        if(value->getName().first.find(template_name) == 0 && value->getName().second.find(template_lastName) == 0)
+            foundAssistans.push_back(value);
+    }   
+
+    return foundAssistans;  
 }
 
 std::vector<Department *> InMemoryDataContainer::findDepartments(std::string department_name_template)
