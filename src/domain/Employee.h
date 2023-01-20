@@ -11,5 +11,8 @@ class Employee : public Person
     Employee(std::string first_name, std::string last_name);
 
     void addEntry(Patient &patient, std::string action);
+
+    // TODO: implement
+    Employee& operator=(const Employee& source); 
 };
 

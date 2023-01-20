@@ -14,3 +14,8 @@ void Department::addRoom(Room room)
 {
     rooms.push_back(room);
 }
+
+Department &Department::operator=(const Department &source)
+{
+    // TODO: insert return statement here
+}

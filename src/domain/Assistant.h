@@ -13,5 +13,8 @@ class Assistant : public Employee
 
     void putPatient(Patient *Patient, Room &room);
     void dischargePatient(Patient *Patient, Room &room);
+
+    // TODO: implement
+    Assistant& operator=(const Assistant& source); 
 };
 

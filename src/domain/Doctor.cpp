@@ -15,4 +15,9 @@ void Doctor::examine(Patient &patient)
     addEntry(patient, "Examination");
 }
 
+Doctor & Doctor::operator=(const Doctor & source)
+{
+// TODO: insert return statement here
+}
+
 // void prescribeMedicine(Patient& patient, Medicine* medicine) {}

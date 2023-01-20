@@ -8,6 +8,6 @@ void CommandExecutor::executeCommand(Command &command)
         auto patient = command.getObject(0);
         auto first_name = patient.getProperty(CommandObject::FIRST_NAME);
         auto last_name = patient.getProperty(CommandObject::LAST_NAME);
-        data_container.addPatient(first_name, last_name);
+        data_container.AddPatient(first_name, last_name);
     }
 }

@@ -19,3 +19,9 @@ void Assistant::dischargePatient(Patient *patient, Room &room)
     room.removePatient(patient);
     patient->discharge();
 }
+
+
+Assistant & Assistant::operator=(const Assistant & source)
+{
+// TODO: insert return statement here
+}

@@ -24,3 +24,8 @@ void Patient::addEntry(Entry entry)
 {
     health_card.push_back(entry);
 }
+
+Patient &Patient::operator=(const Patient &source)
+{
+    // TODO: insert return statement here
+}

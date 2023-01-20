@@ -11,5 +11,8 @@ class Nurse : public Employee
 
     // pytanie czy robic klase Medicine
     void administerMedicine(Patient &patient);
+
+    // TODO: implement
+    Nurse& operator=(const Nurse& source); 
 };
 

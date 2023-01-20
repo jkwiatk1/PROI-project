@@ -18,5 +18,8 @@ class Doctor : public Employee
     void examine(Patient &patient);
     // pytanie czy robic klase Medicine
     void prescribeMedicine(Patient &patient);
+
+    // TODO: implement
+    Doctor& operator=(const Doctor& source); 
 };
 

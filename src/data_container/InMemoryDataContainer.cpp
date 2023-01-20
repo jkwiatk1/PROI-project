@@ -82,7 +82,7 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
 void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 {
     if(Patients_DC.count(id)>0)
-        Patients_DC[id] = &modified_patient;
+        *Patients_DC[id] = modified_patient;
     else
         throw std::runtime_error("ID not found in the map\n.");
 }
@@ -90,7 +90,7 @@ void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 void InMemoryDataContainer::ModifyDoctor(int id, Doctor modified_doctor)
 {
     if(Doctors_DC.count(id)>0)
-        Doctors_DC[id] = &modified_doctor;
+        *Doctors_DC[id] = modified_doctor;
     else
         throw std::runtime_error("ID not found in the map\n.");
 }
@@ -98,7 +98,7 @@ void InMemoryDataContainer::ModifyDoctor(int id, Doctor modified_doctor)
 void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
 {
     if(Nurses_DC.count(id)>0)
-        Nurses_DC[id] = &modified_nurse;
+        *Nurses_DC[id] = modified_nurse;
     else
         throw std::runtime_error("ID not found in the map\n.");
 }
@@ -106,7 +106,7 @@ void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
 void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic)
 {
     if(Paramedics_DC.count(id)>0)
-        Paramedics_DC[id] = &modified_paramedic;
+        *Paramedics_DC[id] = modified_paramedic;
     else
         throw std::runtime_error("ID not found in the map\n.");
 }
@@ -114,7 +114,7 @@ void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic
 void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant modified_assistant)
 {
     if(Assistants_DC.count(id)>0)
-        Assistants_DC[id] = &modified_assistant;
+        *Assistants_DC[id] = modified_assistant;
     else
         throw std::runtime_error("ID not found in the map\n.");
 }

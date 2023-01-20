@@ -13,5 +13,8 @@ class Department
     Department(std::string ID, std::string name);
 
     void addRoom(Room room);
+
+    // TODO: implement
+    Department& operator=(const Department& source); 
 };
 
