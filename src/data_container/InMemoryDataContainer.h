@@ -22,6 +22,9 @@ private:
     InMemoryDataContainer() {};
     InMemoryDataContainer(const InMemoryDataContainer&) = delete;
     InMemoryDataContainer& operator=(const InMemoryDataContainer&) = delete;
+
+    template<class Object> 
+    std::vector<Object *> FindInContainer(Object object_template, const std::map<int, Object *>&  dataBase);   
 public:
     static InMemoryDataContainer& getInstance() {
         static InMemoryDataContainer s_instance;
