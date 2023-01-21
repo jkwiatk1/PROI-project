@@ -187,10 +187,10 @@ void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
 void InMemoryDataContainer::Hospitalize(int id)
 {
     if(Patients_DC.count(id)>0){
-        Patient patient_with_new_status = *Patients_DC[id];
-        patient_with_new_status.hospitalize();
-        *Patients_DC[id] = patient_with_new_status;
-        *HospitalizedPatients_DC[id] = patient_with_new_status;
+        Patient *patient_with_new_status = Patients_DC[id];
+        patient_with_new_status->hospitalize();
+        Patients_DC[id] = patient_with_new_status;
+        HospitalizedPatients_DC.insert({id, patient_with_new_status});
     }
     else
         throw std::runtime_error("ID not found in the map.\nFirst add this patient to data base.\n");
