@@ -68,19 +68,79 @@ administer nurse { id = <integer> }
                patient { id = <integer> }
                med <med1>
 surgery doctor { id = <integer> } patient { id = <integer> }
-hospitalize patient {}
-discharge patient {}
+
+hospitalize assistant { id = ... } patient { id = <integer> } reason "<text>"
+assign_room assistant { id = ... } patient { id = ... } room <room_no>
+discharge assistant { id = <integer> } patient { id = <integer> }
 ```
 
 ## DQL
 
+Search patient:
 ```
+# zwraca tylko tych pacjentów, których imiona zaczynają się na asdf. Nie
+wyświetla ich kart.
+search patient { first_name = asdf }
+
+# zwraca tylko tych pacjentów, których imiona zaczynają się na asdf, a nazwiska
+na fdsa. Nie wyświetla ich kart.
+search patient { first_name = asdf, last_name = fdsa }
+
+# zwraca tylko tego pacjenta, który ma id = 21. Nie wyświetla jego karty.
+search patient { id = 21 }
+
+# zwraca tylko tego pacjenta, który ma id = 21. Wyświetla jego kartę.
+search patient { id = 21, show_card = true }
+
+# zwraca wszystkich pacjentów
 search patient {}
+
+# zwraca wszystkich pacjentów hospitalizowanych, których imiona zaczynają się na asdf.
+search patient { first_name = asdf, hospitalized = true }
+
+# zwraca wszystkich pacjentów niehospitalizowanych, których imiona zaczynają się
+na asdf.
+search patient { first_name = asdf, hospitalized = false }
+```
+
+Search doctor:
+```
+# zwraca wszystkich lekarzy:
 search doctor {}
+
+# zwraca wszystkich lekarzy o dowolnej specjalizacji, których imiona zaczynają się na asdf:
+search doctor { first_name = asdf }
+
+# zwraca wszystkich lekarzy o specjalizacji Ophthalmologist:
+search doctor { specialization = Ophthalmologist }
+```
+
+Search nurse/paramedic/assistant:
+```
+# zwracają wszystkich:
 search nurse {}
 search paramedic {}
 search assistant {}
-search departament {}
+
+# zwracają osoby, których imiona zaczynają się na asdf:
+search nurse { first_name = asdf }
+search paramedic { first_name = asdf }
+search assistant { first_name = asdf }
+
+# zwracają osoby, których imiona zaczynają się na asdf a nazwiska na fdsa:
+search nurse { first_name = asdf, last_name = fdsa }
+search paramedic { first_name = asd, last_name = fdsaf }
+search assistant { first_name = asd, last_name = fdsaf }
+```
+
+Department search:
+```
+# zwraca wszsytkie departamenty, których nazwy zaczynają się na asdf.
+search departament { name = asdf }
+
+# zwraca wszsytkie departamenty, których nazwy zaczynają się na asdf i drukuje
+informacje o zawartości wszystkich pokoi.
+search departament { name = asdf, info = true }
 ```
 
 # BNF
