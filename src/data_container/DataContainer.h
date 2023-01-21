@@ -41,6 +41,9 @@ class DataContainer
     virtual void PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines) = 0;
     virtual void AdministerMedicine(int nurse_id, int patient_id, std::string medicine) = 0;
     virtual void PerformSurgery(int doctor_id, int patient_id) = 0;
+    virtual void Discharge(int id) = 0;
+    virtual void Hospitalize(int id) = 0;
+
 
     virtual std::vector<Patient *> findPatients(Patient patient_template) = 0;
     virtual std::vector<Doctor *> findDoctors(Doctor doctor_template) = 0;
