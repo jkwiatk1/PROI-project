@@ -44,7 +44,7 @@ void Repl::print_failure_message(std::string operation)
     os << operation << " failed!" << std::endl;
 }
 
-void Repl::print_errors(ValidationErrors &errors)
+void Repl::print_errors(Errors &errors)
 {
     os << "Error! The following errors were encountered:" << std::endl;
     for (auto e : errors)
@@ -63,11 +63,11 @@ void Repl::run(void)
     print_exit_message();
 }
 
-// TODO: finish
 // TODO: look at c++ antlr examples and locate the leak.
 void Repl::execute_command(std::string &commandline)
 {
-    // Parse the commandline
+    // Note: the following 5 lines cannot be extracted to a function, because
+    // the ParseTree object lives only as long as its ReplCommandsParser.
     antlr4::ANTLRInputStream input(commandline);
     ReplCommandsLexer lexer(&input);
     antlr4::CommonTokenStream tokens(&lexer);
@@ -76,18 +76,15 @@ void Repl::execute_command(std::string &commandline)
 
     os << tree->toStringTree(&parser) << std::endl;
 
-    // Process the tree
     auto command = parse_tree_to_command(tree);
     std::cout << command << std::endl;
 
-    // Validate the command
     auto errors = CommandValidator::validate(command);
     if (errors.exist()) {
         print_errors(errors);
         return;
     }
 
-    // Perform operations on data
     command_executor.executeCommand(command);
 }
 

@@ -7,7 +7,7 @@
 #include "DataContainer.h"
 #include "ReplCommandsParser.h"
 #include "Command.h"
-#include "ValidationErrors.h"
+#include "Errors.h"
 
 class Repl {
     private:
@@ -23,7 +23,7 @@ class Repl {
         void perform_data_operation(Command &command);
         void print_success_message(std::string operation);
         void print_failure_message(std::string operation);
-        void print_errors(ValidationErrors &errors);
+        void print_errors(Errors &errors);
 
       public:
         Repl(std::istream &is, std::ostream &os, DataContainer &data_container);

@@ -43,9 +43,7 @@ void CommandObject::setType(std::string type)
 std::ostream &operator<<(std::ostream &s, const CommandObject &command)
 {
     s << "CommandObject{type = " << command.type;
-    for (auto kv : command.properties) {
-        auto k = kv.first;
-        auto v = kv.second;
+    for (auto [k, v] : command.properties) {
         s << ", " << k << " = " << v;
     }
     return s << "}";

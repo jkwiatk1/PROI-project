@@ -1,17 +1,17 @@
 #pragma once
 
 #include "Command.h"
-#include "ValidationErrors.h"
+#include "Errors.h"
 
 class CommandValidator
 {
   public:
-    static ValidationErrors validate(Command &command);
+    static Errors validate(Command &command);
 
   private:
-    static void validate_add(Command &command, ValidationErrors &errors);
-    static void has_first_name_last_name(CommandObject &object,
-                                         ValidationErrors &errors);
+    static void validate_add(Command &command, Errors &errors);
+    static void has_first_name_and_last_name(CommandObject &object,
+                                             Errors &errors);
     static void has_property(CommandObject &object, std::string property,
-                             ValidationErrors &errors);
+                             Errors &errors);
 };

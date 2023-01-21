@@ -50,7 +50,7 @@ list(APPEND HDB_REPL_CXX_FILES
             Command.cpp
             CommandValidator.cpp
             CommandObject.cpp
-            ValidationErrors.cpp
+            Errors.cpp
             CommandExecutor.cpp
             TreeListener.cpp)
 list(TRANSFORM HDB_REPL_CXX_FILES PREPEND "${HDB_REPL_SOURCES_DIR}/")
