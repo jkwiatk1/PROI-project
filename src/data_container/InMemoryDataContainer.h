@@ -53,7 +53,7 @@ public:
     void ModifyNurse(int id, Nurse) override;
     void ModifyParamedic(int id, Paramedic) override;
     void ModifyAssistivePersonnel(int id, Assistant) override;
-    void ModifyDepartament(int departament_name, Department) override;
+    void ModifyDepartament(std::string departament_name, Department) override;
     void ModifyRoom(int room_no, Room) override;
 
     void PerformExamination(int doctor_id, int patient_id) override;

@@ -67,7 +67,7 @@ void InMemoryDataContainer::DeleteAssistivePersonnel(int id)
 
 void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
 {
-
+    Department_DC.erase(departament_name);
 }
 
 void InMemoryDataContainer::DeleteRoom(int room_no)
@@ -116,8 +116,13 @@ void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant modified_
         throw std::runtime_error("ID not found in the map\n.");
 }
 
-void InMemoryDataContainer::ModifyDepartament(int departament_name, Department)
+void InMemoryDataContainer::ModifyDepartament(std::string departament_name, Department modified_departament) 
 {
+    if(Department_DC.count(departament_name)>0)
+        *Department_DC[departament_name] = modified_departament;
+    else
+        throw std::runtime_error("Name not found in the map\n.");
+
 }
 
 void InMemoryDataContainer::ModifyRoom(int room_no, Room)
@@ -171,6 +176,16 @@ std::vector<Assistant *> InMemoryDataContainer::findAssistants(Assistant assista
 
 std::vector<Department *> InMemoryDataContainer::findDepartments(std::string department_name_template)
 {
+    std::vector<Department *> foundDepartments;
+    std::string template_name = department_name_template;
+
+    for(const auto& [key, value] : Department_DC) {
+        if(value->getName().find(template_name) == 0)
+            foundDepartments.push_back(value);
+    }   
+
+    return foundDepartments;
+
 }
 
 
