@@ -178,6 +178,15 @@ void InMemoryDataContainer::ModifyRoom(int room_no, Room)
 
 void InMemoryDataContainer::PerformExamination(int doctor_id, int patient_id)
 {
+    if(Doctors_DC.count(doctor_id) != 0 && HospitalizedPatients_DC.count(patient_id) != 0){
+        Doctors_DC[doctor_id]->examine(*HospitalizedPatients_DC[patient_id]);
+    }
+    else if (Doctors_DC.count(doctor_id) == 0)
+    {
+        throw std::out_of_range("Doctor ID not found in the data base.\nCheck is it correct.\n");
+    } 
+    else 
+        throw std::out_of_range("Patient ID not found in the data base.\nCheck is it correct.\n");    
 }
 
 void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines)
@@ -199,7 +208,7 @@ void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
         HospitalizedPatients_DC.erase(id);
     }
     else
-        throw std::runtime_error("ID not found in the map.\nFirst add this patient to data base.\n");
+        throw std::out_of_range("ID not found in the map.\nFirst add this patient to data base.\n");
 }
 
 void InMemoryDataContainer::Hospitalize(int id)
@@ -209,7 +218,7 @@ void InMemoryDataContainer::Hospitalize(int id)
         HospitalizedPatients_DC.insert({id, Patients_DC[id]});
     }
     else
-        throw std::runtime_error("ID not found in the map.\nFirst add this patient to data base.\n");
+        throw std::out_of_range("ID not found in the map.\nFirst add this patient to data base.\n");
 }
 
 
