@@ -1,3 +1,4 @@
+#include <any>
 #include <iostream>
 #include <antlr4-runtime.h>
 #include "Command.h"
@@ -6,9 +7,8 @@
 #include "DataContainer.h"
 #include "ReplCommandsLexer.h"
 #include "ReplCommandsParser.h"
-#include "ReplCommandsBaseListener.h"
 #include "CommandValidator.h"
-#include "TreeListener.h"
+#include "TreeVisitor.h"
 
 Repl::Repl(std::istream &is, std::ostream &os, DataContainer &data_container)
     : is(is), os(os), command_executor(data_container)
@@ -72,11 +72,20 @@ void Repl::execute_command(std::string &commandline)
     ReplCommandsLexer lexer(&input);
     antlr4::CommonTokenStream tokens(&lexer);
     ReplCommandsParser parser(&tokens);
-    antlr4::tree::ParseTree *tree = parser.commandLine();
 
+    // TODO: add an error strategy which stops parsing and throws an exception
+    // upon an error.
+    // parser.setErrorHandler(BailErrorStrategy());
+
+    antlr4::tree::ParseTree *tree = parser.commandLine();
     os << tree->toStringTree(&parser) << std::endl;
 
-    auto command = parse_tree_to_command(tree);
+    auto result = parse_tree_to_command(tree);
+    if (!result.has_value())
+        return;
+
+    auto command = result.value();
+
     std::cout << command << std::endl;
 
     auto errors = CommandValidator::validate(command);
@@ -88,10 +97,12 @@ void Repl::execute_command(std::string &commandline)
     command_executor.executeCommand(command);
 }
 
-Command Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
+std::optional<Command> Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
 {
-    antlr4::tree::ParseTreeWalker walker;
-    TreeListener listener;
-    walker.walk(&listener, tree);
-    return listener.getCommand();
+    TreeVisitor visitor;
+    auto result = visitor.visit(tree);
+    if (result.has_value())
+        return std::any_cast<Command>(result);
+    else
+        return {};
 }

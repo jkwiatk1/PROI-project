@@ -9,32 +9,21 @@ FLOAT: DIGIT+ '.' DIGIT+;
 WS: [ \t]+ -> skip;
 
 commandLine: command LF;
-command
-	: addCommand
-	| deleteCommand
-	| updateCommand
-	| examineCommand
-	| prescribeCommand
-	| administerCommand
-	| surgeryCommand
-	| hospitalizeCommand
-	| dischargeCommand
-	| searchCommand
-	;
+command 
+    : 'add' object                              # addCommand
+    | 'delete' object                           # deleteCommand
+    | 'update' object                           # updateCommand
+    | 'examine' object object                   # examineCommand
+    | 'prescribe' object object 'meds' medlist  # prescribeCommand
+    | 'administer' object object 'med' ID       # administerCommand
+    | 'surgery' object object                   # surgeryCommand
+    | 'hospitalize' object                      # hospitalizeCommand
+    | 'discharge' object                        # dischargeCommand
+    | 'search' object                           # searchCommand
+    ;
 
-addCommand: 'add' object;
-deleteCommand: 'delete' object;
-updateCommand: 'update' object;
-examineCommand: 'examine' object object;
-prescribeCommand: 'prescribe' object object 'meds' medlist;
-administerCommand: 'administer' object object 'med' ID;
-surgeryCommand: 'surgery' object object;
-hospitalizeCommand: 'hospitalize' object;
-dischargeCommand: 'discharge' object;
-searchCommand: 'search' object;
-
-object: ID '{' (keyvals)? '}';
-keyvals: keyval (',' keyval)*;
+object: ID '{' (properties)? '}';
+properties: keyval (',' keyval)*;
 keyval: ID '=' val ;
 val: ID | INT | FLOAT;
 medlist: ID (',' ID)*; 

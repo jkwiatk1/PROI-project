@@ -42,9 +42,9 @@ find_package(Threads REQUIRED)
 # Repl
 set(HDB_REPL_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/repl)
 list(APPEND HDB_REPL_CXX_FILES 
-            ReplCommandsBaseListener.cpp
+            ReplCommandsBaseVisitor.cpp
             ReplCommandsLexer.cpp
-            ReplCommandsListener.cpp
+            ReplCommandsVisitor.cpp
             ReplCommandsParser.cpp
             Repl.cpp
             Command.cpp
@@ -52,7 +52,7 @@ list(APPEND HDB_REPL_CXX_FILES
             CommandObject.cpp
             Errors.cpp
             CommandExecutor.cpp
-            TreeListener.cpp)
+            TreeVisitor.cpp)
 list(TRANSFORM HDB_REPL_CXX_FILES PREPEND "${HDB_REPL_SOURCES_DIR}/")
 include_directories(${HDB_REPL_SOURCES_DIR})
 

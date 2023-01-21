@@ -2,7 +2,7 @@
 // Generated from ReplCommands.g4 by ANTLR 4.11.1
 
 
-#include "ReplCommandsListener.h"
+#include "ReplCommandsVisitor.h"
 
 #include "ReplCommandsParser.h"
 
@@ -43,10 +43,8 @@ void replcommandsParserInitialize() {
   assert(replcommandsParserStaticData == nullptr);
   auto staticData = std::make_unique<ReplCommandsParserStaticData>(
     std::vector<std::string>{
-      "commandLine", "command", "addCommand", "deleteCommand", "updateCommand", 
-      "examineCommand", "prescribeCommand", "administerCommand", "surgeryCommand", 
-      "hospitalizeCommand", "dischargeCommand", "searchCommand", "object", 
-      "keyvals", "keyval", "val", "medlist"
+      "commandLine", "command", "object", "properties", "keyval", "val", 
+      "medlist"
     },
     std::vector<std::string>{
       "", "'add'", "'delete'", "'update'", "'examine'", "'prescribe'", "'meds'", 
@@ -59,39 +57,29 @@ void replcommandsParserInitialize() {
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,21,117,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
-  	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,
-  	14,2,15,7,15,2,16,7,16,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  	1,1,1,3,1,48,8,1,1,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,1,4,1,5,1,5,1,5,1,5,
-  	1,6,1,6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,1,7,1,8,1,8,1,8,1,8,1,9,1,
-  	9,1,9,1,10,1,10,1,10,1,11,1,11,1,11,1,12,1,12,1,12,3,12,91,8,12,1,12,
-  	1,12,1,13,1,13,1,13,5,13,98,8,13,10,13,12,13,101,9,13,1,14,1,14,1,14,
-  	1,14,1,15,1,15,1,16,1,16,1,16,5,16,112,8,16,10,16,12,16,115,9,16,1,16,
-  	0,0,17,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,0,1,1,0,18,20,111,
-  	0,34,1,0,0,0,2,47,1,0,0,0,4,49,1,0,0,0,6,52,1,0,0,0,8,55,1,0,0,0,10,58,
-  	1,0,0,0,12,62,1,0,0,0,14,68,1,0,0,0,16,74,1,0,0,0,18,78,1,0,0,0,20,81,
-  	1,0,0,0,22,84,1,0,0,0,24,87,1,0,0,0,26,94,1,0,0,0,28,102,1,0,0,0,30,106,
-  	1,0,0,0,32,108,1,0,0,0,34,35,3,2,1,0,35,36,5,17,0,0,36,1,1,0,0,0,37,48,
-  	3,4,2,0,38,48,3,6,3,0,39,48,3,8,4,0,40,48,3,10,5,0,41,48,3,12,6,0,42,
-  	48,3,14,7,0,43,48,3,16,8,0,44,48,3,18,9,0,45,48,3,20,10,0,46,48,3,22,
-  	11,0,47,37,1,0,0,0,47,38,1,0,0,0,47,39,1,0,0,0,47,40,1,0,0,0,47,41,1,
-  	0,0,0,47,42,1,0,0,0,47,43,1,0,0,0,47,44,1,0,0,0,47,45,1,0,0,0,47,46,1,
-  	0,0,0,48,3,1,0,0,0,49,50,5,1,0,0,50,51,3,24,12,0,51,5,1,0,0,0,52,53,5,
-  	2,0,0,53,54,3,24,12,0,54,7,1,0,0,0,55,56,5,3,0,0,56,57,3,24,12,0,57,9,
-  	1,0,0,0,58,59,5,4,0,0,59,60,3,24,12,0,60,61,3,24,12,0,61,11,1,0,0,0,62,
-  	63,5,5,0,0,63,64,3,24,12,0,64,65,3,24,12,0,65,66,5,6,0,0,66,67,3,32,16,
-  	0,67,13,1,0,0,0,68,69,5,7,0,0,69,70,3,24,12,0,70,71,3,24,12,0,71,72,5,
-  	8,0,0,72,73,5,18,0,0,73,15,1,0,0,0,74,75,5,9,0,0,75,76,3,24,12,0,76,77,
-  	3,24,12,0,77,17,1,0,0,0,78,79,5,10,0,0,79,80,3,24,12,0,80,19,1,0,0,0,
-  	81,82,5,11,0,0,82,83,3,24,12,0,83,21,1,0,0,0,84,85,5,12,0,0,85,86,3,24,
-  	12,0,86,23,1,0,0,0,87,88,5,18,0,0,88,90,5,13,0,0,89,91,3,26,13,0,90,89,
-  	1,0,0,0,90,91,1,0,0,0,91,92,1,0,0,0,92,93,5,14,0,0,93,25,1,0,0,0,94,99,
-  	3,28,14,0,95,96,5,15,0,0,96,98,3,28,14,0,97,95,1,0,0,0,98,101,1,0,0,0,
-  	99,97,1,0,0,0,99,100,1,0,0,0,100,27,1,0,0,0,101,99,1,0,0,0,102,103,5,
-  	18,0,0,103,104,5,16,0,0,104,105,3,30,15,0,105,29,1,0,0,0,106,107,7,0,
-  	0,0,107,31,1,0,0,0,108,113,5,18,0,0,109,110,5,15,0,0,110,112,5,18,0,0,
-  	111,109,1,0,0,0,112,115,1,0,0,0,113,111,1,0,0,0,113,114,1,0,0,0,114,33,
-  	1,0,0,0,115,113,1,0,0,0,4,47,90,99,113
+  	4,1,21,81,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,1,0,
+  	1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+  	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,
+  	50,8,1,1,2,1,2,1,2,3,2,55,8,2,1,2,1,2,1,3,1,3,1,3,5,3,62,8,3,10,3,12,
+  	3,65,9,3,1,4,1,4,1,4,1,4,1,5,1,5,1,6,1,6,1,6,5,6,76,8,6,10,6,12,6,79,
+  	9,6,1,6,0,0,7,0,2,4,6,8,10,12,0,1,1,0,18,20,85,0,14,1,0,0,0,2,49,1,0,
+  	0,0,4,51,1,0,0,0,6,58,1,0,0,0,8,66,1,0,0,0,10,70,1,0,0,0,12,72,1,0,0,
+  	0,14,15,3,2,1,0,15,16,5,17,0,0,16,1,1,0,0,0,17,18,5,1,0,0,18,50,3,4,2,
+  	0,19,20,5,2,0,0,20,50,3,4,2,0,21,22,5,3,0,0,22,50,3,4,2,0,23,24,5,4,0,
+  	0,24,25,3,4,2,0,25,26,3,4,2,0,26,50,1,0,0,0,27,28,5,5,0,0,28,29,3,4,2,
+  	0,29,30,3,4,2,0,30,31,5,6,0,0,31,32,3,12,6,0,32,50,1,0,0,0,33,34,5,7,
+  	0,0,34,35,3,4,2,0,35,36,3,4,2,0,36,37,5,8,0,0,37,38,5,18,0,0,38,50,1,
+  	0,0,0,39,40,5,9,0,0,40,41,3,4,2,0,41,42,3,4,2,0,42,50,1,0,0,0,43,44,5,
+  	10,0,0,44,50,3,4,2,0,45,46,5,11,0,0,46,50,3,4,2,0,47,48,5,12,0,0,48,50,
+  	3,4,2,0,49,17,1,0,0,0,49,19,1,0,0,0,49,21,1,0,0,0,49,23,1,0,0,0,49,27,
+  	1,0,0,0,49,33,1,0,0,0,49,39,1,0,0,0,49,43,1,0,0,0,49,45,1,0,0,0,49,47,
+  	1,0,0,0,50,3,1,0,0,0,51,52,5,18,0,0,52,54,5,13,0,0,53,55,3,6,3,0,54,53,
+  	1,0,0,0,54,55,1,0,0,0,55,56,1,0,0,0,56,57,5,14,0,0,57,5,1,0,0,0,58,63,
+  	3,8,4,0,59,60,5,15,0,0,60,62,3,8,4,0,61,59,1,0,0,0,62,65,1,0,0,0,63,61,
+  	1,0,0,0,63,64,1,0,0,0,64,7,1,0,0,0,65,63,1,0,0,0,66,67,5,18,0,0,67,68,
+  	5,16,0,0,68,69,3,10,5,0,69,9,1,0,0,0,70,71,7,0,0,0,71,11,1,0,0,0,72,77,
+  	5,18,0,0,73,74,5,15,0,0,74,76,5,18,0,0,75,73,1,0,0,0,76,79,1,0,0,0,77,
+  	75,1,0,0,0,77,78,1,0,0,0,78,13,1,0,0,0,79,77,1,0,0,0,4,49,54,63,77
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -159,16 +147,12 @@ size_t ReplCommandsParser::CommandLineContext::getRuleIndex() const {
   return ReplCommandsParser::RuleCommandLine;
 }
 
-void ReplCommandsParser::CommandLineContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterCommandLine(this);
-}
 
-void ReplCommandsParser::CommandLineContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitCommandLine(this);
+std::any ReplCommandsParser::CommandLineContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitCommandLine(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 ReplCommandsParser::CommandLineContext* ReplCommandsParser::commandLine() {
@@ -184,9 +168,9 @@ ReplCommandsParser::CommandLineContext* ReplCommandsParser::commandLine() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(34);
+    setState(14);
     command();
-    setState(35);
+    setState(15);
     match(ReplCommandsParser::LF);
    
   }
@@ -205,393 +189,110 @@ ReplCommandsParser::CommandContext::CommandContext(ParserRuleContext *parent, si
   : ParserRuleContext(parent, invokingState) {
 }
 
-ReplCommandsParser::AddCommandContext* ReplCommandsParser::CommandContext::addCommand() {
-  return getRuleContext<ReplCommandsParser::AddCommandContext>(0);
-}
-
-ReplCommandsParser::DeleteCommandContext* ReplCommandsParser::CommandContext::deleteCommand() {
-  return getRuleContext<ReplCommandsParser::DeleteCommandContext>(0);
-}
-
-ReplCommandsParser::UpdateCommandContext* ReplCommandsParser::CommandContext::updateCommand() {
-  return getRuleContext<ReplCommandsParser::UpdateCommandContext>(0);
-}
-
-ReplCommandsParser::ExamineCommandContext* ReplCommandsParser::CommandContext::examineCommand() {
-  return getRuleContext<ReplCommandsParser::ExamineCommandContext>(0);
-}
-
-ReplCommandsParser::PrescribeCommandContext* ReplCommandsParser::CommandContext::prescribeCommand() {
-  return getRuleContext<ReplCommandsParser::PrescribeCommandContext>(0);
-}
-
-ReplCommandsParser::AdministerCommandContext* ReplCommandsParser::CommandContext::administerCommand() {
-  return getRuleContext<ReplCommandsParser::AdministerCommandContext>(0);
-}
-
-ReplCommandsParser::SurgeryCommandContext* ReplCommandsParser::CommandContext::surgeryCommand() {
-  return getRuleContext<ReplCommandsParser::SurgeryCommandContext>(0);
-}
-
-ReplCommandsParser::HospitalizeCommandContext* ReplCommandsParser::CommandContext::hospitalizeCommand() {
-  return getRuleContext<ReplCommandsParser::HospitalizeCommandContext>(0);
-}
-
-ReplCommandsParser::DischargeCommandContext* ReplCommandsParser::CommandContext::dischargeCommand() {
-  return getRuleContext<ReplCommandsParser::DischargeCommandContext>(0);
-}
-
-ReplCommandsParser::SearchCommandContext* ReplCommandsParser::CommandContext::searchCommand() {
-  return getRuleContext<ReplCommandsParser::SearchCommandContext>(0);
-}
-
 
 size_t ReplCommandsParser::CommandContext::getRuleIndex() const {
   return ReplCommandsParser::RuleCommand;
 }
 
-void ReplCommandsParser::CommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterCommand(this);
-}
-
-void ReplCommandsParser::CommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitCommand(this);
-}
-
-ReplCommandsParser::CommandContext* ReplCommandsParser::command() {
-  CommandContext *_localctx = _tracker.createInstance<CommandContext>(_ctx, getState());
-  enterRule(_localctx, 2, ReplCommandsParser::RuleCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    setState(47);
-    _errHandler->sync(this);
-    switch (_input->LA(1)) {
-      case ReplCommandsParser::T__0: {
-        enterOuterAlt(_localctx, 1);
-        setState(37);
-        addCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__1: {
-        enterOuterAlt(_localctx, 2);
-        setState(38);
-        deleteCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__2: {
-        enterOuterAlt(_localctx, 3);
-        setState(39);
-        updateCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__3: {
-        enterOuterAlt(_localctx, 4);
-        setState(40);
-        examineCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__4: {
-        enterOuterAlt(_localctx, 5);
-        setState(41);
-        prescribeCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__6: {
-        enterOuterAlt(_localctx, 6);
-        setState(42);
-        administerCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__8: {
-        enterOuterAlt(_localctx, 7);
-        setState(43);
-        surgeryCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__9: {
-        enterOuterAlt(_localctx, 8);
-        setState(44);
-        hospitalizeCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__10: {
-        enterOuterAlt(_localctx, 9);
-        setState(45);
-        dischargeCommand();
-        break;
-      }
-
-      case ReplCommandsParser::T__11: {
-        enterOuterAlt(_localctx, 10);
-        setState(46);
-        searchCommand();
-        break;
-      }
-
-    default:
-      throw NoViableAltException(this);
-    }
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- AddCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::AddCommandContext::AddCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-ReplCommandsParser::ObjectContext* ReplCommandsParser::AddCommandContext::object() {
-  return getRuleContext<ReplCommandsParser::ObjectContext>(0);
-}
-
-
-size_t ReplCommandsParser::AddCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleAddCommand;
-}
-
-void ReplCommandsParser::AddCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAddCommand(this);
-}
-
-void ReplCommandsParser::AddCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAddCommand(this);
-}
-
-ReplCommandsParser::AddCommandContext* ReplCommandsParser::addCommand() {
-  AddCommandContext *_localctx = _tracker.createInstance<AddCommandContext>(_ctx, getState());
-  enterRule(_localctx, 4, ReplCommandsParser::RuleAddCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(49);
-    match(ReplCommandsParser::T__0);
-    setState(50);
-    object();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
+void ReplCommandsParser::CommandContext::copyFrom(CommandContext *ctx) {
+  ParserRuleContext::copyFrom(ctx);
 }
 
 //----------------- DeleteCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::DeleteCommandContext::DeleteCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
 
 ReplCommandsParser::ObjectContext* ReplCommandsParser::DeleteCommandContext::object() {
   return getRuleContext<ReplCommandsParser::ObjectContext>(0);
 }
 
+ReplCommandsParser::DeleteCommandContext::DeleteCommandContext(CommandContext *ctx) { copyFrom(ctx); }
 
-size_t ReplCommandsParser::DeleteCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleDeleteCommand;
+
+std::any ReplCommandsParser::DeleteCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitDeleteCommand(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- HospitalizeCommandContext ------------------------------------------------------------------
+
+ReplCommandsParser::ObjectContext* ReplCommandsParser::HospitalizeCommandContext::object() {
+  return getRuleContext<ReplCommandsParser::ObjectContext>(0);
 }
 
-void ReplCommandsParser::DeleteCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterDeleteCommand(this);
+ReplCommandsParser::HospitalizeCommandContext::HospitalizeCommandContext(CommandContext *ctx) { copyFrom(ctx); }
+
+
+std::any ReplCommandsParser::HospitalizeCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitHospitalizeCommand(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- DischargeCommandContext ------------------------------------------------------------------
+
+ReplCommandsParser::ObjectContext* ReplCommandsParser::DischargeCommandContext::object() {
+  return getRuleContext<ReplCommandsParser::ObjectContext>(0);
 }
 
-void ReplCommandsParser::DeleteCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitDeleteCommand(this);
+ReplCommandsParser::DischargeCommandContext::DischargeCommandContext(CommandContext *ctx) { copyFrom(ctx); }
+
+
+std::any ReplCommandsParser::DischargeCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitDischargeCommand(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- SurgeryCommandContext ------------------------------------------------------------------
+
+std::vector<ReplCommandsParser::ObjectContext *> ReplCommandsParser::SurgeryCommandContext::object() {
+  return getRuleContexts<ReplCommandsParser::ObjectContext>();
 }
 
-ReplCommandsParser::DeleteCommandContext* ReplCommandsParser::deleteCommand() {
-  DeleteCommandContext *_localctx = _tracker.createInstance<DeleteCommandContext>(_ctx, getState());
-  enterRule(_localctx, 6, ReplCommandsParser::RuleDeleteCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(52);
-    match(ReplCommandsParser::T__1);
-    setState(53);
-    object();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
+ReplCommandsParser::ObjectContext* ReplCommandsParser::SurgeryCommandContext::object(size_t i) {
+  return getRuleContext<ReplCommandsParser::ObjectContext>(i);
 }
 
+ReplCommandsParser::SurgeryCommandContext::SurgeryCommandContext(CommandContext *ctx) { copyFrom(ctx); }
+
+
+std::any ReplCommandsParser::SurgeryCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitSurgeryCommand(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- AddCommandContext ------------------------------------------------------------------
+
+ReplCommandsParser::ObjectContext* ReplCommandsParser::AddCommandContext::object() {
+  return getRuleContext<ReplCommandsParser::ObjectContext>(0);
+}
+
+ReplCommandsParser::AddCommandContext::AddCommandContext(CommandContext *ctx) { copyFrom(ctx); }
+
+
+std::any ReplCommandsParser::AddCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitAddCommand(this);
+  else
+    return visitor->visitChildren(this);
+}
 //----------------- UpdateCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::UpdateCommandContext::UpdateCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
 
 ReplCommandsParser::ObjectContext* ReplCommandsParser::UpdateCommandContext::object() {
   return getRuleContext<ReplCommandsParser::ObjectContext>(0);
 }
 
+ReplCommandsParser::UpdateCommandContext::UpdateCommandContext(CommandContext *ctx) { copyFrom(ctx); }
 
-size_t ReplCommandsParser::UpdateCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleUpdateCommand;
+
+std::any ReplCommandsParser::UpdateCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitUpdateCommand(this);
+  else
+    return visitor->visitChildren(this);
 }
-
-void ReplCommandsParser::UpdateCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterUpdateCommand(this);
-}
-
-void ReplCommandsParser::UpdateCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitUpdateCommand(this);
-}
-
-ReplCommandsParser::UpdateCommandContext* ReplCommandsParser::updateCommand() {
-  UpdateCommandContext *_localctx = _tracker.createInstance<UpdateCommandContext>(_ctx, getState());
-  enterRule(_localctx, 8, ReplCommandsParser::RuleUpdateCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(55);
-    match(ReplCommandsParser::T__2);
-    setState(56);
-    object();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- ExamineCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::ExamineCommandContext::ExamineCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-std::vector<ReplCommandsParser::ObjectContext *> ReplCommandsParser::ExamineCommandContext::object() {
-  return getRuleContexts<ReplCommandsParser::ObjectContext>();
-}
-
-ReplCommandsParser::ObjectContext* ReplCommandsParser::ExamineCommandContext::object(size_t i) {
-  return getRuleContext<ReplCommandsParser::ObjectContext>(i);
-}
-
-
-size_t ReplCommandsParser::ExamineCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleExamineCommand;
-}
-
-void ReplCommandsParser::ExamineCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterExamineCommand(this);
-}
-
-void ReplCommandsParser::ExamineCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitExamineCommand(this);
-}
-
-ReplCommandsParser::ExamineCommandContext* ReplCommandsParser::examineCommand() {
-  ExamineCommandContext *_localctx = _tracker.createInstance<ExamineCommandContext>(_ctx, getState());
-  enterRule(_localctx, 10, ReplCommandsParser::RuleExamineCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(58);
-    match(ReplCommandsParser::T__3);
-    setState(59);
-    object();
-    setState(60);
-    object();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
 //----------------- PrescribeCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::PrescribeCommandContext::PrescribeCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
 
 std::vector<ReplCommandsParser::ObjectContext *> ReplCommandsParser::PrescribeCommandContext::object() {
   return getRuleContexts<ReplCommandsParser::ObjectContext>();
@@ -605,62 +306,35 @@ ReplCommandsParser::MedlistContext* ReplCommandsParser::PrescribeCommandContext:
   return getRuleContext<ReplCommandsParser::MedlistContext>(0);
 }
 
+ReplCommandsParser::PrescribeCommandContext::PrescribeCommandContext(CommandContext *ctx) { copyFrom(ctx); }
 
-size_t ReplCommandsParser::PrescribeCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RulePrescribeCommand;
+
+std::any ReplCommandsParser::PrescribeCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitPrescribeCommand(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExamineCommandContext ------------------------------------------------------------------
+
+std::vector<ReplCommandsParser::ObjectContext *> ReplCommandsParser::ExamineCommandContext::object() {
+  return getRuleContexts<ReplCommandsParser::ObjectContext>();
 }
 
-void ReplCommandsParser::PrescribeCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterPrescribeCommand(this);
+ReplCommandsParser::ObjectContext* ReplCommandsParser::ExamineCommandContext::object(size_t i) {
+  return getRuleContext<ReplCommandsParser::ObjectContext>(i);
 }
 
-void ReplCommandsParser::PrescribeCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitPrescribeCommand(this);
+ReplCommandsParser::ExamineCommandContext::ExamineCommandContext(CommandContext *ctx) { copyFrom(ctx); }
+
+
+std::any ReplCommandsParser::ExamineCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitExamineCommand(this);
+  else
+    return visitor->visitChildren(this);
 }
-
-ReplCommandsParser::PrescribeCommandContext* ReplCommandsParser::prescribeCommand() {
-  PrescribeCommandContext *_localctx = _tracker.createInstance<PrescribeCommandContext>(_ctx, getState());
-  enterRule(_localctx, 12, ReplCommandsParser::RulePrescribeCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(62);
-    match(ReplCommandsParser::T__4);
-    setState(63);
-    object();
-    setState(64);
-    object();
-    setState(65);
-    match(ReplCommandsParser::T__5);
-    setState(66);
-    medlist();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
 //----------------- AdministerCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::AdministerCommandContext::AdministerCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
 
 std::vector<ReplCommandsParser::ObjectContext *> ReplCommandsParser::AdministerCommandContext::object() {
   return getRuleContexts<ReplCommandsParser::ObjectContext>();
@@ -674,258 +348,33 @@ tree::TerminalNode* ReplCommandsParser::AdministerCommandContext::ID() {
   return getToken(ReplCommandsParser::ID, 0);
 }
 
+ReplCommandsParser::AdministerCommandContext::AdministerCommandContext(CommandContext *ctx) { copyFrom(ctx); }
 
-size_t ReplCommandsParser::AdministerCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleAdministerCommand;
+
+std::any ReplCommandsParser::AdministerCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitAdministerCommand(this);
+  else
+    return visitor->visitChildren(this);
 }
-
-void ReplCommandsParser::AdministerCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAdministerCommand(this);
-}
-
-void ReplCommandsParser::AdministerCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAdministerCommand(this);
-}
-
-ReplCommandsParser::AdministerCommandContext* ReplCommandsParser::administerCommand() {
-  AdministerCommandContext *_localctx = _tracker.createInstance<AdministerCommandContext>(_ctx, getState());
-  enterRule(_localctx, 14, ReplCommandsParser::RuleAdministerCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(68);
-    match(ReplCommandsParser::T__6);
-    setState(69);
-    object();
-    setState(70);
-    object();
-    setState(71);
-    match(ReplCommandsParser::T__7);
-    setState(72);
-    match(ReplCommandsParser::ID);
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- SurgeryCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::SurgeryCommandContext::SurgeryCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-std::vector<ReplCommandsParser::ObjectContext *> ReplCommandsParser::SurgeryCommandContext::object() {
-  return getRuleContexts<ReplCommandsParser::ObjectContext>();
-}
-
-ReplCommandsParser::ObjectContext* ReplCommandsParser::SurgeryCommandContext::object(size_t i) {
-  return getRuleContext<ReplCommandsParser::ObjectContext>(i);
-}
-
-
-size_t ReplCommandsParser::SurgeryCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleSurgeryCommand;
-}
-
-void ReplCommandsParser::SurgeryCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSurgeryCommand(this);
-}
-
-void ReplCommandsParser::SurgeryCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSurgeryCommand(this);
-}
-
-ReplCommandsParser::SurgeryCommandContext* ReplCommandsParser::surgeryCommand() {
-  SurgeryCommandContext *_localctx = _tracker.createInstance<SurgeryCommandContext>(_ctx, getState());
-  enterRule(_localctx, 16, ReplCommandsParser::RuleSurgeryCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(74);
-    match(ReplCommandsParser::T__8);
-    setState(75);
-    object();
-    setState(76);
-    object();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- HospitalizeCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::HospitalizeCommandContext::HospitalizeCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-ReplCommandsParser::ObjectContext* ReplCommandsParser::HospitalizeCommandContext::object() {
-  return getRuleContext<ReplCommandsParser::ObjectContext>(0);
-}
-
-
-size_t ReplCommandsParser::HospitalizeCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleHospitalizeCommand;
-}
-
-void ReplCommandsParser::HospitalizeCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterHospitalizeCommand(this);
-}
-
-void ReplCommandsParser::HospitalizeCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitHospitalizeCommand(this);
-}
-
-ReplCommandsParser::HospitalizeCommandContext* ReplCommandsParser::hospitalizeCommand() {
-  HospitalizeCommandContext *_localctx = _tracker.createInstance<HospitalizeCommandContext>(_ctx, getState());
-  enterRule(_localctx, 18, ReplCommandsParser::RuleHospitalizeCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(78);
-    match(ReplCommandsParser::T__9);
-    setState(79);
-    object();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- DischargeCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::DischargeCommandContext::DischargeCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-ReplCommandsParser::ObjectContext* ReplCommandsParser::DischargeCommandContext::object() {
-  return getRuleContext<ReplCommandsParser::ObjectContext>(0);
-}
-
-
-size_t ReplCommandsParser::DischargeCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleDischargeCommand;
-}
-
-void ReplCommandsParser::DischargeCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterDischargeCommand(this);
-}
-
-void ReplCommandsParser::DischargeCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitDischargeCommand(this);
-}
-
-ReplCommandsParser::DischargeCommandContext* ReplCommandsParser::dischargeCommand() {
-  DischargeCommandContext *_localctx = _tracker.createInstance<DischargeCommandContext>(_ctx, getState());
-  enterRule(_localctx, 20, ReplCommandsParser::RuleDischargeCommand);
-
-#if __cplusplus > 201703L
-  auto onExit = finally([=, this] {
-#else
-  auto onExit = finally([=] {
-#endif
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(81);
-    match(ReplCommandsParser::T__10);
-    setState(82);
-    object();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
 //----------------- SearchCommandContext ------------------------------------------------------------------
-
-ReplCommandsParser::SearchCommandContext::SearchCommandContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
 
 ReplCommandsParser::ObjectContext* ReplCommandsParser::SearchCommandContext::object() {
   return getRuleContext<ReplCommandsParser::ObjectContext>(0);
 }
 
+ReplCommandsParser::SearchCommandContext::SearchCommandContext(CommandContext *ctx) { copyFrom(ctx); }
 
-size_t ReplCommandsParser::SearchCommandContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleSearchCommand;
+
+std::any ReplCommandsParser::SearchCommandContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitSearchCommand(this);
+  else
+    return visitor->visitChildren(this);
 }
-
-void ReplCommandsParser::SearchCommandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSearchCommand(this);
-}
-
-void ReplCommandsParser::SearchCommandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSearchCommand(this);
-}
-
-ReplCommandsParser::SearchCommandContext* ReplCommandsParser::searchCommand() {
-  SearchCommandContext *_localctx = _tracker.createInstance<SearchCommandContext>(_ctx, getState());
-  enterRule(_localctx, 22, ReplCommandsParser::RuleSearchCommand);
+ReplCommandsParser::CommandContext* ReplCommandsParser::command() {
+  CommandContext *_localctx = _tracker.createInstance<CommandContext>(_ctx, getState());
+  enterRule(_localctx, 2, ReplCommandsParser::RuleCommand);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -935,11 +384,128 @@ ReplCommandsParser::SearchCommandContext* ReplCommandsParser::searchCommand() {
     exitRule();
   });
   try {
-    enterOuterAlt(_localctx, 1);
-    setState(84);
-    match(ReplCommandsParser::T__11);
-    setState(85);
-    object();
+    setState(49);
+    _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case ReplCommandsParser::T__0: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::AddCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 1);
+        setState(17);
+        match(ReplCommandsParser::T__0);
+        setState(18);
+        object();
+        break;
+      }
+
+      case ReplCommandsParser::T__1: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::DeleteCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 2);
+        setState(19);
+        match(ReplCommandsParser::T__1);
+        setState(20);
+        object();
+        break;
+      }
+
+      case ReplCommandsParser::T__2: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::UpdateCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 3);
+        setState(21);
+        match(ReplCommandsParser::T__2);
+        setState(22);
+        object();
+        break;
+      }
+
+      case ReplCommandsParser::T__3: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::ExamineCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 4);
+        setState(23);
+        match(ReplCommandsParser::T__3);
+        setState(24);
+        object();
+        setState(25);
+        object();
+        break;
+      }
+
+      case ReplCommandsParser::T__4: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::PrescribeCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 5);
+        setState(27);
+        match(ReplCommandsParser::T__4);
+        setState(28);
+        object();
+        setState(29);
+        object();
+        setState(30);
+        match(ReplCommandsParser::T__5);
+        setState(31);
+        medlist();
+        break;
+      }
+
+      case ReplCommandsParser::T__6: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::AdministerCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 6);
+        setState(33);
+        match(ReplCommandsParser::T__6);
+        setState(34);
+        object();
+        setState(35);
+        object();
+        setState(36);
+        match(ReplCommandsParser::T__7);
+        setState(37);
+        match(ReplCommandsParser::ID);
+        break;
+      }
+
+      case ReplCommandsParser::T__8: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::SurgeryCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 7);
+        setState(39);
+        match(ReplCommandsParser::T__8);
+        setState(40);
+        object();
+        setState(41);
+        object();
+        break;
+      }
+
+      case ReplCommandsParser::T__9: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::HospitalizeCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 8);
+        setState(43);
+        match(ReplCommandsParser::T__9);
+        setState(44);
+        object();
+        break;
+      }
+
+      case ReplCommandsParser::T__10: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::DischargeCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 9);
+        setState(45);
+        match(ReplCommandsParser::T__10);
+        setState(46);
+        object();
+        break;
+      }
+
+      case ReplCommandsParser::T__11: {
+        _localctx = _tracker.createInstance<ReplCommandsParser::SearchCommandContext>(_localctx);
+        enterOuterAlt(_localctx, 10);
+        setState(47);
+        match(ReplCommandsParser::T__11);
+        setState(48);
+        object();
+        break;
+      }
+
+    default:
+      throw NoViableAltException(this);
+    }
    
   }
   catch (RecognitionException &e) {
@@ -961,8 +527,8 @@ tree::TerminalNode* ReplCommandsParser::ObjectContext::ID() {
   return getToken(ReplCommandsParser::ID, 0);
 }
 
-ReplCommandsParser::KeyvalsContext* ReplCommandsParser::ObjectContext::keyvals() {
-  return getRuleContext<ReplCommandsParser::KeyvalsContext>(0);
+ReplCommandsParser::PropertiesContext* ReplCommandsParser::ObjectContext::properties() {
+  return getRuleContext<ReplCommandsParser::PropertiesContext>(0);
 }
 
 
@@ -970,21 +536,17 @@ size_t ReplCommandsParser::ObjectContext::getRuleIndex() const {
   return ReplCommandsParser::RuleObject;
 }
 
-void ReplCommandsParser::ObjectContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterObject(this);
-}
 
-void ReplCommandsParser::ObjectContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitObject(this);
+std::any ReplCommandsParser::ObjectContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitObject(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 ReplCommandsParser::ObjectContext* ReplCommandsParser::object() {
   ObjectContext *_localctx = _tracker.createInstance<ObjectContext>(_ctx, getState());
-  enterRule(_localctx, 24, ReplCommandsParser::RuleObject);
+  enterRule(_localctx, 4, ReplCommandsParser::RuleObject);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -996,19 +558,19 @@ ReplCommandsParser::ObjectContext* ReplCommandsParser::object() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(87);
+    setState(51);
     match(ReplCommandsParser::ID);
-    setState(88);
+    setState(52);
     match(ReplCommandsParser::T__12);
-    setState(90);
+    setState(54);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == ReplCommandsParser::ID) {
-      setState(89);
-      keyvals();
+      setState(53);
+      properties();
     }
-    setState(92);
+    setState(56);
     match(ReplCommandsParser::T__13);
    
   }
@@ -1021,40 +583,36 @@ ReplCommandsParser::ObjectContext* ReplCommandsParser::object() {
   return _localctx;
 }
 
-//----------------- KeyvalsContext ------------------------------------------------------------------
+//----------------- PropertiesContext ------------------------------------------------------------------
 
-ReplCommandsParser::KeyvalsContext::KeyvalsContext(ParserRuleContext *parent, size_t invokingState)
+ReplCommandsParser::PropertiesContext::PropertiesContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<ReplCommandsParser::KeyvalContext *> ReplCommandsParser::KeyvalsContext::keyval() {
+std::vector<ReplCommandsParser::KeyvalContext *> ReplCommandsParser::PropertiesContext::keyval() {
   return getRuleContexts<ReplCommandsParser::KeyvalContext>();
 }
 
-ReplCommandsParser::KeyvalContext* ReplCommandsParser::KeyvalsContext::keyval(size_t i) {
+ReplCommandsParser::KeyvalContext* ReplCommandsParser::PropertiesContext::keyval(size_t i) {
   return getRuleContext<ReplCommandsParser::KeyvalContext>(i);
 }
 
 
-size_t ReplCommandsParser::KeyvalsContext::getRuleIndex() const {
-  return ReplCommandsParser::RuleKeyvals;
+size_t ReplCommandsParser::PropertiesContext::getRuleIndex() const {
+  return ReplCommandsParser::RuleProperties;
 }
 
-void ReplCommandsParser::KeyvalsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterKeyvals(this);
+
+std::any ReplCommandsParser::PropertiesContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitProperties(this);
+  else
+    return visitor->visitChildren(this);
 }
 
-void ReplCommandsParser::KeyvalsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitKeyvals(this);
-}
-
-ReplCommandsParser::KeyvalsContext* ReplCommandsParser::keyvals() {
-  KeyvalsContext *_localctx = _tracker.createInstance<KeyvalsContext>(_ctx, getState());
-  enterRule(_localctx, 26, ReplCommandsParser::RuleKeyvals);
+ReplCommandsParser::PropertiesContext* ReplCommandsParser::properties() {
+  PropertiesContext *_localctx = _tracker.createInstance<PropertiesContext>(_ctx, getState());
+  enterRule(_localctx, 6, ReplCommandsParser::RuleProperties);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -1066,17 +624,17 @@ ReplCommandsParser::KeyvalsContext* ReplCommandsParser::keyvals() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(94);
+    setState(58);
     keyval();
-    setState(99);
+    setState(63);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == ReplCommandsParser::T__14) {
-      setState(95);
+      setState(59);
       match(ReplCommandsParser::T__14);
-      setState(96);
+      setState(60);
       keyval();
-      setState(101);
+      setState(65);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
@@ -1110,21 +668,17 @@ size_t ReplCommandsParser::KeyvalContext::getRuleIndex() const {
   return ReplCommandsParser::RuleKeyval;
 }
 
-void ReplCommandsParser::KeyvalContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterKeyval(this);
-}
 
-void ReplCommandsParser::KeyvalContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitKeyval(this);
+std::any ReplCommandsParser::KeyvalContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitKeyval(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 ReplCommandsParser::KeyvalContext* ReplCommandsParser::keyval() {
   KeyvalContext *_localctx = _tracker.createInstance<KeyvalContext>(_ctx, getState());
-  enterRule(_localctx, 28, ReplCommandsParser::RuleKeyval);
+  enterRule(_localctx, 8, ReplCommandsParser::RuleKeyval);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -1135,11 +689,11 @@ ReplCommandsParser::KeyvalContext* ReplCommandsParser::keyval() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(102);
+    setState(66);
     match(ReplCommandsParser::ID);
-    setState(103);
+    setState(67);
     match(ReplCommandsParser::T__15);
-    setState(104);
+    setState(68);
     val();
    
   }
@@ -1175,21 +729,17 @@ size_t ReplCommandsParser::ValContext::getRuleIndex() const {
   return ReplCommandsParser::RuleVal;
 }
 
-void ReplCommandsParser::ValContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterVal(this);
-}
 
-void ReplCommandsParser::ValContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitVal(this);
+std::any ReplCommandsParser::ValContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitVal(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 ReplCommandsParser::ValContext* ReplCommandsParser::val() {
   ValContext *_localctx = _tracker.createInstance<ValContext>(_ctx, getState());
-  enterRule(_localctx, 30, ReplCommandsParser::RuleVal);
+  enterRule(_localctx, 10, ReplCommandsParser::RuleVal);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -1201,7 +751,7 @@ ReplCommandsParser::ValContext* ReplCommandsParser::val() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(106);
+    setState(70);
     _la = _input->LA(1);
     if (!(((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 1835008) != 0)) {
@@ -1241,21 +791,17 @@ size_t ReplCommandsParser::MedlistContext::getRuleIndex() const {
   return ReplCommandsParser::RuleMedlist;
 }
 
-void ReplCommandsParser::MedlistContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterMedlist(this);
-}
 
-void ReplCommandsParser::MedlistContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ReplCommandsListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitMedlist(this);
+std::any ReplCommandsParser::MedlistContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ReplCommandsVisitor*>(visitor))
+    return parserVisitor->visitMedlist(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 ReplCommandsParser::MedlistContext* ReplCommandsParser::medlist() {
   MedlistContext *_localctx = _tracker.createInstance<MedlistContext>(_ctx, getState());
-  enterRule(_localctx, 32, ReplCommandsParser::RuleMedlist);
+  enterRule(_localctx, 12, ReplCommandsParser::RuleMedlist);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -1267,17 +813,17 @@ ReplCommandsParser::MedlistContext* ReplCommandsParser::medlist() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(108);
+    setState(72);
     match(ReplCommandsParser::ID);
-    setState(113);
+    setState(77);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == ReplCommandsParser::T__14) {
-      setState(109);
+      setState(73);
       match(ReplCommandsParser::T__14);
-      setState(110);
+      setState(74);
       match(ReplCommandsParser::ID);
-      setState(115);
+      setState(79);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }

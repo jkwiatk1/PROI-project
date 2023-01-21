@@ -18,11 +18,8 @@ public:
   };
 
   enum {
-    RuleCommandLine = 0, RuleCommand = 1, RuleAddCommand = 2, RuleDeleteCommand = 3, 
-    RuleUpdateCommand = 4, RuleExamineCommand = 5, RulePrescribeCommand = 6, 
-    RuleAdministerCommand = 7, RuleSurgeryCommand = 8, RuleHospitalizeCommand = 9, 
-    RuleDischargeCommand = 10, RuleSearchCommand = 11, RuleObject = 12, 
-    RuleKeyvals = 13, RuleKeyval = 14, RuleVal = 15, RuleMedlist = 16
+    RuleCommandLine = 0, RuleCommand = 1, RuleObject = 2, RuleProperties = 3, 
+    RuleKeyval = 4, RuleVal = 5, RuleMedlist = 6
   };
 
   explicit ReplCommandsParser(antlr4::TokenStream *input);
@@ -44,18 +41,8 @@ public:
 
   class CommandLineContext;
   class CommandContext;
-  class AddCommandContext;
-  class DeleteCommandContext;
-  class UpdateCommandContext;
-  class ExamineCommandContext;
-  class PrescribeCommandContext;
-  class AdministerCommandContext;
-  class SurgeryCommandContext;
-  class HospitalizeCommandContext;
-  class DischargeCommandContext;
-  class SearchCommandContext;
   class ObjectContext;
-  class KeyvalsContext;
+  class PropertiesContext;
   class KeyvalContext;
   class ValContext;
   class MedlistContext; 
@@ -67,8 +54,8 @@ public:
     CommandContext *command();
     antlr4::tree::TerminalNode *LF();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -77,188 +64,141 @@ public:
   class  CommandContext : public antlr4::ParserRuleContext {
   public:
     CommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    AddCommandContext *addCommand();
-    DeleteCommandContext *deleteCommand();
-    UpdateCommandContext *updateCommand();
-    ExamineCommandContext *examineCommand();
-    PrescribeCommandContext *prescribeCommand();
-    AdministerCommandContext *administerCommand();
-    SurgeryCommandContext *surgeryCommand();
-    HospitalizeCommandContext *hospitalizeCommand();
-    DischargeCommandContext *dischargeCommand();
-    SearchCommandContext *searchCommand();
+   
+    CommandContext() = default;
+    void copyFrom(CommandContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual size_t getRuleIndex() const override;
+
    
   };
 
-  CommandContext* command();
-
-  class  AddCommandContext : public antlr4::ParserRuleContext {
+  class  DeleteCommandContext : public CommandContext {
   public:
-    AddCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
+    DeleteCommandContext(CommandContext *ctx);
+
     ObjectContext *object();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  AddCommandContext* addCommand();
-
-  class  DeleteCommandContext : public antlr4::ParserRuleContext {
+  class  HospitalizeCommandContext : public CommandContext {
   public:
-    DeleteCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
+    HospitalizeCommandContext(CommandContext *ctx);
+
     ObjectContext *object();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  DeleteCommandContext* deleteCommand();
-
-  class  UpdateCommandContext : public antlr4::ParserRuleContext {
+  class  DischargeCommandContext : public CommandContext {
   public:
-    UpdateCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
+    DischargeCommandContext(CommandContext *ctx);
+
     ObjectContext *object();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  UpdateCommandContext* updateCommand();
-
-  class  ExamineCommandContext : public antlr4::ParserRuleContext {
+  class  SurgeryCommandContext : public CommandContext {
   public:
-    ExamineCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
+    SurgeryCommandContext(CommandContext *ctx);
+
     std::vector<ObjectContext *> object();
     ObjectContext* object(size_t i);
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  ExamineCommandContext* examineCommand();
-
-  class  PrescribeCommandContext : public antlr4::ParserRuleContext {
+  class  AddCommandContext : public CommandContext {
   public:
-    PrescribeCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
+    AddCommandContext(CommandContext *ctx);
+
+    ObjectContext *object();
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  UpdateCommandContext : public CommandContext {
+  public:
+    UpdateCommandContext(CommandContext *ctx);
+
+    ObjectContext *object();
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  PrescribeCommandContext : public CommandContext {
+  public:
+    PrescribeCommandContext(CommandContext *ctx);
+
     std::vector<ObjectContext *> object();
     ObjectContext* object(size_t i);
     MedlistContext *medlist();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  PrescribeCommandContext* prescribeCommand();
-
-  class  AdministerCommandContext : public antlr4::ParserRuleContext {
+  class  ExamineCommandContext : public CommandContext {
   public:
-    AdministerCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
+    ExamineCommandContext(CommandContext *ctx);
+
+    std::vector<ObjectContext *> object();
+    ObjectContext* object(size_t i);
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  AdministerCommandContext : public CommandContext {
+  public:
+    AdministerCommandContext(CommandContext *ctx);
+
     std::vector<ObjectContext *> object();
     ObjectContext* object(size_t i);
     antlr4::tree::TerminalNode *ID();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  AdministerCommandContext* administerCommand();
-
-  class  SurgeryCommandContext : public antlr4::ParserRuleContext {
+  class  SearchCommandContext : public CommandContext {
   public:
-    SurgeryCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<ObjectContext *> object();
-    ObjectContext* object(size_t i);
+    SearchCommandContext(CommandContext *ctx);
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  SurgeryCommandContext* surgeryCommand();
-
-  class  HospitalizeCommandContext : public antlr4::ParserRuleContext {
-  public:
-    HospitalizeCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
     ObjectContext *object();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  HospitalizeCommandContext* hospitalizeCommand();
-
-  class  DischargeCommandContext : public antlr4::ParserRuleContext {
-  public:
-    DischargeCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    ObjectContext *object();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  DischargeCommandContext* dischargeCommand();
-
-  class  SearchCommandContext : public antlr4::ParserRuleContext {
-  public:
-    SearchCommandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    ObjectContext *object();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  SearchCommandContext* searchCommand();
+  CommandContext* command();
 
   class  ObjectContext : public antlr4::ParserRuleContext {
   public:
     ObjectContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *ID();
-    KeyvalsContext *keyvals();
+    PropertiesContext *properties();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
   ObjectContext* object();
 
-  class  KeyvalsContext : public antlr4::ParserRuleContext {
+  class  PropertiesContext : public antlr4::ParserRuleContext {
   public:
-    KeyvalsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    PropertiesContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     std::vector<KeyvalContext *> keyval();
     KeyvalContext* keyval(size_t i);
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
-  KeyvalsContext* keyvals();
+  PropertiesContext* properties();
 
   class  KeyvalContext : public antlr4::ParserRuleContext {
   public:
@@ -267,8 +207,8 @@ public:
     antlr4::tree::TerminalNode *ID();
     ValContext *val();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -282,8 +222,8 @@ public:
     antlr4::tree::TerminalNode *INT();
     antlr4::tree::TerminalNode *FLOAT();
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -296,8 +236,8 @@ public:
     std::vector<antlr4::tree::TerminalNode *> ID();
     antlr4::tree::TerminalNode* ID(size_t i);
 
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
