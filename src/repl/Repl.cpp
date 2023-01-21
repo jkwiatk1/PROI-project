@@ -1,6 +1,9 @@
+#include <BailErrorStrategy.h>
+#include <Exceptions.h>
 #include <any>
 #include <iostream>
 #include <antlr4-runtime.h>
+#include <memory>
 #include "Command.h"
 #include "CommandObject.h"
 #include "Repl.h"
@@ -72,12 +75,16 @@ void Repl::execute_command(std::string &commandline)
     ReplCommandsLexer lexer(&input);
     antlr4::CommonTokenStream tokens(&lexer);
     ReplCommandsParser parser(&tokens);
-
-    // TODO: add an error strategy which stops parsing and throws an exception
-    // upon an error.
-    // parser.setErrorHandler(BailErrorStrategy());
-
-    antlr4::tree::ParseTree *tree = parser.commandLine();
+    std::shared_ptr<antlr4::BailErrorStrategy> bail_strategy(new antlr4::BailErrorStrategy());
+    parser.setErrorHandler(bail_strategy);
+    antlr4::tree::ParseTree *tree;
+    // TODO: make the error handling print more useful messages.
+    try {
+        tree = parser.commandLine();
+    } catch (antlr4::ParseCancellationException x) {
+        os << "Syntax error. Please check the syntax of the command." << std::endl;
+        return;
+    }
     os << tree->toStringTree(&parser) << std::endl;
 
     auto result = parse_tree_to_command(tree);
