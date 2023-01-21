@@ -15,4 +15,14 @@ void Doctor::examine(Patient &patient)
     addEntry(patient, "Examination");
 }
 
-// void prescribeMedicine(Patient& patient, Medicine* medicine) {}
+void Doctor::prescribeMedicine(Patient &patient, string medicine)
+{
+
+    addEntry(patient, "Prescribed medicine: " + medicine);
+}
+
+bool Doctor::fuzzyEquals(const Doctor &other)
+{
+    return Person::fuzzyEquals(other) ||
+        this->speciality == other.speciality;
+}

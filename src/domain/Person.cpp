@@ -20,3 +20,9 @@ pair<string, string> Person::getName() const
 {
     return pair<string, string>(first_name, last_name);
 }
+
+bool Person::fuzzyEquals(const Person &other)
+{
+    return this->first_name.rfind(other.first_name,0) == 0 ||
+        this->last_name.rfind(other.last_name,0);
+}

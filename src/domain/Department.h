@@ -13,5 +13,7 @@ class Department
 
     void addRoom(Room room);
     void removeRoom(Room room);
+
+    bool fuzzyEquals(const Department &other);
 };
 

@@ -28,3 +28,13 @@ void Room::removePatient(Patient *patient)
 
     patients.erase(ends, patients.end());
 }
+
+bool Room::isEmpty() const
+{
+    return patients.size() == 0;
+}
+
+bool Room::fuzzyEquals(const Room &other)
+{
+    return this->nr == other.nr;
+}

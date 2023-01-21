@@ -15,5 +15,7 @@ class Room
 
     void addPatient(Patient *patient);
     void removePatient(Patient *patient);
+    bool isEmpty() const;
+    bool fuzzyEquals(const Room &other);
 };
 

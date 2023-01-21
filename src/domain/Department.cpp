@@ -17,8 +17,14 @@ void Department::addRoom(Room room)
 
 void Department::removeRoom(Room room)
 {
-    // discharge all patients from the room prehaps?
+    if (!room.isEmpty())
+        return;
+
     auto ends = remove(rooms.begin(),rooms.end(),room);
-    
     rooms.erase(ends,rooms.end());
+}
+
+bool Department::fuzzyEquals(const Department &other)
+{
+    return this->name.rfind(other.name,0) == 0;
 }

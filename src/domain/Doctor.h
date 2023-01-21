@@ -16,7 +16,7 @@ class Doctor : public Employee
            Specialities speciality);
 
     void examine(Patient &patient);
-    // pytanie czy robic klase Medicine
-    void prescribeMedicine(Patient &patient);
+    void prescribeMedicine(Patient &patient, std::string medicine);
+    bool fuzzyEquals(const Doctor &other);
 };
 
