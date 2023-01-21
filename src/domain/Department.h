@@ -6,12 +6,12 @@ class Department
 {
   private:
     std::vector<Room> rooms;
-    std::string ID;
     std::string name;
 
   public:
-    Department(std::string ID, std::string name);
+    Department(std::string name);
 
     void addRoom(Room room);
+    void removeRoom(Room room);
 };
 
