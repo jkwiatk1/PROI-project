@@ -51,7 +51,10 @@ void InMemoryDataContainer::DeletePatient(int id)
 {
     if(Patients_DC.count(id) != 0)
     {
+        delete Patients_DC[id];
         Patients_DC.erase(id);
+
+        delete HospitalizedPatients_DC[id];
         HospitalizedPatients_DC.erase(id);
     }
     else
@@ -60,8 +63,10 @@ void InMemoryDataContainer::DeletePatient(int id)
 
 void InMemoryDataContainer::DeleteDoctor(int id)
 {
-    if(Doctors_DC.count(id) != 0)
+    if(Doctors_DC.count(id) != 0){
+        delete Doctors_DC[id];
         Doctors_DC.erase(id);
+    }
     else
         throw std::out_of_range("Doctor ID not found in the data base.\n");
 }
@@ -69,31 +74,40 @@ void InMemoryDataContainer::DeleteDoctor(int id)
 void InMemoryDataContainer::DeleteNurse(int id)
 {
     if(Nurses_DC.count(id) != 0)
+    {
+        delete Nurses_DC[id];
         Nurses_DC.erase(id);
+    }
     else
         throw std::out_of_range("Nurse ID not found in the data base.\n");
 }
 
 void InMemoryDataContainer::DeleteParamedic(int id)
 {
-    if(Paramedics_DC.count(id) != 0)
+    if(Paramedics_DC.count(id) != 0){
+        delete Paramedics_DC[id];
         Paramedics_DC.erase(id);
+    }
     else
         throw std::out_of_range("Paramedic ID not found in the data base.\n");    
 }
 
 void InMemoryDataContainer::DeleteAssistivePersonnel(int id)
 {
-   if(Assistants_DC.count(id) != 0)
+   if(Assistants_DC.count(id) != 0){
+        delete Assistants_DC[id];
         Assistants_DC.erase(id);
+    }
     else
         throw std::out_of_range("Assistant ID not found in the data base.\n");        
 }
 
 void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
 {
-    if(Department_DC.count(departament_name) != 0)
+    if(Department_DC.count(departament_name) != 0){
+        delete Department_DC[departament_name];
         Department_DC.erase(departament_name);
+    }
     else
         throw std::out_of_range("Department name not found in the data base.\n");        
 
