@@ -38,7 +38,7 @@ public:
     void AddParamedic(std::string first_name, std::string last_name) override;
     void AddAssistivePersonnel(std::string first_name, std::string last_name) override;
     void AddDepartament(std::string departament_name) override;
-    void AddRoom(std::string departament_name, int room_no) override;
+    void AddRoom(std::string departament_name, int room_no, int room_capacity) override;
 
     void DeletePatient(int id) override;
     void DeleteDoctor(int id) override;

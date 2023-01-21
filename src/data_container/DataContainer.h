@@ -19,7 +19,7 @@ class DataContainer
     virtual void AddParamedic(std::string first_name, std::string last_name) = 0;
     virtual void AddAssistivePersonnel(std::string first_name, std::string last_name) = 0;
     virtual void AddDepartament(std::string departament_name) = 0;
-    virtual void AddRoom(std::string departament_name, int room_no) = 0;
+    virtual void AddRoom(std::string departament_name, int room_no, int room_capacity) = 0;
 
     virtual void DeletePatient(int id) = 0;
     virtual void DeleteDoctor(int id) = 0;

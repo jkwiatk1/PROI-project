@@ -37,8 +37,14 @@ void InMemoryDataContainer::AddDepartament(std::string departament_name)
     Department_DC.insert({department->getName(), department});
 }
 
-void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no)
+void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no, int room_capacity)
 {
+    if(Department_DC.count(departament_name) != 0){
+        Department_DC[departament_name]->addRoom(Room(room_no, room_capacity));
+    }
+    else
+        throw std::out_of_range("There is no department with this name.\n");  
+
 }
 
 void InMemoryDataContainer::DeletePatient(int id)
