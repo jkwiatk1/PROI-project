@@ -4,6 +4,7 @@ void InMemoryDataContainer::AddPatient(std::string first_name, std::string last_
 {
     Patient *patient = new Patient(first_name, last_name);
     Patients_DC.insert({patient->getID(), patient});
+    HospitalizedPatients_DC.insert({patient->getID(), patient});
 }
 
 void InMemoryDataContainer::AddDoctor(std::string first_name, std::string last_name, Specialities speciality)
@@ -43,6 +44,7 @@ void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no)
 void InMemoryDataContainer::DeletePatient(int id)
 {
     Patients_DC.erase(id);
+    HospitalizedPatients_DC.erase(id);
 }
 
 void InMemoryDataContainer::DeleteDoctor(int id)
@@ -78,8 +80,10 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
 
 void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 {
-    if(Patients_DC.count(id)>0)
+    if(Patients_DC.count(id)>0){
         *Patients_DC[id] = modified_patient;
+        *HospitalizedPatients_DC[id] = modified_patient;
+    }
     else
         throw std::runtime_error("ID not found in the map\n.");
 }
