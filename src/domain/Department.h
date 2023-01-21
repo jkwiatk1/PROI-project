@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Room.h"
+#include "room_not_empty_exception.h"
 
 class Department
 {
@@ -13,6 +14,7 @@ class Department
 
     void addRoom(Room room);
     void removeRoom(Room room);
+    void removeAllRooms();
 
     bool fuzzyEquals(const Department &other);
 };

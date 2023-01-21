@@ -4,16 +4,16 @@
 #include "Patient.h"
 
 // TODO: rename Specialities -> Speciality
-enum Specialities { oculist, surgeon, cardiologist, neurologist };
+enum Speciality { oculist, surgeon, cardiologist, neurologist };
 
 class Doctor : public Employee
 {
   private:
-    Specialities speciality;
+    Speciality speciality;
 
   public:
     Doctor(std::string first_name, std::string last_name,
-           Specialities speciality);
+           Speciality speciality);
 
     void examine(Patient &patient);
     void prescribeMedicine(Patient &patient, std::string medicine);

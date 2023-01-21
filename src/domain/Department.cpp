@@ -18,10 +18,19 @@ void Department::addRoom(Room room)
 void Department::removeRoom(Room room)
 {
     if (!room.isEmpty())
-        return;
+        throw Room_not_empty_exception(room.getNr());
 
     auto ends = remove(rooms.begin(),rooms.end(),room);
     rooms.erase(ends,rooms.end());
+}
+
+void Department::removeAllRooms()
+{
+    for (auto room : rooms)
+        if (!room.isEmpty())
+            throw Room_not_empty_exception(room.getNr());
+
+    rooms.clear();
 }
 
 bool Department::fuzzyEquals(const Department &other)
