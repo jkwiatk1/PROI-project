@@ -10,5 +10,8 @@ class Paramedic : public Employee
     Paramedic(std::string first_name, std::string last_name);
 
     void doFirstAid(Patient &patient);
+
+    // TODO: implement
+    Paramedic& operator=(const Paramedic& source); 
 };
 

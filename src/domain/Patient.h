@@ -19,5 +19,8 @@ class Patient : public Person
     void hospitalize();
     void discharge();
     void addEntry(Entry entry);
+
+    // TODO: implement
+    Patient& operator=(const Patient& source); 
 };
 
