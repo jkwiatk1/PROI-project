@@ -17,4 +17,10 @@ int main()
     string bbb = "aaa" + aaa;
     cout << bbb << endl;
 
+    // test reference vs pointer
+    int& ref = c;
+    int* ptr;
+
+    ptr = nullptr;
+
 }

@@ -3,8 +3,7 @@
 #include "Employee.h"
 #include "Patient.h"
 
-// TODO: rename Specialities -> Speciality
-enum Speciality { oculist, surgeon, cardiologist, neurologist };
+enum Speciality { Ophthalmologist, Surgeon, Cardiologist, Neurologist };
 
 class Doctor : public Employee
 {
@@ -15,8 +14,13 @@ class Doctor : public Employee
     Doctor(std::string first_name, std::string last_name,
            Speciality speciality);
 
+    Speciality getSpeciality() const;
+    void setSpeciality(Speciality speciality);
+
     void examine(Patient &patient);
-    void prescribeMedicine(Patient &patient, std::string medicine);
+    void performSurgery(Patient &patient);
+    void prescribeMedicine(Patient &patient, std::vector<std::string> medicines);
+
     bool fuzzyEquals(const Doctor &other);
 };
 

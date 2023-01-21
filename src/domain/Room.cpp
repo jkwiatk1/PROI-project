@@ -42,7 +42,7 @@ void Room::addPatient(Patient *patient)
 void Room::removePatient(Patient *patient)
 {
     auto ends = remove(patients.begin(), patients.end(), patient);
-
+    
     patients.erase(ends, patients.end());
 }
 

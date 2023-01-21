@@ -10,6 +10,16 @@ Department::Department(string name)
     rooms = vector<Room>();
 }
 
+std::string Department::getName() const
+{
+    return name;
+}
+
+void Department::setName(std::string name)
+{
+    this->name = name;
+}
+
 void Department::addRoom(Room room)
 {
     rooms.push_back(room);

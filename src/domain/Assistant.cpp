@@ -10,15 +10,28 @@ Assistant::Assistant(string first_name, string last_name)
 {
 }
 
-void Assistant::putPatient(Patient *patient, Room &room)
+void Assistant::hospitalizePatient(Patient &patient)
 {
-    room.addPatient(patient);
-    addEntry(*patient, "Put in room " + to_string(room.getNr()));
+    patient.hospitalize();
+    addEntry(patient,"Hospitalized");
 }
 
-void Assistant::dischargePatient(Patient *patient, Room &room)
+void Assistant::putPatient(Patient *patient, Room *room)
 {
-    room.removePatient(patient);
-    addEntry(*patient, "Discharged");
+    room->addPatient(patient);
+    patient->assignRoom(room);
+    addEntry(*patient, "Put in room " + to_string(room->getNr()));
+}
+
+void Assistant::dischargePatient(Patient *patient)
+{
+    Room *room = patient->getRoom();
+    if (room != nullptr)
+    {
+        room->removePatient(patient);
+        patient->exitRoom();
+    }
+    
     patient->discharge();
+    addEntry(*patient, "Discharged");
 }
