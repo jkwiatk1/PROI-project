@@ -1,5 +1,6 @@
 #include "headers/Room.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ void Room::addPatient(Patient* patient) {
 }
 
 void Room::removePatient(Patient* patient) {
-    auto ends = remove(patients.begin(), patients.end(), patient);
+    // we DON'T want to `delete patient;`
+    vector<Patient*>::iterator ends = remove(patients.begin(), patients.end(), patient);
     patients.erase(ends, patients.end());
 }
