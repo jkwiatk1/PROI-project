@@ -51,6 +51,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitAssignRoomCommand(ReplCommandsParser::AssignRoomCommandContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitDischargeCommand(ReplCommandsParser::DischargeCommandContext *ctx) override {
     return visitChildren(ctx);
   }

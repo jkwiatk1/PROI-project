@@ -37,6 +37,8 @@ public:
 
     virtual std::any visitHospitalizeCommand(ReplCommandsParser::HospitalizeCommandContext *context) = 0;
 
+    virtual std::any visitAssignRoomCommand(ReplCommandsParser::AssignRoomCommandContext *context) = 0;
+
     virtual std::any visitDischargeCommand(ReplCommandsParser::DischargeCommandContext *context) = 0;
 
     virtual std::any visitSearchCommand(ReplCommandsParser::SearchCommandContext *context) = 0;
