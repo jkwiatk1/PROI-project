@@ -17,7 +17,6 @@ void Doctor::examine(Patient &patient)
 
 void Doctor::prescribeMedicine(Patient &patient, string medicine)
 {
-
     addEntry(patient, "Prescribed medicine: " + medicine);
 }
 

@@ -24,5 +24,5 @@ pair<string, string> Person::getName() const
 bool Person::fuzzyEquals(const Person &other)
 {
     return this->first_name.rfind(other.first_name,0) == 0 ||
-        this->last_name.rfind(other.last_name,0);
+        this->last_name.rfind(other.last_name,0) == 0;
 }
