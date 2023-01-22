@@ -22,6 +22,7 @@ class DataContainer
     virtual void AddParamedic(std::string first_name, std::string last_name) = 0;
     // TODO: rename `AddAssistivePersonnel` -> `AddAssistant`
     virtual void AddAssistivePersonnel(std::string first_name, std::string last_name) = 0;
+    // TODO: rename `AddDepartament` -> `AddDepartment`
     virtual void AddDepartament(std::string departament_name) = 0;
     virtual void AddRoom(std::string departament_name, int room_no, int room_capacity) = 0;
 

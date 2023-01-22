@@ -28,6 +28,7 @@ class CommandObject
     static const std::string DEPARTMENT_NAME;
     static const std::string DEPARTMENT_NAME2;
     static const std::string ROOM_NO;
+    static const std::string CAPACITY;
 
   private:
     std::map<std::string, std::string> properties;

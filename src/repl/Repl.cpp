@@ -103,7 +103,10 @@ void Repl::execute_command(std::string &commandline)
         return;
     }
 
-    command_executor.executeCommand(command);
+    auto errors2 = command_executor.executeCommand(command);
+    if (errors.exist()) {
+        print_errors(errors);
+    }
 }
 
 std::optional<Command> Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)

@@ -34,6 +34,8 @@ void InMemoryDataContainer::AddAssistivePersonnel(std::string first_name, std::s
     Assistants_DC.insert({assistant->getID(), assistant});
 }
 
+// TODO: make this throw an exception, when trying to add a department with a
+// name equal to the name of an existing one.
 void InMemoryDataContainer::AddDepartament(std::string departament_name)
 {
     Department *department = new Department(departament_name);

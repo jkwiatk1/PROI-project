@@ -12,7 +12,7 @@ add nurse { first_name = <first_name>, last_name = <last_name> }
 add paramedic { first_name = <first_name>, last_name = <last_name> }
 add assistant { first_name = <first_name>, last_name = <last_name> }
 add departament { name = <departament_name> }
-add room { departament = <departament_name>, room_no = <integer> }
+add room { departament = <departament_name>, room_no = <integer>, capacity = <integer> }
 ```
 
 Delete:

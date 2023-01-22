@@ -2,6 +2,7 @@
 
 #include "Command.h"
 #include "DataContainer.h"
+#include "Errors.h"
 class CommandExecutor
 {
   private:
@@ -12,12 +13,12 @@ class CommandExecutor
     void addNurse(Command &command);
     void addParamedic(Command &command);
     void addAssistant(Command &command);
-    void addDepartment(Command &command);
-    void addRoom(Command &command);
+    Errors addDepartment(Command &command);
+    Errors addRoom(Command &command);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)
     {
     }
-    void executeCommand(Command &command);
+    Errors executeCommand(Command &command);
 };

@@ -51,6 +51,8 @@ void CommandValidator::validate_add(Command &command, Errors &errors)
         has_property(object, CommandObject::DEPARTMENT_NAME2, errors);
         has_property(object, CommandObject::ROOM_NO, errors);
         is_int(object, CommandObject::ROOM_NO, errors);
+        has_property(object, CommandObject::CAPACITY, errors);
+        is_int(object, CommandObject::CAPACITY, errors);
     } else {
         std::string error;
         error = "Invalid object type: `" + type + "`";
