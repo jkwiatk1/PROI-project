@@ -12,7 +12,5 @@ class Employee : public Person
 
     void addEntry(Patient &patient, std::string action);
 
-    // TODO: implement
-    Employee& operator=(const Employee& source); 
 };
 

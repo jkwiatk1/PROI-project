@@ -24,5 +24,6 @@ class Room
     bool isEmpty() const;
 
     bool fuzzyEquals(const Room &other);
+    bool operator==(const Room &other);
 };
 

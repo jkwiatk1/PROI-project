@@ -4,7 +4,7 @@
 
 #include "Person.h"
 #include "Entry.h"
-#include "Room.h"
+class Room; // Don't remove, or the project doesn't compile.
 
 enum patient_status { Hospitalized, Discharged };
 
@@ -26,8 +26,5 @@ class Patient : public Person
     void hospitalize();
     void discharge();
     void addEntry(Entry entry);
-
-    // TODO: implement
-    Patient& operator=(const Patient& source); 
 };
 

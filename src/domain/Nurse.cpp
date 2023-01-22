@@ -11,8 +11,3 @@ void Nurse::administerMedicine(Patient &patient, string medicine)
 {
     addEntry(patient, "Medicine given: " + medicine);
 }
-
-Nurse &Nurse::operator=(const Nurse &source)
-{
-    // TODO: insert return statement here
-}

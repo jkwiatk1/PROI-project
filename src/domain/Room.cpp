@@ -42,7 +42,7 @@ void Room::addPatient(Patient *patient)
 void Room::removePatient(Patient *patient)
 {
     auto ends = remove(patients.begin(), patients.end(), patient);
-    
+
     patients.erase(ends, patients.end());
 }
 
@@ -54,4 +54,12 @@ bool Room::isEmpty() const
 bool Room::fuzzyEquals(const Room &other)
 {
     return this->nr == other.nr;
+}
+
+// TODO: test if this operator is appropriate.
+bool Room::operator==(const Room &other)
+{
+    if (this == &other)
+        return true;
+    return nr == other.nr && capacity == other.capacity;
 }

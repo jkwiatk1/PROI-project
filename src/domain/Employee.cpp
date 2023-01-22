@@ -11,8 +11,3 @@ void Employee::addEntry(Patient &patient, std::string action)
 {
     patient.addEntry(Entry(action, this));
 }
-
-Employee &Employee::operator=(const Employee &source)
-{
-    // TODO: insert return statement here
-}
