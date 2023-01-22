@@ -8,13 +8,18 @@ class CommandExecutor
   private:
     DataContainer &data_container;
 
-    void addPatient(Command &command);
-    void addDoctor(Command &command);
-    void addNurse(Command &command);
-    void addParamedic(Command &command);
-    void addAssistant(Command &command);
-    Errors addDepartment(Command &command);
-    Errors addRoom(Command &command);
+    void addDoctor(Command &command, Errors &errors);
+    void addDepartment(Command &command, Errors &errors);
+    void addRoom(Command &command, Errors &errors);
+    void addPerson(Command &command,
+                   void (DataContainer::*f)(std::string first_name,
+                                            std::string last_name),
+                   Errors &errors);
+
+    void deletePerson(Command &command, void (DataContainer::*f)(int),
+                      std::string object_type, Errors &errors);
+    void deleteDepartment(Command &command, Errors &errors);
+    void deleteRoom(Command &command, Errors &errors);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)

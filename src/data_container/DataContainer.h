@@ -30,6 +30,7 @@ class DataContainer
     virtual void DeleteDoctor(int id) = 0;
     virtual void DeleteNurse(int id) = 0;
     virtual void DeleteParamedic(int id) = 0;
+    // TODO: rename `DeleteAssistivePersonnel` -> `DeleteAssistant`
     virtual void DeleteAssistivePersonnel(int id) = 0;
     virtual void DeleteDepartament(std::string departament_name) = 0;
     virtual void DeleteRoom(int room_no) = 0;
