@@ -16,4 +16,5 @@ class CommandValidator
                              Errors &errors);
     static void is_int(CommandObject &object, std::string property,
                        Errors &errors);
+    static void validate_delete(Command &command, Errors &errors);
 };

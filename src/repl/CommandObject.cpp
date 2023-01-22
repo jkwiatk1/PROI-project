@@ -19,6 +19,7 @@ const std::string CommandObject::DEPARTMENT_NAME = "name";
 const std::string CommandObject::DEPARTMENT_NAME2 = "department";
 const std::string CommandObject::ROOM_NO = "room_no";
 const std::string CommandObject::CAPACITY = "capacity";
+const std::string CommandObject::ID = "id";
 
 void CommandObject::addProperty(std::string key, std::string value)
 {

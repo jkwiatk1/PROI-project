@@ -114,6 +114,6 @@ std::ostream &operator<<(std::ostream &s, const Command &command)
             first = false;
     }
     s << "}" << std::endl;
-    s << "}" << std::endl;
+    s << "}";
     return s;
 }
