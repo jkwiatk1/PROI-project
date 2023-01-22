@@ -109,7 +109,6 @@ void CommandValidator::validate_delete(Command &command, Errors &errors)
     } else if (type == CommandObject::DEPARTMENT) {
         has_property(object, CommandObject::DEPARTMENT_NAME2, errors);
     } else if (type == CommandObject::ROOM) {
-        has_property(object, CommandObject::DEPARTMENT_NAME2, errors);
         has_property(object, CommandObject::ROOM_NO, errors);
         is_int(object, CommandObject::ROOM_NO, errors);
     } else {

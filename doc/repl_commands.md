@@ -24,7 +24,7 @@ delete nurse { id = <integer> }
 delete paramedic { id = <integer> }
 delete assistant { id = <integer> }
 delete departament { departament = <departament_name> }
-delete room { departament = <departament_name>, room_no = <integer> }
+delete room { room_no = <integer> }
 ```
 
 Update:

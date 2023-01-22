@@ -133,7 +133,6 @@ void CommandExecutor::deleteDepartment(Command &command, Errors &errors)
 void CommandExecutor::deleteRoom(Command &command, Errors &errors)
 {
     auto object = command.getObject(0);
-    auto department = object.getProperty(CommandObject::DEPARTMENT_NAME2);
     auto room_no = object.getProperty(CommandObject::ROOM_NO);
     try {
         data_container.DeleteRoom(std::stoi(room_no));
