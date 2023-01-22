@@ -31,26 +31,24 @@ Update:
 
 ```
 update patient { id = <integer>
-                 [, first_name = <first_name>]
-                 [, last_name = <last_name>] }
-update doctor { id = <integer>
-                [, first_name = <first_name>]
-                [, last_name = <last_name>]
-                [, doctor_speciality = <doctor_speciality>] }
-update nurse { id = <integer>
                [, first_name = <first_name>]
                [, last_name = <last_name>] }
+update doctor { id = <integer>
+              [, first_name = <first_name>]
+              [, last_name = <last_name>]
+              [, doctor_speciality = <doctor_speciality>] }
+update nurse { id = <integer>
+             [, first_name = <first_name>]
+             [, last_name = <last_name>] }
 update paramedic { id = <integer>
-                   [, first_name = <first_name>]
-                   [, last_name = <last_name>] }
+                 [, first_name = <first_name>]
+                 [, last_name = <last_name>] }
 update assistant { id = <integer>
-                             [, first_name = <first_name>]
-                             [, last_name = <last_name>] }
-update departament { departament_name = <departament_name>,
+                 [, first_name = <first_name>]
+                 [, last_name = <last_name>] }
+update departament { department = <departament_name>,
                      new_name = <departament_name> }
-update room { departament = <departament_name>,
-              room = <integer>,
-              new_no = <integer> }
+update room { room_no = <integer>, new_no = <integer> }
 ```
 
 Domain operations:

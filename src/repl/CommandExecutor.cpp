@@ -50,7 +50,11 @@ Errors CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::ROOM) {
             deleteRoom(command, errors);
         }
+    } else {
+        std::string error = "Unknown command type: '" + command_type + "'";
+        errors.addError(error);
     }
+
     return errors;
 }
 

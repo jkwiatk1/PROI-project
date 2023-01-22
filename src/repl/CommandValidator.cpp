@@ -19,6 +19,8 @@ Errors CommandValidator::validate(Command &command)
         validate_add(command, errors);
     } else if (command_type == Command::DELETE_COMMAND) {
         validate_delete(command, errors);
+    } else if (command_type == Command::UPDATE_COMMAND) {
+        validate_update(command, errors);
     } else {
         std::string error = "Invalid command type: `" + command_type + "`";
         errors.addError(error);
@@ -111,6 +113,76 @@ void CommandValidator::validate_delete(Command &command, Errors &errors)
     } else if (type == CommandObject::ROOM) {
         has_property(object, CommandObject::ROOM_NO, errors);
         is_int(object, CommandObject::ROOM_NO, errors);
+    } else {
+        std::string error = "Invalid object type: `" + type + "`";
+        errors.addError(error);
+    }
+}
+
+void CommandValidator::has_id(CommandObject &object, Errors &errors)
+{
+    has_property(object, CommandObject::ID, errors);
+    is_int(object, CommandObject::ID, errors);
+}
+
+void CommandValidator::has_any(CommandObject &object,
+                               std::vector<std::string> properties,
+                               Errors &errors)
+{
+    bool has_one = false;
+    for (auto prop : properties) {
+        if (object.hasProperty(prop))
+            has_one = true;
+    }
+    if (!has_one) {
+        std::string error =
+            "Object '" + object.getType()
+            + "' should have at least one of the following properties: ";
+        bool first = true;
+        for (auto prop : properties) {
+            if (!first)
+                error += ", ";
+            error += "'" + prop + "'";
+            first = false;
+        }
+        errors.addError(error);
+    }
+}
+
+void CommandValidator::validate_update(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto type = object.getType();
+    if (type == CommandObject::PATIENT) {
+        has_id(object, errors);
+        has_any(object, {CommandObject::FIRST_NAME, CommandObject::LAST_NAME},
+                errors);
+    } else if (type == CommandObject::DOCTOR) {
+        has_id(object, errors);
+        has_any(object,
+                {CommandObject::FIRST_NAME, CommandObject::LAST_NAME,
+                 CommandObject::SPECIALITY},
+                errors);
+    } else if (type == CommandObject::NURSE) {
+        has_id(object, errors);
+        has_any(object, {CommandObject::FIRST_NAME, CommandObject::LAST_NAME},
+                errors);
+    } else if (type == CommandObject::PARAMEDIC) {
+        has_id(object, errors);
+        has_any(object, {CommandObject::FIRST_NAME, CommandObject::LAST_NAME},
+                errors);
+    } else if (type == CommandObject::ASSISTANT) {
+        has_id(object, errors);
+        has_any(object, {CommandObject::FIRST_NAME, CommandObject::LAST_NAME},
+                errors);
+    } else if (type == CommandObject::DEPARTMENT) {
+        has_property(object, CommandObject::DEPARTMENT_NAME2, errors);
+        has_property(object, CommandObject::DEPARTMENT_NEW_NAME, errors);
+    } else if (type == CommandObject::ROOM) {
+        has_property(object, CommandObject::ROOM_NO, errors);
+        is_int(object, CommandObject::ROOM_NO, errors);
+        has_property(object, CommandObject::ROOM_NEW_NO, errors);
+        is_int(object, CommandObject::ROOM_NEW_NO, errors);
     } else {
         std::string error = "Invalid object type: `" + type + "`";
         errors.addError(error);
