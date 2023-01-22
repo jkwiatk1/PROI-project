@@ -16,7 +16,7 @@ void InMemoryDataContainer::AddDoctor(std::string first_name,
     // TODO: parse `std::string speciality` into `enum Specialities` and pass
     // the resulting value into the Doctor constructor:
     Doctor *doctor =
-        new Doctor(first_name, last_name, Specialities::cardiologist);
+        new Doctor(first_name, last_name, Speciality::Cardiologist);
     Doctors_DC.insert({doctor->getID(), doctor});
 }
 
@@ -272,18 +272,18 @@ InMemoryDataContainer::findDepartments(std::string department_name_template)
 }
 
 
-template <class Object>
-std::vector<Object *>
-InMemoryDataContainer::FindInContainer(Object object_template,
-                                       const std::map<int, Object *> &dataBase)
+template <class T>
+std::vector<T *>
+InMemoryDataContainer::FindInContainer(T object_template,
+                                       const std::map<int, T *> &dataBase)
 {
-    std::vector<Object *> founds;
-    std::string template_name = object_template.getName().first;
-    std::string template_lastName = object_template.getName().second;
+    std::vector<T *> founds;
+    std::string template_name = object_template.getFirstName();
+    std::string template_lastName = object_template.getLastName();
 
     for (const auto &[key, value] : dataBase) {
-        if (value->getName().first.find(template_name) == 0
-            && value->getName().second.find(template_lastName) == 0)
+        if (value->getFirstName().find(template_name) == 0
+            && value->getLastName().find(template_lastName) == 0)
             founds.push_back(value);
     }
 

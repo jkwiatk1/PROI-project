@@ -11,10 +11,8 @@ class Assistant : public Employee
   public:
     Assistant(std::string first_name, std::string last_name);
 
-    void putPatient(Patient *Patient, Room &room);
-    void dischargePatient(Patient *Patient, Room &room);
-
-    // TODO: implement
-    Assistant& operator=(const Assistant& source); 
+    void hospitalizePatient(Patient &patient);
+    void putPatient(Patient *Patient, Room *room);
+    void dischargePatient(Patient *Patient);
 };
 

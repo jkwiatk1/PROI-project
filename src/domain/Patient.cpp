@@ -8,6 +8,17 @@ Patient::Patient(string first_name, string last_name)
 {
     health_card = vector<Entry>();
     status = Hospitalized;
+    assigned_room = nullptr;
+}
+
+std::vector<Entry> Patient::getHealthCard() const
+{
+    return health_card;
+}
+
+Room *Patient::getRoom() const
+{
+    return assigned_room;
 }
 
 void Patient::hospitalize()
@@ -20,12 +31,17 @@ void Patient::discharge()
     status = Discharged;
 }
 
+void Patient::assignRoom(Room *room)
+{
+    assigned_room = room;
+}
+
+void Patient::exitRoom()
+{
+    assigned_room = nullptr;
+}
+
 void Patient::addEntry(Entry entry)
 {
     health_card.push_back(entry);
-}
-
-Patient &Patient::operator=(const Patient &source)
-{
-    // TODO: insert return statement here
 }
