@@ -1,4 +1,5 @@
 #include "InMemoryDataContainer.h"
+#include "Doctor.h"
 
 void InMemoryDataContainer::AddPatient(std::string first_name, std::string last_name)
 {
@@ -7,9 +8,11 @@ void InMemoryDataContainer::AddPatient(std::string first_name, std::string last_
     HospitalizedPatients_DC.insert({patient->getID(), patient});
 }
 
-void InMemoryDataContainer::AddDoctor(std::string first_name, std::string last_name, Specialities speciality)
+void InMemoryDataContainer::AddDoctor(std::string first_name, std::string last_name, std::string speciality)
 {
-    Doctor *doctor = new Doctor(first_name, last_name, speciality);
+    // TODO: parse `std::string speciality` into `enum Specialities` and pass
+    // the resulting value into the Doctor constructor:
+    Doctor *doctor = new Doctor(first_name, last_name, Specialities::cardiologist);
     Doctors_DC.insert({doctor->getID(), doctor});
 }
 
@@ -43,7 +46,7 @@ void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no, i
         Department_DC[departament_name]->addRoom(Room(room_no, room_capacity));
     }
     else
-        throw std::out_of_range("There is no department with this name.\n");  
+        throw std::out_of_range("There is no department with this name.\n");
 
 }
 
@@ -89,7 +92,7 @@ void InMemoryDataContainer::DeleteParamedic(int id)
         Paramedics_DC.erase(id);
     }
     else
-        throw std::out_of_range("Paramedic ID not found in the data base.\n");    
+        throw std::out_of_range("Paramedic ID not found in the data base.\n");
 }
 
 void InMemoryDataContainer::DeleteAssistivePersonnel(int id)
@@ -99,7 +102,7 @@ void InMemoryDataContainer::DeleteAssistivePersonnel(int id)
         Assistants_DC.erase(id);
     }
     else
-        throw std::out_of_range("Assistant ID not found in the data base.\n");        
+        throw std::out_of_range("Assistant ID not found in the data base.\n");
 }
 
 void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
@@ -109,7 +112,7 @@ void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
         Department_DC.erase(departament_name);
     }
     else
-        throw std::out_of_range("Department name not found in the data base.\n");        
+        throw std::out_of_range("Department name not found in the data base.\n");
 
 }
 
@@ -126,7 +129,7 @@ void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
         *HospitalizedPatients_DC[id] = modified_patient;
     }
     else
-        throw std::out_of_range("Patient ID not found in the data base\n.");   
+        throw std::out_of_range("Patient ID not found in the data base\n.");
 }
 
 void InMemoryDataContainer::ModifyDoctor(int id, Doctor modified_doctor)
@@ -134,7 +137,7 @@ void InMemoryDataContainer::ModifyDoctor(int id, Doctor modified_doctor)
     if(Doctors_DC.count(id)>0)
         *Doctors_DC[id] = modified_doctor;
     else
-        throw std::out_of_range("Doctor ID not found in the data base\n.");   
+        throw std::out_of_range("Doctor ID not found in the data base\n.");
 }
 
 void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
@@ -142,7 +145,7 @@ void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
     if(Nurses_DC.count(id)>0)
         *Nurses_DC[id] = modified_nurse;
     else
-        throw std::out_of_range("Nurse ID not found in the data base\n.");   
+        throw std::out_of_range("Nurse ID not found in the data base\n.");
 }
 
 void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic)
@@ -150,7 +153,7 @@ void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic
     if(Paramedics_DC.count(id)>0)
         *Paramedics_DC[id] = modified_paramedic;
     else
-        throw std::out_of_range("Paramedic ID not found in the data base\n.");   
+        throw std::out_of_range("Paramedic ID not found in the data base\n.");
 }
 
 void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant modified_assistant)
@@ -158,15 +161,15 @@ void InMemoryDataContainer::ModifyAssistivePersonnel(int id, Assistant modified_
     if(Assistants_DC.count(id)>0)
         *Assistants_DC[id] = modified_assistant;
     else
-        throw std::out_of_range("Assistant ID not found in the data base\n.");   
+        throw std::out_of_range("Assistant ID not found in the data base\n.");
 }
 
-void InMemoryDataContainer::ModifyDepartament(std::string departament_name, Department modified_departament) 
+void InMemoryDataContainer::ModifyDepartament(std::string departament_name, Department modified_departament)
 {
     if(Department_DC.count(departament_name)>0)
         *Department_DC[departament_name] = modified_departament;
     else
-        throw std::out_of_range("Departament name not found in the data base\n.");   
+        throw std::out_of_range("Departament name not found in the data base\n.");
 
 }
 
@@ -184,9 +187,9 @@ void InMemoryDataContainer::PerformExamination(int doctor_id, int patient_id)
     else if (Doctors_DC.count(doctor_id) == 0)
     {
         throw std::out_of_range("Doctor ID not found in the data base.\nCheck is it correct.\n");
-    } 
-    else 
-        throw std::out_of_range("Patient ID not found in the data base.\nCheck is it correct.\n");    
+    }
+    else
+        throw std::out_of_range("Patient ID not found in the data base.\nCheck is it correct.\n");
 }
 
 void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines)
@@ -225,12 +228,12 @@ void InMemoryDataContainer::Hospitalize(int id)
 
 std::vector<Patient *> InMemoryDataContainer::findPatients(Patient patient_template)
 {
-    return FindInContainer<Patient>(patient_template, Patients_DC);  
+    return FindInContainer<Patient>(patient_template, Patients_DC);
 }
 
 std::vector<Doctor *> InMemoryDataContainer::findDoctors(Doctor doctor_template)
 {
-    return FindInContainer<Doctor>(doctor_template, Doctors_DC);      
+    return FindInContainer<Doctor>(doctor_template, Doctors_DC);
 }
 
 std::vector<Nurse *> InMemoryDataContainer::findNurses(Nurse nurse_template)
@@ -256,7 +259,7 @@ std::vector<Department *> InMemoryDataContainer::findDepartments(std::string dep
     for(const auto& [key, value] : Department_DC) {
         if(value->getName().find(template_name) == 0)
             foundDepartments.push_back(value);
-    }   
+    }
 
     return foundDepartments;
 
@@ -273,7 +276,7 @@ std::vector<Object *> InMemoryDataContainer::FindInContainer(Object object_templ
     for(const auto& [key, value] : dataBase) {
         if(value->getName().first.find(template_name) == 0 && value->getName().second.find(template_lastName) == 0)
             founds.push_back(value);
-    }   
+    }
 
-    return founds;    
+    return founds;
 }

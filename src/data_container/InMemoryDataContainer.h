@@ -24,8 +24,8 @@ private:
     InMemoryDataContainer(const InMemoryDataContainer&) = delete;
     InMemoryDataContainer& operator=(const InMemoryDataContainer&) = delete;
 
-    template<class Object> 
-    std::vector<Object *> FindInContainer(Object object_template, const std::map<int, Object *>&  dataBase);   
+    template<class Object>
+    std::vector<Object *> FindInContainer(Object object_template, const std::map<int, Object *>&  dataBase);
 public:
     static InMemoryDataContainer& getInstance() {
         static InMemoryDataContainer s_instance;
@@ -33,7 +33,7 @@ public:
     };
 
     void AddPatient(std::string first_name, std::string last_name) override;
-    void AddDoctor(std::string first_name, std::string last_name, Specialities speciality) override;
+    void AddDoctor(std::string first_name, std::string last_name, std::string speciality) override;
     void AddNurse(std::string first_name, std::string last_name) override;
     void AddParamedic(std::string first_name, std::string last_name) override;
     void AddAssistivePersonnel(std::string first_name, std::string last_name) override;
