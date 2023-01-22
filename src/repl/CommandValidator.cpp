@@ -88,11 +88,11 @@ void CommandValidator::is_int(CommandObject &object, std::string property,
         std::stoi(value);
     } catch (std::invalid_argument) {
         std::string error;
-        error = "Property `" + property + "` should be an integer.";
+        error = "Property `" + property + "` should be an integer";
         errors.addError(error);
     } catch (std::out_of_range) {
         std::string error;
-        error = "Property `" + property + "` has an integer value which is too high.";
+        error = "Property `" + property + "` has an integer value which is too high";
         errors.addError(error);
     }
 }

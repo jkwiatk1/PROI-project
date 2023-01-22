@@ -42,6 +42,8 @@ void InMemoryDataContainer::AddDepartament(std::string departament_name)
     Department_DC.insert({department->getName(), department});
 }
 
+// TODO: throw an exception if adding a duplicate room (same department_name and
+// same room_no)
 void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no, int room_capacity)
 {
     if(Department_DC.count(departament_name) != 0){

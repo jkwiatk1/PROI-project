@@ -26,6 +26,7 @@ Errors CommandExecutor::executeCommand(Command &command)
         }
         return Errors();
     }
+    return Errors();
 }
 
 void CommandExecutor::addPatient(Command &command)
@@ -79,7 +80,7 @@ Errors CommandExecutor::addDepartment(Command &command)
     } catch (...) {
         // TODO: make this catch clause catch a specific exception.
         std::string error;
-        error = "Department with name '" + department_name + "' already exists.";
+        error = "Department with name '" + department_name + "' already exists";
         errors.addError(error);
     }
     return errors;
@@ -96,7 +97,7 @@ Errors CommandExecutor::addRoom(Command &command)
         data_container.AddRoom(department_name, room_no, capacity);
     } catch (std::out_of_range &e) {
         std::string error;
-        error = "Department '" + department_name + "' does not exist.";
+        error = "Department '" + department_name + "' does not exist";
         errors.addError(error);
     }
     return errors;
