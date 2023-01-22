@@ -4,8 +4,18 @@
 
 using namespace std;
 
-Doctor::Doctor(string first_name, string last_name, Specialities speciality)
+Doctor::Doctor(string first_name, string last_name, Speciality speciality)
     : Employee(first_name, last_name)
+{
+    this->speciality = speciality;
+}
+
+Speciality Doctor::getSpeciality() const
+{
+    return speciality;
+}
+
+void Doctor::setSpeciality(Speciality speciality)
 {
     this->speciality = speciality;
 }
@@ -15,9 +25,27 @@ void Doctor::examine(Patient &patient)
     addEntry(patient, "Examination");
 }
 
-Doctor & Doctor::operator=(const Doctor & source)
+void Doctor::performSurgery(Patient &patient)
 {
-// TODO: insert return statement here
+    addEntry(patient, "Performed surgery");
 }
 
-// void prescribeMedicine(Patient& patient, Medicine* medicine) {}
+void Doctor::prescribeMedicine(Patient &patient, vector<string> medicines)
+{
+    string entry_message = "Prescribed medicines: ";
+    int size = medicines.size();
+    for (int i = 0; i < size; i++)
+    {
+        entry_message += medicines[i];
+        if (i < size - 1)
+            entry_message += ", ";
+    }
+
+    addEntry(patient, entry_message);
+}
+
+bool Doctor::fuzzyEquals(const Doctor &other)
+{
+    return Person::fuzzyEquals(other) &&
+        this->speciality == other.speciality;
+}

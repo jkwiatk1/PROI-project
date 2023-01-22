@@ -15,8 +15,11 @@ class Person
     Person(std::string first_name, std::string last_name);
 
     int getID() const;
+    std::string getFirstName() const;
+    std::string getLastName() const;
+    void setFirstName(std::string first_name);
+    void setLastName(std::string last_name);
 
-    std::pair<std::string, std::string> getName() const;
-    
+    bool fuzzyEquals(const Person &other);
 };
 

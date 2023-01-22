@@ -7,9 +7,9 @@ Nurse::Nurse(string first_name, string last_name)
 {
 }
 
-void Nurse::administerMedicine(Patient &patient)
+void Nurse::administerMedicine(Patient &patient, string medicine)
 {
-    addEntry(patient, "Medicine given");
+    addEntry(patient, "Medicine given: " + medicine);
 }
 
 Nurse &Nurse::operator=(const Nurse &source)

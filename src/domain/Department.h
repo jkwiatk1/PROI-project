@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Room.h"
+#include "room_not_empty_exception.h"
 
 class Department
 {
@@ -10,11 +11,14 @@ class Department
 
   public:
     Department(std::string name);
-
     std::string getName() const;
-    void addRoom(Room room);
+    // std::vector<Room> getRooms() const;
+    void setName(std::string name);
 
-    // TODO: implement
-    Department& operator=(const Department& source); 
+    void addRoom(Room room);
+    void removeRoom(Room room);
+    void removeAllRooms();
+
+    bool fuzzyEquals(const Department &other);
 };
 
