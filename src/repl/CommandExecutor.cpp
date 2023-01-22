@@ -77,7 +77,6 @@ void CommandExecutor::addRoom(Command &command)
 {
     auto object = command.getObject(0);
     auto department_name = object.getProperty(CommandObject::DEPARTMENT_NAME2);
-    // TODO: make CommandValidator check if ROOM_NO is an int.
     auto room_no = std::stoi(object.getProperty(CommandObject::ROOM_NO));
     // TODO: change the command grammar to include capacity
     data_container.AddRoom(department_name, room_no, 6);

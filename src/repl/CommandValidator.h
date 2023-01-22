@@ -14,4 +14,6 @@ class CommandValidator
                                              Errors &errors);
     static void has_property(CommandObject &object, std::string property,
                              Errors &errors);
+    static void is_int(CommandObject &object, std::string property,
+                       Errors &errors);
 };

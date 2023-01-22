@@ -50,6 +50,7 @@ void CommandValidator::validate_add(Command &command, Errors &errors)
     } else if (type == CommandObject::ROOM) {
         has_property(object, CommandObject::DEPARTMENT_NAME2, errors);
         has_property(object, CommandObject::ROOM_NO, errors);
+        is_int(object, CommandObject::ROOM_NO, errors);
     } else {
         std::string error;
         error = "Invalid object type: `" + type + "`";
@@ -71,6 +72,25 @@ void CommandValidator::has_property(CommandObject &object, std::string property,
         std::string error;
         error = "Object '" + object.getType() + "' should have property '"
                 + property + "'";
+        errors.addError(error);
+    }
+}
+
+void CommandValidator::is_int(CommandObject &object, std::string property,
+                              Errors &errors)
+{
+    if (!object.hasProperty(property))
+        return;
+    auto value = object.getProperty(property);
+    try {
+        std::stoi(value);
+    } catch (std::invalid_argument) {
+        std::string error;
+        error = "Property `" + property + "` should be an integer.";
+        errors.addError(error);
+    } catch (std::out_of_range) {
+        std::string error;
+        error = "Property `" + property + "` has an integer value which is too high.";
         errors.addError(error);
     }
 }
