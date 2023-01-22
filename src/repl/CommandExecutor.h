@@ -20,6 +20,7 @@ class CommandExecutor
                       std::string object_type, Errors &errors);
     void deleteDepartment(Command &command, Errors &errors);
     void deleteRoom(Command &command, Errors &errors);
+    void updatePatient(Command &command, Errors &errors);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)

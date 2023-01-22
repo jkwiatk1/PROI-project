@@ -53,14 +53,16 @@ Errors CommandExecutor::executeCommand(Command &command)
     } else if (command_type == Command::UPDATE_COMMAND) {
         auto object_type = command.getObject(0).getType();
         if (object_type == CommandObject::PATIENT) {
-            // data_container.ModifyPatient(
+            updatePatient(command, errors);
         } else if (object_type == CommandObject::DOCTOR) {
             // deletePerson(command, &DataContainer::DeleteDoctor, "Doctor",
             //              errors);
         } else if (object_type == CommandObject::NURSE) {
-            // deletePerson(command, &DataContainer::DeleteNurse, "Nurse", errors);
+            // deletePerson(command, &DataContainer::DeleteNurse, "Nurse",
+            // errors);
         } else if (object_type == CommandObject::PARAMEDIC) {
-            // deletePerson(command, &DataContainer::DeleteParamedic, "Paramedic",
+            // deletePerson(command, &DataContainer::DeleteParamedic,
+            // "Paramedic",
             //              errors);
         } else if (object_type == CommandObject::ASSISTANT) {
             // deletePerson(command, &DataContainer::DeleteAssistivePersonnel,
@@ -164,4 +166,19 @@ void CommandExecutor::deleteRoom(Command &command, Errors &errors)
         std::string error = "Room '" + room_no + "' does not exist";
         errors.addError(error);
     }
+}
+
+void CommandExecutor::updatePatient(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto id = object.getProperty(CommandObject::ID);
+    auto maybe_patient = data_container.GetPatient(std::stoi(id));
+    if (!maybe_patient.has_value()) {
+        std::string error = "Patient with id '" + id + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+
+    auto patient = maybe_patient.value();
+    // TODO: finish
 }
