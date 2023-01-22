@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+// TODO: rename `Room_not_empty_exception` -> `room_not_empty` (remember to
+// change the filename)
 class Room_not_empty_exception : public std::runtime_error
 {
 public:

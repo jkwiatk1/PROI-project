@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 
+// TODO: rename `Full_room_exception` -> `full_room`
 class Full_room_exception : public std::runtime_error
 {
 public:
