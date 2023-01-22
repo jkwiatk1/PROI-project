@@ -19,7 +19,7 @@ command
     | 'administer' object object 'med' ID           # administerCommand
     | 'surgery' object object                       # surgeryCommand
     | 'hospitalize' object object 'reason' STRING   # hospitalizeCommand
-    | 'assign_room' object object 'room' INT        # assignRoomCommand
+    | 'assign_room' object object 'number' INT      # assignRoomCommand
     | 'discharge' object object                     # dischargeCommand
     | 'search' object                               # searchCommand
     ;

@@ -70,7 +70,7 @@ administer nurse { id = <integer> }
 surgery doctor { id = <integer> } patient { id = <integer> }
 
 hospitalize assistant { id = ... } patient { id = <integer> } reason "<text>"
-assign_room assistant { id = ... } patient { id = ... } room <room_no>
+assign_room assistant { id = ... } patient { id = ... } number <room_no>
 discharge assistant { id = <integer> } patient { id = <integer> }
 ```
 

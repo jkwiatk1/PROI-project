@@ -12,7 +12,7 @@ null
 'hospitalize'
 'reason'
 'assign_room'
-'room'
+'number'
 'discharge'
 'search'
 '{'

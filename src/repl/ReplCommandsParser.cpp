@@ -49,7 +49,7 @@ void replcommandsParserInitialize() {
     std::vector<std::string>{
       "", "'add'", "'delete'", "'update'", "'examine'", "'prescribe'", "'meds'", 
       "'administer'", "'med'", "'surgery'", "'hospitalize'", "'reason'", 
-      "'assign_room'", "'room'", "'discharge'", "'search'", "'{'", "'}'", 
+      "'assign_room'", "'number'", "'discharge'", "'search'", "'{'", "'}'", 
       "','", "'='"
     },
     std::vector<std::string>{
