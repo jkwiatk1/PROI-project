@@ -36,6 +36,20 @@ void CommandValidator::validate_add(Command &command, Errors &errors)
 
     if (type == CommandObject::PATIENT) {
         has_first_name_and_last_name(object, errors);
+    } else if (type == CommandObject::DOCTOR) {
+        has_first_name_and_last_name(object, errors);
+        has_property(object, CommandObject::SPECIALITY, errors);
+    } else if (type == CommandObject::NURSE) {
+        has_first_name_and_last_name(object, errors);
+    } else if (type == CommandObject::PARAMEDIC) {
+        has_first_name_and_last_name(object, errors);
+    } else if (type == CommandObject::ASSISTANT) {
+        has_first_name_and_last_name(object, errors);
+    } else if (type == CommandObject::DEPARTMENT) {
+        has_property(object, CommandObject::DEPARTMENT_NAME, errors);
+    } else if (type == CommandObject::ROOM) {
+        has_property(object, CommandObject::DEPARTMENT_NAME2, errors);
+        has_property(object, CommandObject::ROOM_NO, errors);
     } else {
         std::string error;
         error = "Invalid object type: `" + type + "`";

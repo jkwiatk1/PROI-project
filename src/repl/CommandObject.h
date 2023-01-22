@@ -24,6 +24,10 @@ class CommandObject
     // Fields constants
     static const std::string FIRST_NAME;
     static const std::string LAST_NAME;
+    static const std::string SPECIALITY;
+    static const std::string DEPARTMENT_NAME;
+    static const std::string DEPARTMENT_NAME2;
+    static const std::string ROOM_NO;
 
   private:
     std::map<std::string, std::string> properties;

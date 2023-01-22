@@ -14,6 +14,10 @@ const std::string CommandObject::ROOM = "room";
 // Fields constants
 const std::string CommandObject::FIRST_NAME = "first_name";
 const std::string CommandObject::LAST_NAME = "last_name";
+const std::string CommandObject::SPECIALITY = "speciality";
+const std::string CommandObject::DEPARTMENT_NAME = "name";
+const std::string CommandObject::DEPARTMENT_NAME2 = "department";
+const std::string CommandObject::ROOM_NO = "room_no";
 
 void CommandObject::addProperty(std::string key, std::string value)
 {
