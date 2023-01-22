@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <string>
 
 #include "Doctor.h"
@@ -57,5 +58,13 @@ class DataContainer
     virtual std::vector<Paramedic *> findParamedics(Paramedic paramedic_template) = 0;
     virtual std::vector<Assistant *> findAssistants(Assistant assistant_template) = 0;
     virtual std::vector<Department *> findDepartments(std::string department_name_template) = 0;
+
+    virtual std::optional<Patient> GetPatient(int id) = 0;
+    virtual std::optional<Doctor> GetDoctor(int id) = 0;
+    virtual std::optional<Nurse> GetNurse(int id) = 0;
+    virtual std::optional<Paramedic> GetParamedic(int id) = 0;
+    virtual std::optional<Assistant> GetAssistant(int id) = 0;
+    virtual std::optional<Department> GetDepartment(std::string department_name) = 0;
+    virtual std::optional<Room> GetRoom(int room_no) = 0;
 };
 

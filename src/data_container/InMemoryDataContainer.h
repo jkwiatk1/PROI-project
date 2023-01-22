@@ -69,6 +69,14 @@ public:
     std::vector<Paramedic *> findParamedics(Paramedic paramedic_template) override;
     std::vector<Assistant *> findAssistants(Assistant assistant_template) override;
     std::vector<Department *> findDepartments(std::string department_name_template) override;
+
+    std::optional<Patient> GetPatient(int id) override;
+    std::optional<Doctor> GetDoctor(int id) override;
+    std::optional<Nurse> GetNurse(int id) override;
+    std::optional<Paramedic> GetParamedic(int id) override;
+    std::optional<Assistant> GetAssistant(int id) override;
+    std::optional<Department> GetDepartment(std::string department_name) override;
+    std::optional<Room> GetRoom(int room_no) override;
 };
 
 

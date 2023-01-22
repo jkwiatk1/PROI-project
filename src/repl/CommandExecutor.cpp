@@ -50,6 +50,26 @@ Errors CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::ROOM) {
             deleteRoom(command, errors);
         }
+    } else if (command_type == Command::UPDATE_COMMAND) {
+        auto object_type = command.getObject(0).getType();
+        if (object_type == CommandObject::PATIENT) {
+            // data_container.ModifyPatient(
+        } else if (object_type == CommandObject::DOCTOR) {
+            // deletePerson(command, &DataContainer::DeleteDoctor, "Doctor",
+            //              errors);
+        } else if (object_type == CommandObject::NURSE) {
+            // deletePerson(command, &DataContainer::DeleteNurse, "Nurse", errors);
+        } else if (object_type == CommandObject::PARAMEDIC) {
+            // deletePerson(command, &DataContainer::DeleteParamedic, "Paramedic",
+            //              errors);
+        } else if (object_type == CommandObject::ASSISTANT) {
+            // deletePerson(command, &DataContainer::DeleteAssistivePersonnel,
+            //              "Assistant", errors);
+        } else if (object_type == CommandObject::DEPARTMENT) {
+            // deleteDepartment(command, errors);
+        } else if (object_type == CommandObject::ROOM) {
+            // deleteRoom(command, errors);
+        }
     } else {
         std::string error = "Unknown command type: '" + command_type + "'";
         errors.addError(error);
