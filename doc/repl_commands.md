@@ -57,16 +57,16 @@ Domain operations:
 
 ```
 examine doctor { id = <integer> } patient { id = <integer> }
-        | examine doctor { first_name = <first_name>, last_name = <last_name> }
-                  patient { id = <integer> }
-        | examine doctor { first_name = <first_name>, last_name = <last_name> }
-                  patient { first_name = <first_name>, last_name = <last_name> }
+| examine doctor { first_name = <first_name>, last_name = <last_name> }
+          patient { id = <integer> }
+| examine doctor { first_name = <first_name>, last_name = <last_name> }
+          patient { first_name = <first_name>, last_name = <last_name> }
 prescribe doctor { id = <integer> }
-               patient { id = <integer> }
-               meds [ med1 [, med2][, med3][...] ]
+          patient { id = <integer> }
+          meds [ med1 [, med2][, med3][...] ]
 administer nurse { id = <integer> }
-               patient { id = <integer> }
-               med <med1>
+           patient { id = <integer> }
+           med <med>
 surgery doctor { id = <integer> } patient { id = <integer> }
 
 hospitalize assistant { id = ... } patient { id = <integer> } reason "<text>"
