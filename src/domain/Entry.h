@@ -6,6 +6,7 @@
 class Entry
 {
   private:
+    std::string time;
     std::string action;
     Employee *performer;
 
