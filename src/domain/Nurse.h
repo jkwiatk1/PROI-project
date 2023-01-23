@@ -11,5 +11,6 @@ class Nurse : public Employee
     Nurse(std::string first_name, std::string last_name);
 
     void administerMedicine(Patient &patient, std::string medicine);
+    friend std::ostream &operator<<(std::ostream &s, const Nurse &nurse);
 };
 

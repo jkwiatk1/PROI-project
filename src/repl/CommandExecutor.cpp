@@ -61,19 +61,10 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::DOCTOR) {
             updateDoctor(command, errors);
         } else if (object_type == CommandObject::NURSE) {
-            // deletePerson(command, &DataContainer::DeleteNurse, "Nurse",
-            // errors);
         } else if (object_type == CommandObject::PARAMEDIC) {
-            // deletePerson(command, &DataContainer::DeleteParamedic,
-            // "Paramedic",
-            //              errors);
         } else if (object_type == CommandObject::ASSISTANT) {
-            // deletePerson(command, &DataContainer::DeleteAssistivePersonnel,
-            //              "Assistant", errors);
         } else if (object_type == CommandObject::DEPARTMENT) {
-            // deleteDepartment(command, errors);
         } else if (object_type == CommandObject::ROOM) {
-            // deleteRoom(command, errors);
         }
     } else if (command_type == Command::SEARCH_COMMAND) {
         auto object_type = command.getObject(0).getType();
@@ -82,6 +73,7 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::DOCTOR) {
             searchDoctor(command, errors, results);
         } else if (object_type == CommandObject::NURSE) {
+            searchNurse(command, errors, results);
         } else if (object_type == CommandObject::PARAMEDIC) {
         } else if (object_type == CommandObject::ASSISTANT) {
         } else if (object_type == CommandObject::DEPARTMENT) {
@@ -273,6 +265,21 @@ void CommandExecutor::searchDepartment(Command &command, Errors &errors,
         department = object.getProperty(CommandObject::DEPARTMENT_NAME);
 
     auto result = data_container.findDepartments(department);
+    if (result.size() != 0)
+        results.addResult(result);
+}
+
+void CommandExecutor::searchNurse(Command &command, Errors &errors,
+                                  Results &results)
+{
+    auto object = command.getObject(0);
+    Nurse nurse;
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        nurse.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        nurse.setLastName(object.getProperty(CommandObject::LAST_NAME));
+
+    auto result = data_container.findNurses(nurse);
     if (result.size() != 0)
         results.addResult(result);
 }
