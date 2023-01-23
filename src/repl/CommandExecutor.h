@@ -23,8 +23,11 @@ class CommandExecutor
                       std::string object_type, Errors &errors);
     void deleteDepartment(Command &command, Errors &errors);
     void deleteRoom(Command &command, Errors &errors);
+
     void updatePatient(Command &command, Errors &errors);
     void updateDoctor(Command &command, Errors &errors);
+    void updateNurse(Command &command, Errors &errors);
+
     void searchPatient(Command &command, Errors &errors, Results &results);
     void searchDoctor(Command &command, Errors &errors, Results &results);
     void searchNurse(Command &command, Errors &errors, Results &results);
