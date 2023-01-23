@@ -2,6 +2,8 @@
 
 using namespace std;
 
+Nurse::Nurse() : Employee() {}
+
 Nurse::Nurse(string first_name, string last_name)
     : Employee(first_name, last_name)
 {

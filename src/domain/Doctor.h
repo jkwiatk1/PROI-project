@@ -15,6 +15,7 @@ class Doctor : public Employee
     Speciality speciality;
 
   public:
+    Doctor();
     Doctor(std::string first_name, std::string last_name,
            Speciality speciality);
 

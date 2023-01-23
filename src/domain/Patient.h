@@ -17,10 +17,11 @@ class Patient : public Person
     Room *assigned_room;
 
   public:
+    Patient();
     Patient(std::string first_name, std::string last_name);
 
     std::vector<Entry> getHealthCard() const;
-    Room* getRoom() const;
+    Room *getRoom() const;
     void assignRoom(Room *room);
     void exitRoom();
 

@@ -4,6 +4,8 @@
 
 using namespace std;
 
+Doctor::Doctor() : Employee() {}
+
 Doctor::Doctor(string first_name, string last_name, Speciality speciality)
     : Employee(first_name, last_name)
 {

@@ -2,8 +2,9 @@
 #include "Room.h"
 #include "Assistant.h"
 
-
 using namespace std;
+
+Assistant::Assistant() : Employee() {}
 
 Assistant::Assistant(string first_name, string last_name)
     : Employee(first_name, last_name)
