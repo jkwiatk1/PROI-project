@@ -75,6 +75,7 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::NURSE) {
             searchNurse(command, errors, results);
         } else if (object_type == CommandObject::PARAMEDIC) {
+            searchParamedic(command, errors, results);
         } else if (object_type == CommandObject::ASSISTANT) {
         } else if (object_type == CommandObject::DEPARTMENT) {
             searchDepartment(command, errors, results);
@@ -280,6 +281,21 @@ void CommandExecutor::searchNurse(Command &command, Errors &errors,
         nurse.setLastName(object.getProperty(CommandObject::LAST_NAME));
 
     auto result = data_container.findNurses(nurse);
+    if (result.size() != 0)
+        results.addResult(result);
+}
+
+void CommandExecutor::searchParamedic(Command &command, Errors &errors,
+                                      Results &results)
+{
+    auto object = command.getObject(0);
+    Paramedic paramedic;
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        paramedic.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        paramedic.setLastName(object.getProperty(CommandObject::LAST_NAME));
+
+    auto result = data_container.findParamedics(paramedic);
     if (result.size() != 0)
         results.addResult(result);
 }

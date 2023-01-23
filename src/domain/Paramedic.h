@@ -12,5 +12,6 @@ class Paramedic : public Employee
 
     void doFirstAid(Patient &patient);
 
+    friend std::ostream &operator<<(std::ostream &s, const Paramedic &paramedic);
 };
 

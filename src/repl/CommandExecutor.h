@@ -28,6 +28,7 @@ class CommandExecutor
     void searchPatient(Command &command, Errors &errors, Results &results);
     void searchDoctor(Command &command, Errors &errors, Results &results);
     void searchNurse(Command &command, Errors &errors, Results &results);
+    void searchParamedic(Command &command, Errors &errors, Results &results);
     void searchDepartment(Command &command, Errors &errors, Results &results);
 
   public:

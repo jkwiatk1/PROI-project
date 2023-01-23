@@ -61,7 +61,7 @@ void Repl::print_results(Results &results)
         os << "- " << *p << std::endl;
     }
     for (auto p : results.paramedics) {
-        os << "- " << p << std::endl;
+        os << "- " << *p << std::endl;
     }
     for (auto p : results.assistants) {
         os << "- " << p << std::endl;
