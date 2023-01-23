@@ -23,6 +23,8 @@ Errors CommandValidator::validate(Command &command)
         validate_update(command, errors);
     } else if (command_type == Command::SEARCH_COMMAND) {
         validate_search(command, errors);
+    } else if (command_type == Command::EXAMINE_COMMAND) {
+        validate_examine(command, errors);
     } else {
         std::string error = "Invalid command type: `" + command_type + "`";
         errors.addError(error);
@@ -232,5 +234,28 @@ void CommandValidator::validate_search(Command &command, Errors &errors)
     }
     if (type == CommandObject::DOCTOR) {
         is_doctor_speciality(object, CommandObject::SPECIALITY, errors);
+    }
+}
+
+void CommandValidator::validate_examine(Command &command, Errors &errors)
+{
+    auto doctor = command.getObject(0);
+    auto patient = command.getObject(1);
+
+    has_id(doctor, errors);
+    has_id(patient, errors);
+
+    auto doctor_type = doctor.getType();
+    if (doctor_type != CommandObject::DOCTOR) {
+        std::string error;
+        error = "Invalid type '" + doctor_type + "'. Should be 'doctor'";
+        errors.addError(error);
+    }
+
+    auto patient_type = patient.getType();
+    if (patient_type != CommandObject::PATIENT) {
+        std::string error;
+        error = "Invalid type '" + patient_type + "'. Should be 'patient'";
+        errors.addError(error);
     }
 }

@@ -111,7 +111,8 @@ void Repl::execute_command(std::string &commandline)
         return;
     }
 
-    os << tree->toStringTree(&parser) << std::endl;
+    // TODO: add a --debug program option
+    // os << tree->toStringTree(&parser) << std::endl;
 
     auto result = parse_tree_to_command(tree);
     if (!result.has_value())
@@ -119,7 +120,8 @@ void Repl::execute_command(std::string &commandline)
 
     auto command = result.value();
 
-    std::cout << command << std::endl;
+    // TODO: add a --debug program option
+    // std::cout << command << std::endl;
 
     auto validation_errors = CommandValidator::validate(command);
     if (validation_errors.exist()) {
