@@ -62,6 +62,7 @@ public:
     void PerformSurgery(int doctor_id, int patient_id) override;
     void Discharge(int id) override;
     void Hospitalize(int patient_id, int assistant_id) override;
+    void AssignRoom(int patient_id, int assistant_id, int room_no) override;
 
     std::vector<Patient *> findPatients(Patient patient_template) override;
     std::vector<Doctor *> findDoctors(Doctor doctor_template) override;

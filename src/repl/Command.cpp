@@ -20,7 +20,7 @@ const std::string Command::ASSIGN_ROOM_COMMAND = "assign_room";
 
 const std::string Command::MEDICINE = "med";
 const std::string Command::REASON = "reason";
-const std::string Command::ROOM_NO = "room_no";
+const std::string Command::ROOM_NO = "number";
 
 Command::Command(void)
 {

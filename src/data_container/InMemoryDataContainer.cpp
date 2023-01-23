@@ -283,6 +283,19 @@ void InMemoryDataContainer::Hospitalize(int patient_id, int assistant_id)
             "Assistant ID not found in the map.\nFirst add this patient to data base.\n");
 }
 
+void InMemoryDataContainer::AssignRoom(int patient_id, int assistant_id, int room_no)
+{
+    // auto room = GetRoom(room_no);
+    // if (Patients_DC.count(patient_id) != 0
+    //     && Assistants_DC.count(assistant_id) != 0 && room.has_value()) {
+    //     Assistants_DC[assistant_id]->putPatient(*Patients_DC[patient_id], *room.value());
+    // } else if (Patients_DC.count(patient_id) == 0) {
+    //     throw std::out_of_range(
+    //         "Patient ID not found in the data base.\nCheck is it correct.\n");
+    // } else
+    //     throw std::out_of_range(
+    //         "Assistant ID not found in the map.\nFirst add this patient to data base.\n");
+}
 
 // TODO: make `findX` use fuzzyFind.
 std::vector<Patient *>

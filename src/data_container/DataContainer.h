@@ -50,6 +50,7 @@ class DataContainer
     virtual void PerformSurgery(int doctor_id, int patient_id) = 0;
     virtual void Discharge(int id) = 0;
     virtual void Hospitalize(int patient_id, int assistant_id) = 0;
+    virtual void AssignRoom(int assistant_id, int patient_id, int room_no) = 0;
 
 
     virtual std::vector<Patient *> findPatients(Patient patient_template) = 0;
