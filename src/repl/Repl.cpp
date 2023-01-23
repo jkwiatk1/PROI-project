@@ -37,16 +37,6 @@ void Repl::print_exit_message(void)
     os << farewell << std::endl;
 }
 
-void Repl::print_success_message(std::string operation)
-{
-    os << operation << " completed succesfully!" << std::endl;
-}
-
-void Repl::print_failure_message(std::string operation)
-{
-    os << operation << " failed!" << std::endl;
-}
-
 void Repl::print_results(Results &results)
 {
     os << "# Results:" << std::endl;
@@ -142,7 +132,6 @@ void Repl::execute_command(std::string &commandline)
         print_errors(execution_errors);
         return;
     }
-    print_success_message(command.getType());
     if (results.exist())
         print_results(results);
 }
