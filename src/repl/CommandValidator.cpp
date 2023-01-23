@@ -6,6 +6,7 @@
 #include "CommandValidator.h"
 #include "Command.h"
 #include "Errors.h"
+#include "Doctor.h"
 
 
 // TODO: make this function return more specific errors.
@@ -42,6 +43,7 @@ void CommandValidator::validate_add(Command &command, Errors &errors)
     } else if (type == CommandObject::DOCTOR) {
         has_first_name_and_last_name(object, errors);
         has_property(object, CommandObject::SPECIALITY, errors);
+        is_doctor_speciality(object, CommandObject::SPECIALITY, errors);
     } else if (type == CommandObject::NURSE) {
         has_first_name_and_last_name(object, errors);
     } else if (type == CommandObject::PARAMEDIC) {
@@ -96,6 +98,30 @@ void CommandValidator::is_int(CommandObject &object, std::string property,
         error = "Property `" + property
                 + "` has an integer value which is too high";
         errors.addError(error);
+    }
+}
+
+void CommandValidator::is_doctor_speciality(CommandObject &object,
+                                            std::string property,
+                                            Errors &errors)
+{
+    if (!object.hasProperty(property))
+        return;
+    auto value = object.getProperty(property);
+    auto maybe_speciality = Doctor::parseSpeciality(value);
+    if (!maybe_speciality.has_value()) {
+        std::string error = "Invalid speciality: '" + value + "'";
+        errors.addError(error);
+        std::string suggestion = "Valid specialities: ";
+        suggestion += "[";
+        bool first = true;
+        for (auto val : Doctor::getSpecialities()) {
+            if (!first) suggestion += ", ";
+            suggestion += val;
+            first = false;
+        }
+        suggestion += "]";
+        errors.addError(suggestion);
     }
 }
 
@@ -163,6 +189,7 @@ void CommandValidator::validate_update(Command &command, Errors &errors)
                 {CommandObject::FIRST_NAME, CommandObject::LAST_NAME,
                  CommandObject::SPECIALITY},
                 errors);
+        is_doctor_speciality(object, CommandObject::SPECIALITY, errors);
     } else if (type == CommandObject::NURSE) {
         has_id(object, errors);
         has_any(object, {CommandObject::FIRST_NAME, CommandObject::LAST_NAME},

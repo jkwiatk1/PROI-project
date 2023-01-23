@@ -1,3 +1,4 @@
+#include <iostream>
 #include "InMemoryDataContainer.h"
 #include "Doctor.h"
 
@@ -125,8 +126,10 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
 
 void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 {
+    std::cout << modified_patient << std::endl;
     if (Patients_DC.count(id) > 0) {
         *Patients_DC[id] = modified_patient;
+        std::cout << *Patients_DC[id] << std::endl;
         *HospitalizedPatients_DC[id] = modified_patient;
     } else
         throw std::out_of_range("Patient ID not found in the data base\n.");

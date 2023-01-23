@@ -34,8 +34,7 @@ void Doctor::prescribeMedicine(Patient &patient, vector<string> medicines)
 {
     string entry_message = "Prescribed medicines: ";
     int size = medicines.size();
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++) {
         entry_message += medicines[i];
         if (i < size - 1)
             entry_message += ", ";
@@ -46,6 +45,24 @@ void Doctor::prescribeMedicine(Patient &patient, vector<string> medicines)
 
 bool Doctor::fuzzyEquals(const Doctor &other)
 {
-    return Person::fuzzyEquals(other) &&
-        this->speciality == other.speciality;
+    return Person::fuzzyEquals(other) && this->speciality == other.speciality;
+}
+
+std::optional<Speciality> Doctor::parseSpeciality(std::string speciality)
+{
+    if (speciality == "Ophthalmologist")
+        return Speciality::Ophthalmologist;
+    else if (speciality == "Surgeon")
+        return Speciality::Surgeon;
+    else if (speciality == "Cardiologist")
+        return Speciality::Cardiologist;
+    else if (speciality == "Neurologist")
+        return Speciality::Neurologist;
+    else
+        return {};
+}
+
+std::vector<std::string> Doctor::getSpecialities(void)
+{
+    return {"Ophthalmologist", "Surgeon", "Cardiologist", "Neurologist"};
 }

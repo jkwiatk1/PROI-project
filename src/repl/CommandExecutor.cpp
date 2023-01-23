@@ -180,5 +180,34 @@ void CommandExecutor::updatePatient(Command &command, Errors &errors)
     }
 
     auto patient = maybe_patient.value();
-    // TODO: finish
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        patient.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        patient.setLastName(object.getProperty(CommandObject::LAST_NAME));
+
+    data_container.ModifyPatient(std::stoi(id), patient);
+}
+
+void CommandExecutor::updateDoctor(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto id = object.getProperty(CommandObject::ID);
+    auto maybe_doctor = data_container.GetDoctor(std::stoi(id));
+    if (!maybe_doctor.has_value()) {
+        std::string error = "Doctor with id '" + id + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+
+    auto doctor = maybe_doctor.value();
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        doctor.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        doctor.setLastName(object.getProperty(CommandObject::LAST_NAME));
+    if (object.hasProperty(CommandObject::SPECIALITY))
+        doctor.setSpeciality(Doctor::parseSpeciality(
+                                 object.getProperty(CommandObject::SPECIALITY))
+                                 .value());
+
+    data_container.ModifyDoctor(std::stoi(id), doctor);
 }

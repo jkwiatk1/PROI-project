@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Patient.h"
 
 using namespace std;
@@ -44,4 +45,10 @@ void Patient::exitRoom()
 void Patient::addEntry(Entry entry)
 {
     health_card.push_back(entry);
+}
+
+std::ostream &operator<<(std::ostream &s, const Patient &patient)
+{
+    return s << "Patient{first_name = " << patient.getFirstName()
+             << ", last_name = " << patient.getLastName() << "}";
 }

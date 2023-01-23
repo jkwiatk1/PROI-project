@@ -21,6 +21,7 @@ class CommandExecutor
     void deleteDepartment(Command &command, Errors &errors);
     void deleteRoom(Command &command, Errors &errors);
     void updatePatient(Command &command, Errors &errors);
+    void updateDoctor(Command &command, Errors &errors);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)
