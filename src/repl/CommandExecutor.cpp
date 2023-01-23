@@ -65,8 +65,11 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::PARAMEDIC) {
             updateParamedic(command, errors);
         } else if (object_type == CommandObject::ASSISTANT) {
+            updateAssistant(command, errors);
         } else if (object_type == CommandObject::DEPARTMENT) {
+            updateDepartment(command, errors);
         } else if (object_type == CommandObject::ROOM) {
+            updateRoom(command, errors);
         }
     } else if (command_type == Command::SEARCH_COMMAND) {
         auto object_type = command.getObject(0).getType();
@@ -204,6 +207,30 @@ void CommandExecutor::updatePatient(Command &command, Errors &errors)
     data_container.ModifyPatient(std::stoi(id), patient);
 }
 
+void CommandExecutor::updateDoctor(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto id = object.getProperty(CommandObject::ID);
+    auto maybe_doctor = data_container.GetDoctor(std::stoi(id));
+    if (!maybe_doctor.has_value()) {
+        std::string error = "Doctor with id '" + id + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+
+    auto doctor = maybe_doctor.value();
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        doctor.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        doctor.setLastName(object.getProperty(CommandObject::LAST_NAME));
+    if (object.hasProperty(CommandObject::SPECIALITY))
+        doctor.setSpeciality(Doctor::parseSpeciality(
+                                 object.getProperty(CommandObject::SPECIALITY))
+                                 .value());
+
+    data_container.ModifyDoctor(std::stoi(id), doctor);
+}
+
 void CommandExecutor::updateNurse(Command &command, Errors &errors)
 {
     auto object = command.getObject(0);
@@ -244,28 +271,56 @@ void CommandExecutor::updateParamedic(Command &command, Errors &errors)
     data_container.ModifyParamedic(std::stoi(id), paramedic);
 }
 
-void CommandExecutor::updateDoctor(Command &command, Errors &errors)
+void CommandExecutor::updateAssistant(Command &command, Errors &errors)
 {
     auto object = command.getObject(0);
     auto id = object.getProperty(CommandObject::ID);
-    auto maybe_doctor = data_container.GetDoctor(std::stoi(id));
-    if (!maybe_doctor.has_value()) {
-        std::string error = "Doctor with id '" + id + "' does not exist";
+    auto maybe_assistant = data_container.GetAssistant(std::stoi(id));
+    if (!maybe_assistant.has_value()) {
+        std::string error = "Nurse with id '" + id + "' does not exist";
         errors.addError(error);
         return;
     }
 
-    auto doctor = maybe_doctor.value();
+    auto assistant = maybe_assistant.value();
     if (object.hasProperty(CommandObject::FIRST_NAME))
-        doctor.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+        assistant.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
     if (object.hasProperty(CommandObject::LAST_NAME))
-        doctor.setLastName(object.getProperty(CommandObject::LAST_NAME));
-    if (object.hasProperty(CommandObject::SPECIALITY))
-        doctor.setSpeciality(Doctor::parseSpeciality(
-                                 object.getProperty(CommandObject::SPECIALITY))
-                                 .value());
+        assistant.setLastName(object.getProperty(CommandObject::LAST_NAME));
 
-    data_container.ModifyDoctor(std::stoi(id), doctor);
+    data_container.ModifyAssistivePersonnel(std::stoi(id), assistant);
+}
+
+void CommandExecutor::updateDepartment(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto old_name = object.getProperty(CommandObject::DEPARTMENT_NAME2);
+    auto new_name = object.getProperty(CommandObject::DEPARTMENT_NEW_NAME);
+    auto maybe_department = data_container.GetDepartment(old_name);
+    if (!maybe_department.has_value()) {
+        std::string error = "Department '" + old_name + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+    auto department = maybe_department.value();
+    department.setName(new_name);
+    data_container.ModifyDepartament(old_name, department);
+}
+
+void CommandExecutor::updateRoom(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto old_no = object.getProperty(CommandObject::DEPARTMENT_NAME2);
+    auto new_no = object.getProperty(CommandObject::DEPARTMENT_NEW_NAME);
+    auto maybe_room = data_container.GetRoom(std::stoi(old_no));
+    if (!maybe_room.has_value()) {
+        std::string error = "Department '" + old_no + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+    auto room = maybe_room.value();
+    room.setNr(std::stoi(new_no));
+    data_container.ModifyRoom(std::stoi(old_no), room);
 }
 
 void CommandExecutor::searchPatient(Command &command, Errors &errors,
@@ -277,6 +332,8 @@ void CommandExecutor::searchPatient(Command &command, Errors &errors,
         patient.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
     if (object.hasProperty(CommandObject::LAST_NAME))
         patient.setLastName(object.getProperty(CommandObject::LAST_NAME));
+    if (object.hasProperty(CommandObject::SHOW_CARD))
+        results.setShowPatientInfo(true);
 
     auto result = data_container.findPatients(patient);
     if (result.size() != 0)
@@ -309,6 +366,8 @@ void CommandExecutor::searchDepartment(Command &command, Errors &errors,
     std::string department;
     if (object.hasProperty(CommandObject::DEPARTMENT_NAME))
         department = object.getProperty(CommandObject::DEPARTMENT_NAME);
+    if (object.hasProperty(CommandObject::INFO))
+        results.setShowDepartmentInfo(true);
 
     auto result = data_container.findDepartments(department);
     if (result.size() != 0)

@@ -9,6 +9,10 @@
 #include "Patient.h"
 
 class Results {
+    private:
+        bool showPatientInfo = false;
+        bool showDepartmentInfo = false;
+
     public:
         std::vector<Patient *> patients;
         std::vector<Doctor *> doctors;
@@ -23,4 +27,8 @@ class Results {
         void addResult(std::vector<Assistant *> &v);
         void addResult(std::vector<Department *> &v);
         bool exist(void);
+        bool getShowPatientInfo(void) const;
+        void setShowPatientInfo(bool);
+        bool getShowDepartmentInfo(void) const;
+        void setShowDepartmentInfo(bool);
 };

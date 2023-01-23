@@ -31,3 +31,20 @@ void Results::addResult(std::vector<Department *> &v)
 {
     departments.insert(departments.end(), v.begin(), v.end());
 }
+
+bool Results::getShowPatientInfo(void) const
+{
+    return showPatientInfo;
+}
+void Results::setShowPatientInfo(bool show)
+{
+    showPatientInfo = show;
+}
+bool Results::getShowDepartmentInfo(void) const
+{
+    return showDepartmentInfo;
+}
+void Results::setShowDepartmentInfo(bool show)
+{
+    showDepartmentInfo = show;
+}

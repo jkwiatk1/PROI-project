@@ -11,5 +11,6 @@ class Entry
 
   public:
     Entry(std::string action, Employee *performer);
+    friend std::ostream &operator<<(std::ostream &s, const Entry &entry);
 };
 
