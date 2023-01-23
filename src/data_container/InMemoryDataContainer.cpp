@@ -201,8 +201,21 @@ void InMemoryDataContainer::ModifyDepartament(std::string departament_name,
             "Departament name not found in the data base\n.");
 }
 
-void InMemoryDataContainer::ModifyRoom(int room_no, Room)
+void InMemoryDataContainer::ModifyRoom(int room_no, Room modified_room)
 {
+    bool for_exeption_throw = true;
+    for (const auto &[key, departament_temp] : Department_DC) {
+        for(auto it : departament_temp->getDepartmentRooms()){
+            if(it.getNr() == room_no)
+            {
+                for_exeption_throw = false;
+                Department_DC[key]->removeRoom(it);
+                Department_DC[key]->addRoom(modified_room);
+            }
+        }
+    }
+    if(for_exeption_throw == true)
+        throw std::out_of_range("Cannot modify this room.\nThis room not found in the data base.\n");     
 }
 
 
