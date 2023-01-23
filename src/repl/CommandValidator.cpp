@@ -30,6 +30,7 @@ Errors CommandValidator::validate(Command &command)
     } else if (command_type == Command::ADMINISTER_COMMAND) {
         validate_administer(command, errors);
     } else if (command_type == Command::SURGERY_COMMAND) {
+        validate_surgery(command, errors);
     } else if (command_type == Command::HOSPITALIZE_COMMAND) {
     } else if (command_type == Command::ASSIGN_ROOM_COMMAND) {
     } else if (command_type == Command::DISCHARGE_COMMAND) {
@@ -306,6 +307,29 @@ void CommandValidator::validate_administer(Command &command, Errors &errors)
     if (nurse_type != CommandObject::NURSE) {
         std::string error;
         error = "Invalid type '" + nurse_type + "'. Should be 'nurse'";
+        errors.addError(error);
+    }
+
+    auto patient_type = patient.getType();
+    if (patient_type != CommandObject::PATIENT) {
+        std::string error;
+        error = "Invalid type '" + patient_type + "'. Should be 'patient'";
+        errors.addError(error);
+    }
+}
+
+void CommandValidator::validate_surgery(Command &command, Errors &errors)
+{
+    auto doctor = command.getObject(0);
+    auto patient = command.getObject(1);
+
+    has_id(doctor, errors);
+    has_id(patient, errors);
+
+    auto doctor_type = doctor.getType();
+    if (doctor_type != CommandObject::DOCTOR) {
+        std::string error;
+        error = "Invalid type '" + doctor_type + "'. Should be 'doctor'";
         errors.addError(error);
     }
 
