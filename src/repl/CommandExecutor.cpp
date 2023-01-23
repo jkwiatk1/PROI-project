@@ -89,6 +89,14 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
             std::string error = "You can't search for rooms!";
             errors.addError(error);
         }
+    } else if (command_type == Command::EXAMINE_COMMAND) {
+        examine(command, errors);
+    } else if (command_type == Command::PRESCRIBE_COMMAND) {
+    } else if (command_type == Command::ADMINISTER_COMMAND) {
+    } else if (command_type == Command::SURGERY_COMMAND) {
+    } else if (command_type == Command::HOSPITALIZE_COMMAND) {
+    } else if (command_type == Command::ASSIGN_ROOM_COMMAND) {
+    } else if (command_type == Command::DISCHARGE_COMMAND) {
     } else {
         std::string error = "Unknown command type: '" + command_type + "'";
         errors.addError(error);
@@ -417,4 +425,15 @@ void CommandExecutor::searchAssistant(Command &command, Errors &errors,
     auto result = data_container.findAssistants(assistant);
     if (result.size() != 0)
         results.addResult(result);
+}
+
+void CommandExecutor::examine(Command &command, Errors &errors)
+{
+    auto doctor_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    try {
+        data_container.PerformExamination(doctor_id, patient_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Patient or doctor with the specified id does not exist");
+    }
 }

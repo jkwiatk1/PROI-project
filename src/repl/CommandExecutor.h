@@ -39,6 +39,8 @@ class CommandExecutor
     void searchDepartment(Command &command, Errors &errors, Results &results);
     void searchAssistant(Command &command, Errors &errors, Results &results);
 
+    void examine(Command &command, Errors &errors);
+
   public:
     CommandExecutor(DataContainer &container) : data_container(container)
     {
