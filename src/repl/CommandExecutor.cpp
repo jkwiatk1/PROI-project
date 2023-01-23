@@ -1,78 +1,109 @@
 #include "CommandExecutor.h"
+#include "Command.h"
 #include "CommandObject.h"
+#include "DataContainer.h"
 #include "Errors.h"
+#include <stdexcept>
 #include <string>
 
 
 // TODO: implement fully
 Errors CommandExecutor::executeCommand(Command &command)
 {
-    if (command.getType() == Command::ADD_COMMAND) {
+    Errors errors;
+    auto command_type = command.getType();
+    if (command_type == Command::ADD_COMMAND) {
         auto object_type = command.getObject(0).getType();
         if (object_type == CommandObject::PATIENT) {
-            addPatient(command);
+            addPerson(command, &DataContainer::AddPatient, errors);
         } else if (object_type == CommandObject::DOCTOR) {
-            addDoctor(command);
+            addDoctor(command, errors);
         } else if (object_type == CommandObject::NURSE) {
-            addDoctor(command);
+            addPerson(command, &DataContainer::AddNurse, errors);
         } else if (object_type == CommandObject::PARAMEDIC) {
-            addParamedic(command);
+            addPerson(command, &DataContainer::AddParamedic, errors);
         } else if (object_type == CommandObject::ASSISTANT) {
-            addAssistant(command);
+            addPerson(command, &DataContainer::AddAssistivePersonnel, errors);
         } else if (object_type == CommandObject::DEPARTMENT) {
-            return addDepartment(command);
+            addDepartment(command, errors);
         } else if (object_type == CommandObject::ROOM) {
-            return addRoom(command);
+            addRoom(command, errors);
         }
-        return Errors();
+    } else if (command_type == Command::DELETE_COMMAND) {
+        auto object_type = command.getObject(0).getType();
+        if (object_type == CommandObject::PATIENT) {
+            deletePerson(command, &DataContainer::DeletePatient, "Patient",
+                         errors);
+        } else if (object_type == CommandObject::DOCTOR) {
+            deletePerson(command, &DataContainer::DeleteDoctor, "Doctor",
+                         errors);
+        } else if (object_type == CommandObject::NURSE) {
+            deletePerson(command, &DataContainer::DeleteNurse, "Nurse", errors);
+        } else if (object_type == CommandObject::PARAMEDIC) {
+            deletePerson(command, &DataContainer::DeleteParamedic, "Paramedic",
+                         errors);
+        } else if (object_type == CommandObject::ASSISTANT) {
+            deletePerson(command, &DataContainer::DeleteAssistivePersonnel,
+                         "Assistant", errors);
+        } else if (object_type == CommandObject::DEPARTMENT) {
+            deleteDepartment(command, errors);
+        } else if (object_type == CommandObject::ROOM) {
+            deleteRoom(command, errors);
+        }
+    } else if (command_type == Command::UPDATE_COMMAND) {
+        auto object_type = command.getObject(0).getType();
+        if (object_type == CommandObject::PATIENT) {
+            updatePatient(command, errors);
+        } else if (object_type == CommandObject::DOCTOR) {
+            // deletePerson(command, &DataContainer::DeleteDoctor, "Doctor",
+            //              errors);
+        } else if (object_type == CommandObject::NURSE) {
+            // deletePerson(command, &DataContainer::DeleteNurse, "Nurse",
+            // errors);
+        } else if (object_type == CommandObject::PARAMEDIC) {
+            // deletePerson(command, &DataContainer::DeleteParamedic,
+            // "Paramedic",
+            //              errors);
+        } else if (object_type == CommandObject::ASSISTANT) {
+            // deletePerson(command, &DataContainer::DeleteAssistivePersonnel,
+            //              "Assistant", errors);
+        } else if (object_type == CommandObject::DEPARTMENT) {
+            // deleteDepartment(command, errors);
+        } else if (object_type == CommandObject::ROOM) {
+            // deleteRoom(command, errors);
+        }
+    } else {
+        std::string error = "Unknown command type: '" + command_type + "'";
+        errors.addError(error);
     }
-    return Errors();
+
+    return errors;
 }
 
-void CommandExecutor::addPatient(Command &command)
+void CommandExecutor::addPerson(Command &command,
+                                void (DataContainer::*f)(std::string first_name,
+                                                         std::string last_name),
+                                Errors &errors)
 {
     auto object = command.getObject(0);
     auto first_name = object.getProperty(CommandObject::FIRST_NAME);
     auto last_name = object.getProperty(CommandObject::LAST_NAME);
-    data_container.AddPatient(first_name, last_name);
+    (data_container.*f)(first_name, last_name);
 }
 
-void CommandExecutor::addDoctor(Command &command)
+void CommandExecutor::addDoctor(Command &command, Errors &errors)
 {
     auto object = command.getObject(0);
     auto first_name = object.getProperty(CommandObject::FIRST_NAME);
     auto last_name = object.getProperty(CommandObject::LAST_NAME);
-    auto speciality = object.getProperty(CommandObject::SPECIALITY);
+    auto speciality =
+        Doctor::parseSpeciality(object.getProperty(CommandObject::SPECIALITY))
+            .value();
     data_container.AddDoctor(first_name, last_name, speciality);
 }
 
-void CommandExecutor::addNurse(Command &command)
+void CommandExecutor::addDepartment(Command &command, Errors &errors)
 {
-    auto object = command.getObject(0);
-    auto first_name = object.getProperty(CommandObject::FIRST_NAME);
-    auto last_name = object.getProperty(CommandObject::LAST_NAME);
-    data_container.AddNurse(first_name, last_name);
-}
-
-void CommandExecutor::addParamedic(Command &command)
-{
-    auto object = command.getObject(0);
-    auto first_name = object.getProperty(CommandObject::FIRST_NAME);
-    auto last_name = object.getProperty(CommandObject::LAST_NAME);
-    data_container.AddParamedic(first_name, last_name);
-}
-
-void CommandExecutor::addAssistant(Command &command)
-{
-    auto object = command.getObject(0);
-    auto first_name = object.getProperty(CommandObject::FIRST_NAME);
-    auto last_name = object.getProperty(CommandObject::LAST_NAME);
-    data_container.AddAssistivePersonnel(first_name, last_name);
-}
-
-Errors CommandExecutor::addDepartment(Command &command)
-{
-    Errors errors;
     auto object = command.getObject(0);
     auto department_name = object.getProperty(CommandObject::DEPARTMENT_NAME);
     try {
@@ -83,12 +114,10 @@ Errors CommandExecutor::addDepartment(Command &command)
         error = "Department with name '" + department_name + "' already exists";
         errors.addError(error);
     }
-    return errors;
 }
 
-Errors CommandExecutor::addRoom(Command &command)
+void CommandExecutor::addRoom(Command &command, Errors &errors)
 {
-    Errors errors;
     auto object = command.getObject(0);
     auto department_name = object.getProperty(CommandObject::DEPARTMENT_NAME2);
     auto room_no = std::stoi(object.getProperty(CommandObject::ROOM_NO));
@@ -100,5 +129,87 @@ Errors CommandExecutor::addRoom(Command &command)
         error = "Department '" + department_name + "' does not exist";
         errors.addError(error);
     }
-    return errors;
+}
+
+void CommandExecutor::deletePerson(Command &command,
+                                   void (DataContainer::*f)(int),
+                                   std::string object_type, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto id = object.getProperty(CommandObject::ID);
+    try {
+        (data_container.*f)(std::stoi(id));
+    } catch (std::out_of_range &e) {
+        std::string error =
+            object_type + " with id '" + id + "' does not exist";
+        errors.addError(error);
+    }
+}
+
+void CommandExecutor::deleteDepartment(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto department = object.getProperty(CommandObject::DEPARTMENT_NAME2);
+    try {
+        data_container.DeleteDepartament(department);
+    } catch (std::out_of_range &e) {
+        std::string error = "Department '" + department + "' does not exist";
+        errors.addError(error);
+    }
+}
+
+void CommandExecutor::deleteRoom(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto room_no = object.getProperty(CommandObject::ROOM_NO);
+    try {
+        data_container.DeleteRoom(std::stoi(room_no));
+    } catch (std::out_of_range &e) {
+        std::string error = "Room '" + room_no + "' does not exist";
+        errors.addError(error);
+    }
+}
+
+void CommandExecutor::updatePatient(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto id = object.getProperty(CommandObject::ID);
+    auto maybe_patient = data_container.GetPatient(std::stoi(id));
+    if (!maybe_patient.has_value()) {
+        std::string error = "Patient with id '" + id + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+
+    auto patient = maybe_patient.value();
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        patient.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        patient.setLastName(object.getProperty(CommandObject::LAST_NAME));
+
+    data_container.ModifyPatient(std::stoi(id), patient);
+}
+
+void CommandExecutor::updateDoctor(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto id = object.getProperty(CommandObject::ID);
+    auto maybe_doctor = data_container.GetDoctor(std::stoi(id));
+    if (!maybe_doctor.has_value()) {
+        std::string error = "Doctor with id '" + id + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+
+    auto doctor = maybe_doctor.value();
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        doctor.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        doctor.setLastName(object.getProperty(CommandObject::LAST_NAME));
+    if (object.hasProperty(CommandObject::SPECIALITY))
+        doctor.setSpeciality(Doctor::parseSpeciality(
+                                 object.getProperty(CommandObject::SPECIALITY))
+                                 .value());
+
+    data_container.ModifyDoctor(std::stoi(id), doctor);
 }

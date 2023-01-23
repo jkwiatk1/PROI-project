@@ -1,3 +1,4 @@
+#include <iostream>
 #include "InMemoryDataContainer.h"
 #include "Doctor.h"
 
@@ -11,12 +12,12 @@ void InMemoryDataContainer::AddPatient(std::string first_name,
 
 void InMemoryDataContainer::AddDoctor(std::string first_name,
                                       std::string last_name,
-                                      std::string speciality)
+                                      Speciality speciality)
 {
     // TODO: parse `std::string speciality` into `enum Specialities` and pass
     // the resulting value into the Doctor constructor:
     Doctor *doctor =
-        new Doctor(first_name, last_name, Speciality::Cardiologist);
+        new Doctor(first_name, last_name, speciality);
     Doctors_DC.insert({doctor->getID(), doctor});
 }
 
@@ -125,8 +126,10 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
 
 void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 {
+    std::cout << modified_patient << std::endl;
     if (Patients_DC.count(id) > 0) {
         *Patients_DC[id] = modified_patient;
+        std::cout << *Patients_DC[id] << std::endl;
         *HospitalizedPatients_DC[id] = modified_patient;
     } else
         throw std::out_of_range("Patient ID not found in the data base\n.");
@@ -289,3 +292,45 @@ InMemoryDataContainer::FindInContainer(T object_template,
 
     return founds;
 }
+
+std::optional<Patient> InMemoryDataContainer::GetPatient(int id)
+{
+    if (Patients_DC.count(id) > 0)
+        return *Patients_DC[id];
+    return {};
+};
+std::optional<Doctor> InMemoryDataContainer::GetDoctor(int id)
+{
+    if (Doctors_DC.count(id) > 0)
+        return *Doctors_DC[id];
+    return {};
+};
+std::optional<Nurse> InMemoryDataContainer::GetNurse(int id)
+{
+    if (Nurses_DC.count(id) > 0)
+        return *Nurses_DC[id];
+    return {};
+};
+std::optional<Paramedic> InMemoryDataContainer::GetParamedic(int id)
+{
+    if (Paramedics_DC.count(id) > 0)
+        return *Paramedics_DC[id];
+    return {};
+};
+std::optional<Assistant> InMemoryDataContainer::GetAssistant(int id)
+{
+    if (Assistants_DC.count(id) > 0)
+        return *Assistants_DC[id];
+    return {};
+};
+std::optional<Department> InMemoryDataContainer::GetDepartment(std::string department_name)
+{
+    if (Department_DC.count(department_name) > 0)
+        return *Department_DC[department_name];
+    return {};
+};
+std::optional<Room> InMemoryDataContainer::GetRoom(int room_no)
+{
+    // TODO: implement
+    return {};
+};

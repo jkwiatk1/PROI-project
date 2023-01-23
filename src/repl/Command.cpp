@@ -8,7 +8,7 @@
 
 const std::string Command::ADD_COMMAND = "add";
 const std::string Command::DELETE_COMMAND = "delete";
-const std::string Command::UPDATE_COMMAND = "modify";
+const std::string Command::UPDATE_COMMAND = "update";
 const std::string Command::SEARCH_COMMAND = "search";
 const std::string Command::EXAMINE_COMMAND = "examine";
 const std::string Command::PRESCRIBE_COMMAND = "prescribe";
@@ -114,6 +114,6 @@ std::ostream &operator<<(std::ostream &s, const Command &command)
             first = false;
     }
     s << "}" << std::endl;
-    s << "}" << std::endl;
+    s << "}";
     return s;
 }

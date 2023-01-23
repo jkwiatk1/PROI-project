@@ -97,15 +97,15 @@ void Repl::execute_command(std::string &commandline)
 
     std::cout << command << std::endl;
 
-    auto errors = CommandValidator::validate(command);
-    if (errors.exist()) {
-        print_errors(errors);
+    auto validation_errors = CommandValidator::validate(command);
+    if (validation_errors.exist()) {
+        print_errors(validation_errors);
         return;
     }
 
-    auto errors2 = command_executor.executeCommand(command);
-    if (errors.exist()) {
-        print_errors(errors);
+    auto execution_errors = command_executor.executeCommand(command);
+    if (execution_errors.exist()) {
+        print_errors(execution_errors);
     }
 }
 

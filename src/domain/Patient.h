@@ -4,7 +4,8 @@
 
 #include "Person.h"
 #include "Entry.h"
-class Room; // Don't remove, or the project doesn't compile.
+
+class Room; // Don't remove, or the project wont't compile.
 
 enum patient_status { Hospitalized, Discharged };
 
@@ -26,5 +27,7 @@ class Patient : public Person
     void hospitalize();
     void discharge();
     void addEntry(Entry entry);
+    friend std::ostream &operator<<(std::ostream &s, const Patient &patient);
+
 };
 
