@@ -27,6 +27,9 @@ class CommandExecutor
     void updatePatient(Command &command, Errors &errors);
     void updateDoctor(Command &command, Errors &errors);
     void updateNurse(Command &command, Errors &errors);
+    void updateParamedic(Command &command, Errors &errors);
+    void updateDepartment(Command &command, Errors &errors);
+    void updateRoom(Command &command, Errors &errors);
 
     void searchPatient(Command &command, Errors &errors, Results &results);
     void searchDoctor(Command &command, Errors &errors, Results &results);
