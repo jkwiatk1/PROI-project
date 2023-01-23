@@ -92,6 +92,7 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
     } else if (command_type == Command::EXAMINE_COMMAND) {
         examine(command, errors);
     } else if (command_type == Command::PRESCRIBE_COMMAND) {
+        prescribe(command, errors);
     } else if (command_type == Command::ADMINISTER_COMMAND) {
     } else if (command_type == Command::SURGERY_COMMAND) {
     } else if (command_type == Command::HOSPITALIZE_COMMAND) {
@@ -433,6 +434,18 @@ void CommandExecutor::examine(Command &command, Errors &errors)
     auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
     try {
         data_container.PerformExamination(doctor_id, patient_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Patient or doctor with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::prescribe(Command &command, Errors &errors)
+{
+    auto doctor_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    auto meds = command.getArray(0);
+    try {
+        data_container.PrescribeMedication(doctor_id, patient_id, meds);
     } catch (std::out_of_range &x) {
         errors.addError("Patient or doctor with the specified id does not exist");
     }

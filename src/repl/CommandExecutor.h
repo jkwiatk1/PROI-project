@@ -40,6 +40,7 @@ class CommandExecutor
     void searchAssistant(Command &command, Errors &errors, Results &results);
 
     void examine(Command &command, Errors &errors);
+    void prescribe(Command &command, Errors &errors);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)
