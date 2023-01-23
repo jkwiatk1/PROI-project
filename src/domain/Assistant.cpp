@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Patient.h"
 #include "Room.h"
 #include "Assistant.h"
@@ -35,4 +36,11 @@ void Assistant::dischargePatient(Patient *patient)
 
     patient->discharge();
     addEntry(*patient, "Discharged");
+}
+
+std::ostream &operator<<(std::ostream &s, const Assistant &paramedic)
+{
+    return s << "Assistant{id = " << paramedic.getID()
+             << ", first_name = " << paramedic.getFirstName()
+             << ", last_name = " << paramedic.getLastName() << "}";
 }

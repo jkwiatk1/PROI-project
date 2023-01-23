@@ -8,12 +8,14 @@ Person::Person(bool do_id)
 {
     if (do_id)
     {
+        // Do not change the order of the two following operations, or the
+        // search mechanism will catch on fire.
         ID_control++;
         ID = ID_control;
     }
     else
         ID = 0;
-    
+
 }
 
 Person::Person() : Person(false) {}
@@ -56,6 +58,10 @@ void Person::setLastName(string last_name)
 
 bool Person::fuzzyEquals(const Person &other)
 {
-    return this->first_name.rfind(other.first_name,0) == 0 &&
-        this->last_name.rfind(other.last_name,0) == 0;
+    if (other.ID == 0)
+        return this->first_name.rfind(other.first_name,0) == 0 &&
+            this->last_name.rfind(other.last_name,0) == 0;
+    else
+        return this->first_name.rfind(other.first_name,0) == 0 &&
+            this->last_name.rfind(other.last_name,0) == 0 && ID == other.ID;
 }

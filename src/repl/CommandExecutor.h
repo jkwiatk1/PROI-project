@@ -30,6 +30,7 @@ class CommandExecutor
     void searchNurse(Command &command, Errors &errors, Results &results);
     void searchParamedic(Command &command, Errors &errors, Results &results);
     void searchDepartment(Command &command, Errors &errors, Results &results);
+    void searchAssistant(Command &command, Errors &errors, Results &results);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)

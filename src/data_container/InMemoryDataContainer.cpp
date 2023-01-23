@@ -228,6 +228,7 @@ void InMemoryDataContainer::Hospitalize(int id)
 }
 
 
+//TODO: make `findX` use fuzzyFind.
 std::vector<Patient *>
 InMemoryDataContainer::findPatients(Patient patient_template)
 {
@@ -276,7 +277,6 @@ std::vector<T *>
 InMemoryDataContainer::FindInContainer(T object_template,
                                        const std::map<int, T *> &dataBase)
 {
-    //TODO: make this use fuzzyFind
     std::vector<T *> founds;
     std::string template_name = object_template.getFirstName();
     std::string template_lastName = object_template.getLastName();

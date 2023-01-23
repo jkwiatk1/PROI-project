@@ -53,7 +53,6 @@ void Repl::print_results(Results &results)
     for (auto p : results.patients) {
         os << "- " << *p << std::endl;
     }
-    // TODO: replace `p` -> `*p` in the following loops
     for (auto p : results.doctors) {
         os << "- " << *p << std::endl;
     }
@@ -64,7 +63,7 @@ void Repl::print_results(Results &results)
         os << "- " << *p << std::endl;
     }
     for (auto p : results.assistants) {
-        os << "- " << p << std::endl;
+        os << "- " << *p << std::endl;
     }
     for (auto p : results.departments) {
         os << "- " << *p << std::endl;

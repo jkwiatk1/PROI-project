@@ -77,9 +77,12 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::PARAMEDIC) {
             searchParamedic(command, errors, results);
         } else if (object_type == CommandObject::ASSISTANT) {
+            searchAssistant(command, errors, results);
         } else if (object_type == CommandObject::DEPARTMENT) {
             searchDepartment(command, errors, results);
         } else if (object_type == CommandObject::ROOM) {
+            std::string error = "You can't search for rooms!";
+            errors.addError(error);
         }
     } else {
         std::string error = "Unknown command type: '" + command_type + "'";
@@ -296,6 +299,21 @@ void CommandExecutor::searchParamedic(Command &command, Errors &errors,
         paramedic.setLastName(object.getProperty(CommandObject::LAST_NAME));
 
     auto result = data_container.findParamedics(paramedic);
+    if (result.size() != 0)
+        results.addResult(result);
+}
+
+void CommandExecutor::searchAssistant(Command &command, Errors &errors,
+                                      Results &results)
+{
+    auto object = command.getObject(0);
+    Assistant assistant;
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        assistant.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        assistant.setLastName(object.getProperty(CommandObject::LAST_NAME));
+
+    auto result = data_container.findAssistants(assistant);
     if (result.size() != 0)
         results.addResult(result);
 }
