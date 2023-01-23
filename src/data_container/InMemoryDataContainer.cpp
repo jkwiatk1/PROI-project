@@ -42,24 +42,37 @@ void InMemoryDataContainer::AddAssistivePersonnel(std::string first_name,
     Assistants_DC.insert({assistant->getID(), assistant});
 }
 
-// TODO: make this throw an exception, when trying to add a department with a
-// name equal to the name of an existing one.
 void InMemoryDataContainer::AddDepartament(std::string departament_name)
 {
-    Department *department = new Department(departament_name);
-    Department_DC.insert({department->getName(), department});
+    if(Department_DC.count(departament_name) == 0){
+        Department *department = new Department(departament_name);
+        Department_DC.insert({department->getName(), department});
+    }
+    else
+        throw std::out_of_range("There is already a department with that name.\n");
 }
 
-// TODO: throw an exception if adding a duplicate room (same department_name and
-// same room_no)
+
 void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no,
                                     int room_capacity)
 {
     if (Department_DC.count(departament_name) != 0) {
+        for (const auto &[key, departament_temp] : Department_DC) {
+            for(auto it : departament_temp->getDepartmentRooms()){
+                if(it.getNr() == room_no)
+                {
+                    throw std::out_of_range("There already exist a department with that number.\nChange the room number.\n");
+                }
+            }
+        }
         Department_DC[departament_name]->addRoom(Room(room_no, room_capacity));
-    } else
+    } 
+   
+    else
         throw std::out_of_range("There is no department with this name.\n");
 }
+
+
 
 void InMemoryDataContainer::DeletePatient(int id)
 {
@@ -120,7 +133,19 @@ void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
 }
 
 void InMemoryDataContainer::DeleteRoom(int room_no)
-{
+{   
+    bool for_exeption_throw = true;
+    for (const auto &[key, departament_temp] : Department_DC) {
+        for(auto it : departament_temp->getDepartmentRooms()){
+            if(it.getNr() == room_no)
+            {
+                for_exeption_throw = false;
+                departament_temp->removeRoom(it);
+            }
+        }
+    }
+    if(for_exeption_throw == true)
+        throw std::out_of_range("Cannot delete this room.\nThis room not found in the data base.\n");  
 }
 
 

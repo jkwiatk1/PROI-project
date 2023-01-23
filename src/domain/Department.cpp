@@ -47,3 +47,13 @@ bool Department::fuzzyEquals(const Department &other)
 {
     return this->name.rfind(other.name,0) == 0;
 }
+
+
+std::vector<Room> Department::getDepartmentRooms() const
+{
+    std::vector<Room> department_rooms;
+    for(auto it : rooms){
+        department_rooms.push_back(it);
+    }
+    return department_rooms;
+}

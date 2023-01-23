@@ -12,7 +12,7 @@ class Department
   public:
     Department(std::string name);
     std::string getName() const;
-    // std::vector<Room> getRooms() const;
+    std::vector<Room> getDepartmentRooms() const;
     void setName(std::string name);
 
     void addRoom(Room room);
