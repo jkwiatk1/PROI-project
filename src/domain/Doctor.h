@@ -3,23 +3,24 @@
 #include "Employee.h"
 #include "Patient.h"
 
-// TODO: rename Specialities -> Speciality
-enum Specialities { oculist, surgeon, cardiologist, neurologist };
+enum Speciality { Ophthalmologist, Surgeon, Cardiologist, Neurologist };
 
 class Doctor : public Employee
 {
   private:
-    Specialities speciality;
+    Speciality speciality;
 
   public:
     Doctor(std::string first_name, std::string last_name,
-           Specialities speciality);
+           Speciality speciality);
+
+    Speciality getSpeciality() const;
+    void setSpeciality(Speciality speciality);
 
     void examine(Patient &patient);
-    // pytanie czy robic klase Medicine
-    void prescribeMedicine(Patient &patient);
+    void performSurgery(Patient &patient);
+    void prescribeMedicine(Patient &patient, std::vector<std::string> medicines);
 
-    // TODO: implement
-    Doctor& operator=(const Doctor& source); 
+    bool fuzzyEquals(const Doctor &other);
 };
 

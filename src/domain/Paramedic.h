@@ -11,7 +11,5 @@ class Paramedic : public Employee
 
     void doFirstAid(Patient &patient);
 
-    // TODO: implement
-    Paramedic& operator=(const Paramedic& source); 
 };
 

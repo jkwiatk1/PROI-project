@@ -2,6 +2,7 @@
 #include "Room.h"
 #include "Assistant.h"
 
+
 using namespace std;
 
 Assistant::Assistant(string first_name, string last_name)
@@ -9,19 +10,28 @@ Assistant::Assistant(string first_name, string last_name)
 {
 }
 
-void Assistant::putPatient(Patient *patient, Room &room)
+void Assistant::hospitalizePatient(Patient &patient)
 {
-    room.addPatient(patient);
+    patient.hospitalize();
+    addEntry(patient,"Hospitalized");
 }
 
-void Assistant::dischargePatient(Patient *patient, Room &room)
+void Assistant::putPatient(Patient *patient, Room *room)
 {
-    room.removePatient(patient);
+    room->addPatient(patient);
+    patient->assignRoom(room);
+    addEntry(*patient, "Put in room " + to_string(room->getNr()));
+}
+
+void Assistant::dischargePatient(Patient *patient)
+{
+    Room *room = patient->getRoom();
+    if (room != nullptr)
+    {
+        room->removePatient(patient);
+        patient->exitRoom();
+    }
+
     patient->discharge();
-}
-
-
-Assistant & Assistant::operator=(const Assistant & source)
-{
-// TODO: insert return statement here
+    addEntry(*patient, "Discharged");
 }

@@ -11,8 +11,3 @@ void Paramedic::doFirstAid(Patient &patient)
 {
     addEntry(patient, "First aid");
 }
-
-Paramedic &Paramedic::operator=(const Paramedic &source)
-{
-    // TODO: insert return statement here
-}

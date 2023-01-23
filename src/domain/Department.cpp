@@ -1,5 +1,6 @@
 #include "Department.h"
 #include "Room.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -9,9 +10,14 @@ Department::Department(string name)
     rooms = vector<Room>();
 }
 
-string Department::getName() const
+std::string Department::getName() const
 {
     return name;
+}
+
+void Department::setName(std::string name)
+{
+    this->name = name;
 }
 
 void Department::addRoom(Room room)
@@ -19,7 +25,25 @@ void Department::addRoom(Room room)
     rooms.push_back(room);
 }
 
-Department &Department::operator=(const Department &source)
+void Department::removeRoom(Room room)
 {
-    // TODO: insert return statement here
+    if (!room.isEmpty())
+        throw Room_not_empty_exception(room.getNr());
+
+    auto ends = remove(rooms.begin(),rooms.end(),room);
+    rooms.erase(ends,rooms.end());
+}
+
+void Department::removeAllRooms()
+{
+    for (auto room : rooms)
+        if (!room.isEmpty())
+            throw Room_not_empty_exception(room.getNr());
+
+    rooms.clear();
+}
+
+bool Department::fuzzyEquals(const Department &other)
+{
+    return this->name.rfind(other.name,0) == 0;
 }
