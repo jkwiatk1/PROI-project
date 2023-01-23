@@ -55,8 +55,7 @@ Errors CommandExecutor::executeCommand(Command &command)
         if (object_type == CommandObject::PATIENT) {
             updatePatient(command, errors);
         } else if (object_type == CommandObject::DOCTOR) {
-            // deletePerson(command, &DataContainer::DeleteDoctor, "Doctor",
-            //              errors);
+            updateDoctor(command, errors);
         } else if (object_type == CommandObject::NURSE) {
             // deletePerson(command, &DataContainer::DeleteNurse, "Nurse",
             // errors);
@@ -213,3 +212,4 @@ void CommandExecutor::updateDoctor(Command &command, Errors &errors)
 
     data_container.ModifyDoctor(std::stoi(id), doctor);
 }
+
