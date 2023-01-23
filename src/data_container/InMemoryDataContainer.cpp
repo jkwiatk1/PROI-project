@@ -390,6 +390,14 @@ std::optional<Department> InMemoryDataContainer::GetDepartment(std::string depar
 };
 std::optional<Room> InMemoryDataContainer::GetRoom(int room_no)
 {
-    // TODO: implement
+    for (const auto &[key, departament_temp] : Department_DC) {
+        for(auto it : departament_temp->getDepartmentRooms()){
+            if(it.getNr() == room_no)
+            {
+                //return Department_DC[key]->getDepartmentRooms()[room_no];
+                return it;
+            }
+        }
+    }
     return {};
 };
