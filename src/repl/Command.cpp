@@ -104,16 +104,18 @@ std::ostream &operator<<(std::ostream &s, const Command &command)
     for (int i = 0; i < command.arrayCount(); i++) {
         s << "\tCommandArray{" << command.getArray(i) << "}" << std::endl;
     }
-    s << "\tKeyvals{";
-    bool first = true;
-    for (auto [k, v] : command.keyvals) {
-        if (!first)
-            s << ", ";
-        s << k << " = " << v;
-        if (first)
-            first = false;
+    if (!command.keyvals.empty()) {
+        s << "\tKeyvals{";
+        bool first = true;
+        for (auto [k, v] : command.keyvals) {
+            if (!first)
+                s << ", ";
+            s << k << " = " << v;
+            if (first)
+                first = false;
+        }
+        s << "}" << std::endl;
     }
-    s << "}" << std::endl;
     s << "}";
     return s;
 }
