@@ -16,7 +16,7 @@ Entry::Entry(std::string action, Employee *performer)
 
 std::ostream &operator<<(std::ostream &s, const Entry &entry)
 {
-    return s << "Entry{time = " << time << ", performer = " << entry.performer->getFirstName() << " "
+    return s << "Entry{time = " << entry.time << ", performer = " << entry.performer->getFirstName() << " "
              << entry.performer->getLastName() << ", action = " << entry.action
              << "}";
 }
