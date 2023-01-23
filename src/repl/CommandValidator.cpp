@@ -9,7 +9,6 @@
 #include "Doctor.h"
 
 
-// TODO: make this function return more specific errors.
 // TODO: Replace string constants with enumerations.
 Errors CommandValidator::validate(Command &command)
 {
@@ -22,6 +21,8 @@ Errors CommandValidator::validate(Command &command)
         validate_delete(command, errors);
     } else if (command_type == Command::UPDATE_COMMAND) {
         validate_update(command, errors);
+    } else if (command_type == Command::SEARCH_COMMAND) {
+        validate_search(command, errors);
     } else {
         std::string error = "Invalid command type: `" + command_type + "`";
         errors.addError(error);
@@ -116,7 +117,8 @@ void CommandValidator::is_doctor_speciality(CommandObject &object,
         suggestion += "[";
         bool first = true;
         for (auto val : Doctor::getSpecialities()) {
-            if (!first) suggestion += ", ";
+            if (!first)
+                suggestion += ", ";
             suggestion += val;
             first = false;
         }
@@ -211,6 +213,20 @@ void CommandValidator::validate_update(Command &command, Errors &errors)
         has_property(object, CommandObject::ROOM_NEW_NO, errors);
         is_int(object, CommandObject::ROOM_NEW_NO, errors);
     } else {
+        std::string error = "Invalid object type: `" + type + "`";
+        errors.addError(error);
+    }
+}
+
+void CommandValidator::validate_search(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto type = object.getType();
+
+    if (type != CommandObject::PATIENT && type != CommandObject::DOCTOR
+        && type != CommandObject::NURSE && type != CommandObject::PARAMEDIC
+        && type != CommandObject::ASSISTANT && type != CommandObject::DEPARTMENT
+        && type != CommandObject::ROOM) {
         std::string error = "Invalid object type: `" + type + "`";
         errors.addError(error);
     }

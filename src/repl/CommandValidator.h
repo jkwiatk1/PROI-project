@@ -23,4 +23,5 @@ class CommandValidator
                         std::vector<std::string> properties, Errors &errors);
     static void validate_delete(Command &command, Errors &errors);
     static void validate_update(Command &command, Errors &errors);
+    static void validate_search(Command &command, Errors &errors);
 };
