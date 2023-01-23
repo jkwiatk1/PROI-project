@@ -39,6 +39,14 @@ class CommandExecutor
     void searchDepartment(Command &command, Errors &errors, Results &results);
     void searchAssistant(Command &command, Errors &errors, Results &results);
 
+    void examine(Command &command, Errors &errors);
+    void prescribe(Command &command, Errors &errors);
+    void administer(Command &command, Errors &errors);
+    void surgery(Command &command, Errors &errors);
+    void hospitalize(Command &command, Errors &errors);
+    void assign_room(Command &command, Errors &errors);
+    void discharge(Command &command, Errors &errors);
+
   public:
     CommandExecutor(DataContainer &container) : data_container(container)
     {

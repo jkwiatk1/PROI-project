@@ -37,16 +37,6 @@ void Repl::print_exit_message(void)
     os << farewell << std::endl;
 }
 
-void Repl::print_success_message(std::string operation)
-{
-    os << operation << " completed succesfully!" << std::endl;
-}
-
-void Repl::print_failure_message(std::string operation)
-{
-    os << operation << " failed!" << std::endl;
-}
-
 void Repl::print_results(Results &results)
 {
     os << "# Results:" << std::endl;
@@ -121,7 +111,8 @@ void Repl::execute_command(std::string &commandline)
         return;
     }
 
-    os << tree->toStringTree(&parser) << std::endl;
+    // TODO: add a --debug program option
+    // os << tree->toStringTree(&parser) << std::endl;
 
     auto result = parse_tree_to_command(tree);
     if (!result.has_value())
@@ -129,7 +120,8 @@ void Repl::execute_command(std::string &commandline)
 
     auto command = result.value();
 
-    std::cout << command << std::endl;
+    // TODO: add a --debug program option
+    // std::cout << command << std::endl;
 
     auto validation_errors = CommandValidator::validate(command);
     if (validation_errors.exist()) {
@@ -142,7 +134,6 @@ void Repl::execute_command(std::string &commandline)
         print_errors(execution_errors);
         return;
     }
-    print_success_message(command.getType());
     if (results.exist())
         print_results(results);
 }
