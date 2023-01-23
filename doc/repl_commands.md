@@ -12,64 +12,56 @@ add nurse { first_name = <first_name>, last_name = <last_name> }
 add paramedic { first_name = <first_name>, last_name = <last_name> }
 add assistant { first_name = <first_name>, last_name = <last_name> }
 add departament { name = <departament_name> }
-add room { departament = <departament_name>, room_no = <integer>, capacity = <integer> }
+add room { departament = <departament_name>, room_no = <int>, capacity = <int> }
 ```
 
 Delete:
 
 ```
-delete patient { id = <integer> }
-delete doctor { id = <integer> }
-delete nurse { id = <integer> }
-delete paramedic { id = <integer> }
-delete assistant { id = <integer> }
+delete patient { id = <int> }
+delete doctor { id = <int> }
+delete nurse { id = <int> }
+delete paramedic { id = <int> }
+delete assistant { id = <int> }
 delete departament { departament = <departament_name> }
-delete room { room_no = <integer> }
+delete room { room_no = <int> }
 ```
 
 Update:
 
 ```
-update patient { id = <integer>
+update patient { id = <int>
                [, first_name = <first_name>]
                [, last_name = <last_name>] }
-update doctor { id = <integer>
+update doctor { id = <int>
               [, first_name = <first_name>]
               [, last_name = <last_name>]
               [, doctor_speciality = <doctor_speciality>] }
-update nurse { id = <integer>
+update nurse { id = <int>
              [, first_name = <first_name>]
              [, last_name = <last_name>] }
-update paramedic { id = <integer>
+update paramedic { id = <int>
                  [, first_name = <first_name>]
                  [, last_name = <last_name>] }
-update assistant { id = <integer>
+update assistant { id = <int>
                  [, first_name = <first_name>]
                  [, last_name = <last_name>] }
 update departament { department = <departament_name>,
                      new_name = <departament_name> }
-update room { room_no = <integer>, new_no = <integer> }
+update room { room_no = <int>, new_no = <int> }
 ```
 
 Domain operations:
 
 ```
-examine doctor { id = <integer> } patient { id = <integer> }
-| examine doctor { first_name = <first_name>, last_name = <last_name> }
-          patient { id = <integer> }
-| examine doctor { first_name = <first_name>, last_name = <last_name> }
-          patient { first_name = <first_name>, last_name = <last_name> }
-prescribe doctor { id = <integer> }
-          patient { id = <integer> }
+examine doctor { id = <int> } patient { id = <int> }
+prescribe doctor { id = <int> } patient { id = <int> }
           meds [ med1 [, med2][, med3][...] ]
-administer nurse { id = <integer> }
-           patient { id = <integer> }
-           med <med>
-surgery doctor { id = <integer> } patient { id = <integer> }
-
-hospitalize assistant { id = ... } patient { id = <integer> } reason "<text>"
-assign_room assistant { id = ... } patient { id = ... } number <room_no>
-discharge assistant { id = <integer> } patient { id = <integer> }
+administer nurse { id = <int> } patient { id = <int> } med <med>
+surgery doctor { id = <int> } patient { id = <int> }
+hospitalize assistant { id = <int> } patient { id = <int> } reason "<text>"
+assign_room assistant { id = <int> } patient { id = <int> } number <room_no>
+discharge assistant { id = <int> } patient { id = <int> }
 ```
 
 ## DQL
