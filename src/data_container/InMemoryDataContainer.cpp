@@ -64,8 +64,8 @@ void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no,
             }
         }
         Department_DC[departament_name]->addRoom(Room(room_no, room_capacity));
-    } 
-   
+    }
+
     else
         throw std::out_of_range("There is no department with this name.\n");
 }
@@ -131,7 +131,7 @@ void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
 }
 
 void InMemoryDataContainer::DeleteRoom(int room_no)
-{   
+{
     bool for_exeption_throw = true;
     for (const auto &[key, departament_temp] : Department_DC) {
         for(auto it : departament_temp->getDepartmentRooms()){
@@ -143,7 +143,7 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
         }
     }
     if(for_exeption_throw == true)
-        throw std::out_of_range("Cannot delete this room.\nThis room not found in the data base.\n");  
+        throw std::out_of_range("Cannot delete this room.\nThis room not found in the data base.\n");
 }
 
 
@@ -189,12 +189,17 @@ void InMemoryDataContainer::ModifyAssistivePersonnel(
         throw std::out_of_range("Assistant ID not found in the data base\n.");
 }
 
+// TODO: rename `ModifyDepartament` -> `ModifyDepartment`
 void InMemoryDataContainer::ModifyDepartament(std::string departament_name,
                                               Department modified_departament)
 {
-    if (Department_DC.count(departament_name) > 0)
-        *Department_DC[departament_name] = modified_departament;
-    else
+    if (Department_DC.count(departament_name) > 0) {
+        auto new_name = modified_departament.getName();
+        auto &department = *Department_DC[departament_name];
+        department = modified_departament;
+        Department_DC.erase(departament_name);
+        Department_DC[new_name] = &department;
+    } else
         throw std::out_of_range(
             "Departament name not found in the data base\n.");
 }
@@ -213,7 +218,7 @@ void InMemoryDataContainer::ModifyRoom(int room_no, Room modified_room)
         }
     }
     if(for_exeption_throw == true)
-        throw std::out_of_range("Cannot modify this room.\nThis room not found in the data base.\n");     
+        throw std::out_of_range("Cannot modify this room.\nThis room not found in the data base.\n");
 }
 
 
@@ -241,7 +246,7 @@ void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, s
     } else
         throw std::out_of_range(
             "Patient ID not found in the data base.\nCheck is it correct.\n");
-}    
+}
 
 void InMemoryDataContainer::AdministerMedicine(int nurse_id, int patient_id,
                                                std::string medicine)
