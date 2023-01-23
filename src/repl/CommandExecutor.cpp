@@ -2,6 +2,7 @@
 #include "Command.h"
 #include "CommandObject.h"
 #include "DataContainer.h"
+#include "Patient.h"
 #include "Results.h"
 #include "Errors.h"
 #include <stdexcept>
@@ -73,6 +74,18 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
             // deleteDepartment(command, errors);
         } else if (object_type == CommandObject::ROOM) {
             // deleteRoom(command, errors);
+        }
+    } else if (command_type == Command::SEARCH_COMMAND) {
+        auto object_type = command.getObject(0).getType();
+        if (object_type == CommandObject::PATIENT) {
+            searchPatient(command, errors, results);
+        } else if (object_type == CommandObject::DOCTOR) {
+        } else if (object_type == CommandObject::NURSE) {
+        } else if (object_type == CommandObject::PARAMEDIC) {
+        } else if (object_type == CommandObject::ASSISTANT) {
+        } else if (object_type == CommandObject::DEPARTMENT) {
+            searchDepartment(command, errors, results);
+        } else if (object_type == CommandObject::ROOM) {
         }
     } else {
         std::string error = "Unknown command type: '" + command_type + "'";
@@ -216,3 +229,31 @@ void CommandExecutor::updateDoctor(Command &command, Errors &errors)
     data_container.ModifyDoctor(std::stoi(id), doctor);
 }
 
+void CommandExecutor::searchPatient(Command &command, Errors &errors,
+                                    Results &results)
+{
+    auto object = command.getObject(0);
+    Patient patient;
+    patient.setID(0);
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        patient.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        patient.setLastName(object.getProperty(CommandObject::LAST_NAME));
+
+    auto result = data_container.findPatients(patient);
+    if (result.size() != 0)
+        results.addResult(result);
+}
+
+void CommandExecutor::searchDepartment(Command &command, Errors &errors,
+                                       Results &results)
+{
+    auto object = command.getObject(0);
+    std::string department;
+    if (object.hasProperty(CommandObject::DEPARTMENT_NAME))
+        department = object.getProperty(CommandObject::DEPARTMENT_NAME);
+
+    auto result = data_container.findDepartments(department);
+    if (result.size() != 0)
+        results.addResult(result);
+}

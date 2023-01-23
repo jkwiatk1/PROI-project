@@ -6,24 +6,28 @@ bool Results::exist(void)
            || paramedics.size() > 0 || assistants.size() > 0
            || departments.size() > 0;
 }
-Results::Results()
+
+void Results::addResult(std::vector<Patient *> &v)
 {
+    patients.insert(patients.end(), v.begin(), v.end());
 }
-Results::Results(std::vector<Patient *> &v) : patients(v)
+void Results::addResult(std::vector<Doctor *> &v)
 {
+    doctors.insert(doctors.end(), v.begin(), v.end());
 }
-Results::Results(std::vector<Doctor *> &v) : doctors(v)
+void Results::addResult(std::vector<Nurse *> &v)
 {
+    nurses.insert(nurses.end(), v.begin(), v.end());
 }
-Results::Results(std::vector<Nurse *> &v) : nurses(v)
+void Results::addResult(std::vector<Paramedic *> &v)
 {
+    paramedics.insert(paramedics.end(), v.begin(), v.end());
 }
-Results::Results(std::vector<Paramedic *> &v) : paramedics(v)
+void Results::addResult(std::vector<Assistant *> &v)
 {
+    assistants.insert(assistants.end(), v.begin(), v.end());
 }
-Results::Results(std::vector<Assistant *> &v) : assistants(v)
+void Results::addResult(std::vector<Department *> &v)
 {
-}
-Results::Results(std::vector<Department *> &v) : departments(v)
-{
+    departments.insert(departments.end(), v.begin(), v.end());
 }

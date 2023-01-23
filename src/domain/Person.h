@@ -15,6 +15,7 @@ class Person
     Person(std::string first_name, std::string last_name);
 
     int getID() const;
+    void setID(int id);
     std::string getFirstName() const;
     std::string getLastName() const;
     void setFirstName(std::string first_name);

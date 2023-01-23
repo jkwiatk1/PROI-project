@@ -14,5 +14,6 @@ class Assistant : public Employee
     void hospitalizePatient(Patient &patient);
     void putPatient(Patient *Patient, Room *room);
     void dischargePatient(Patient *Patient);
+    //friend std::ostream &operator<<(std::ostream &s, const Patient &patient);
 };
 

@@ -266,8 +266,8 @@ InMemoryDataContainer::findDepartments(std::string department_name_template)
     std::vector<Department *> foundDepartments;
     std::string template_name = department_name_template;
 
-    for (const auto &[key, value] : Department_DC) {
-        if (value->getName().find(template_name) == 0)
+    for (const auto &[_, value] : Department_DC) {
+        if (value->getName().rfind(template_name) == 0)
             foundDepartments.push_back(value);
     }
 

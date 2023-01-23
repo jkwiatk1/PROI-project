@@ -21,6 +21,11 @@ int Person::getID() const
     return ID;
 }
 
+void Person::setID(int id)
+{
+    ID = id;
+}
+
 string Person::getFirstName() const
 {
     return this->first_name;

@@ -18,9 +18,10 @@ class Patient : public Person
 
   public:
     Patient(std::string first_name, std::string last_name);
+    Patient();
 
     std::vector<Entry> getHealthCard() const;
-    Room* getRoom() const;
+    Room *getRoom() const;
     void assignRoom(Room *room);
     void exitRoom();
 
@@ -28,6 +29,4 @@ class Patient : public Person
     void discharge();
     void addEntry(Entry entry);
     friend std::ostream &operator<<(std::ostream &s, const Patient &patient);
-
 };
-

@@ -16,12 +16,11 @@ class Results {
         std::vector<Paramedic *> paramedics;
         std::vector<Assistant *> assistants;
         std::vector<Department *> departments;
-        Results(std::vector<Patient *> &v);
-        Results(std::vector<Doctor *> &v);
-        Results(std::vector<Nurse *> &v);
-        Results(std::vector<Paramedic *> &v);
-        Results(std::vector<Assistant *> &v);
-        Results(std::vector<Department *> &v);
-        Results();
+        void addResult(std::vector<Patient *> &v);
+        void addResult(std::vector<Doctor *> &v);
+        void addResult(std::vector<Nurse *> &v);
+        void addResult(std::vector<Paramedic *> &v);
+        void addResult(std::vector<Assistant *> &v);
+        void addResult(std::vector<Department *> &v);
         bool exist(void);
 };

@@ -24,6 +24,7 @@ class Repl {
         void print_success_message(std::string operation);
         void print_failure_message(std::string operation);
         void print_errors(Errors &errors);
+        void print_results(Results &results);
 
       public:
         Repl(std::istream &is, std::ostream &os, DataContainer &data_container);

@@ -47,6 +47,30 @@ void Repl::print_failure_message(std::string operation)
     os << operation << " failed!" << std::endl;
 }
 
+void Repl::print_results(Results &results)
+{
+    os << "# Results:" << std::endl;
+    for (auto p : results.patients) {
+        os << "- " << *p << std::endl;
+    }
+    // TODO: replace `p` -> `*p` in the following loops
+    for (auto p : results.doctors) {
+        os << "- " << p << std::endl;
+    }
+    for (auto p : results.nurses) {
+        os << "- " << p << std::endl;
+    }
+    for (auto p : results.paramedics) {
+        os << "- " << p << std::endl;
+    }
+    for (auto p : results.assistants) {
+        os << "- " << p << std::endl;
+    }
+    for (auto p : results.departments) {
+        os << "- " << p << std::endl;
+    }
+}
+
 void Repl::print_errors(Errors &errors)
 {
     os << "Error! The following errors were encountered:" << std::endl;
@@ -83,7 +107,8 @@ void Repl::execute_command(std::string &commandline)
     try {
         tree = parser.commandLine();
     } catch (antlr4::ParseCancellationException x) {
-        os << "Syntax error. Please check the syntax of the command." << std::endl;
+        os << "Syntax error. Please check the syntax of the command."
+           << std::endl;
         return;
     }
 
@@ -108,12 +133,13 @@ void Repl::execute_command(std::string &commandline)
         print_errors(execution_errors);
         return;
     }
-    if (results.exist()) {
-        // print_results(results);
-    }
+    print_success_message(command.getType());
+    if (results.exist())
+        print_results(results);
 }
 
-std::optional<Command> Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
+std::optional<Command>
+Repl::parse_tree_to_command(antlr4::tree::ParseTree *tree)
 {
     TreeVisitor visitor;
     auto result = visitor.visit(tree);
