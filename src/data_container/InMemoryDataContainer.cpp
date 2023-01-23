@@ -12,12 +12,12 @@ void InMemoryDataContainer::AddPatient(std::string first_name,
 
 void InMemoryDataContainer::AddDoctor(std::string first_name,
                                       std::string last_name,
-                                      std::string speciality)
+                                      Speciality speciality)
 {
     // TODO: parse `std::string speciality` into `enum Specialities` and pass
     // the resulting value into the Doctor constructor:
     Doctor *doctor =
-        new Doctor(first_name, last_name, Speciality::Cardiologist);
+        new Doctor(first_name, last_name, speciality);
     Doctors_DC.insert({doctor->getID(), doctor});
 }
 

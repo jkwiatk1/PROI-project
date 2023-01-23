@@ -96,7 +96,9 @@ void CommandExecutor::addDoctor(Command &command, Errors &errors)
     auto object = command.getObject(0);
     auto first_name = object.getProperty(CommandObject::FIRST_NAME);
     auto last_name = object.getProperty(CommandObject::LAST_NAME);
-    auto speciality = object.getProperty(CommandObject::SPECIALITY);
+    auto speciality =
+        Doctor::parseSpeciality(object.getProperty(CommandObject::SPECIALITY))
+            .value();
     data_container.AddDoctor(first_name, last_name, speciality);
 }
 

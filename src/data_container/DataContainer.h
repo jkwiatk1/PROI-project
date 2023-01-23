@@ -18,7 +18,7 @@ class DataContainer
     // TODO: change `Specialities speciality` to `std::string speciality`. If
     // `speciality` is not a valid `speciality`, throw an
     // `InvalidSpecialityException`, or something along those lines.
-    virtual void AddDoctor(std::string first_name, std::string last_name, std::string speciality) = 0;
+    virtual void AddDoctor(std::string first_name, std::string last_name, Speciality speciality) = 0;
     virtual void AddNurse(std::string first_name, std::string last_name) = 0;
     virtual void AddParamedic(std::string first_name, std::string last_name) = 0;
     // TODO: rename `AddAssistivePersonnel` -> `AddAssistant`

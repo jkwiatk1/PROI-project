@@ -33,7 +33,7 @@ public:
     };
 
     void AddPatient(std::string first_name, std::string last_name) override;
-    void AddDoctor(std::string first_name, std::string last_name, std::string speciality) override;
+    void AddDoctor(std::string first_name, std::string last_name, Speciality speciality) override;
     void AddNurse(std::string first_name, std::string last_name) override;
     void AddParamedic(std::string first_name, std::string last_name) override;
     void AddAssistivePersonnel(std::string first_name, std::string last_name) override;
