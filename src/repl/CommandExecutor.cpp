@@ -2,15 +2,18 @@
 #include "Command.h"
 #include "CommandObject.h"
 #include "DataContainer.h"
+#include "Results.h"
 #include "Errors.h"
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 
 // TODO: implement fully
-Errors CommandExecutor::executeCommand(Command &command)
+std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
 {
     Errors errors;
+    Results results;
     auto command_type = command.getType();
     if (command_type == Command::ADD_COMMAND) {
         auto object_type = command.getObject(0).getType();
@@ -76,7 +79,7 @@ Errors CommandExecutor::executeCommand(Command &command)
         errors.addError(error);
     }
 
-    return errors;
+    return {results, errors};
 }
 
 void CommandExecutor::addPerson(Command &command,

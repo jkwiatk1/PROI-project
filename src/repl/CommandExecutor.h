@@ -1,8 +1,11 @@
 #pragma once
 
+#include <utility>
 #include "Command.h"
 #include "DataContainer.h"
 #include "Errors.h"
+#include "Results.h"
+
 class CommandExecutor
 {
   private:
@@ -27,5 +30,5 @@ class CommandExecutor
     CommandExecutor(DataContainer &container) : data_container(container)
     {
     }
-    Errors executeCommand(Command &command);
+    std::pair<Results, Errors> executeCommand(Command &command);
 };

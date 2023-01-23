@@ -103,9 +103,13 @@ void Repl::execute_command(std::string &commandline)
         return;
     }
 
-    auto execution_errors = command_executor.executeCommand(command);
+    auto [results, execution_errors] = command_executor.executeCommand(command);
     if (execution_errors.exist()) {
         print_errors(execution_errors);
+        return;
+    }
+    if (results.exist()) {
+        // print_results(results);
     }
 }
 
