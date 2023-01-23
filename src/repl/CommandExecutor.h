@@ -27,6 +27,7 @@ class CommandExecutor
     void updateDoctor(Command &command, Errors &errors);
     void searchPatient(Command &command, Errors &errors, Results &results);
     void searchDepartment(Command &command, Errors &errors, Results &results);
+    void searchDoctor(Command &command, Errors &errors, Results &results);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)

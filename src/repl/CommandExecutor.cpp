@@ -80,6 +80,7 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
         if (object_type == CommandObject::PATIENT) {
             searchPatient(command, errors, results);
         } else if (object_type == CommandObject::DOCTOR) {
+            searchDoctor(command, errors, results);
         } else if (object_type == CommandObject::NURSE) {
         } else if (object_type == CommandObject::PARAMEDIC) {
         } else if (object_type == CommandObject::ASSISTANT) {
@@ -234,13 +235,31 @@ void CommandExecutor::searchPatient(Command &command, Errors &errors,
 {
     auto object = command.getObject(0);
     Patient patient;
-    patient.setID(0);
     if (object.hasProperty(CommandObject::FIRST_NAME))
         patient.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
     if (object.hasProperty(CommandObject::LAST_NAME))
         patient.setLastName(object.getProperty(CommandObject::LAST_NAME));
 
     auto result = data_container.findPatients(patient);
+    if (result.size() != 0)
+        results.addResult(result);
+}
+
+void CommandExecutor::searchDoctor(Command &command, Errors &errors,
+                                   Results &results)
+{
+    auto object = command.getObject(0);
+    Doctor doctor;
+    if (object.hasProperty(CommandObject::FIRST_NAME))
+        doctor.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
+    if (object.hasProperty(CommandObject::LAST_NAME))
+        doctor.setLastName(object.getProperty(CommandObject::LAST_NAME));
+    if (object.hasProperty(CommandObject::SPECIALITY))
+        doctor.setSpeciality(Doctor::parseSpeciality(
+                                 object.getProperty(CommandObject::SPECIALITY))
+                                 .value());
+
+    auto result = data_container.findDoctors(doctor);
     if (result.size() != 0)
         results.addResult(result);
 }

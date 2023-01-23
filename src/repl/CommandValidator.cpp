@@ -230,4 +230,7 @@ void CommandValidator::validate_search(Command &command, Errors &errors)
         std::string error = "Invalid object type: `" + type + "`";
         errors.addError(error);
     }
+    if (type == CommandObject::DOCTOR) {
+        is_doctor_speciality(object, CommandObject::SPECIALITY, errors);
+    }
 }

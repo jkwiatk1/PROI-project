@@ -5,10 +5,6 @@ using namespace std;
 
 Patient::Patient() : Person() {}
 
-Patient::Patient()
-{
-}
-
 Patient::Patient(string first_name, string last_name)
     : Person(first_name, last_name)
 {

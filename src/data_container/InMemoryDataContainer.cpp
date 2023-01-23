@@ -14,8 +14,6 @@ void InMemoryDataContainer::AddDoctor(std::string first_name,
                                       std::string last_name,
                                       Speciality speciality)
 {
-    // TODO: parse `std::string speciality` into `enum Specialities` and pass
-    // the resulting value into the Doctor constructor:
     Doctor *doctor =
         new Doctor(first_name, last_name, speciality);
     Doctors_DC.insert({doctor->getID(), doctor});
@@ -278,6 +276,7 @@ std::vector<T *>
 InMemoryDataContainer::FindInContainer(T object_template,
                                        const std::map<int, T *> &dataBase)
 {
+    //TODO: make this use fuzzyFind
     std::vector<T *> founds;
     std::string template_name = object_template.getFirstName();
     std::string template_lastName = object_template.getLastName();

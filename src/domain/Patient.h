@@ -19,7 +19,6 @@ class Patient : public Person
   public:
     Patient();
     Patient(std::string first_name, std::string last_name);
-    Patient();
 
     std::vector<Entry> getHealthCard() const;
     Room *getRoom() const;

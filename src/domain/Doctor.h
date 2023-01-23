@@ -5,8 +5,8 @@
 #include "Employee.h"
 #include "Patient.h"
 
-// Remember to update Doctor::parseSpeciality and Doctor::getSpecialities if you
-// change this.
+// Remember to update Doctor::parseSpeciality, Doctor::toSpeciality and
+// Doctor::getSpecialities if you change this.
 enum Speciality { Ophthalmologist, Surgeon, Cardiologist, Neurologist };
 
 class Doctor : public Employee
@@ -30,5 +30,7 @@ class Doctor : public Employee
     bool fuzzyEquals(const Doctor &other);
 
     static std::optional<Speciality> parseSpeciality(std::string speciality);
+    static std::optional<std::string> toSpeciality(int n);
     static std::vector<std::string> getSpecialities(void);
+    friend std::ostream &operator<<(std::ostream &s, const Doctor &doctor);
 };

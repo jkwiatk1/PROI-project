@@ -1,10 +1,14 @@
 #include "Doctor.h"
 #include "Employee.h"
 #include "Patient.h"
+#include <iostream>
+#include <string>
 
 using namespace std;
 
-Doctor::Doctor() : Employee() {}
+Doctor::Doctor() : Employee()
+{
+}
 
 Doctor::Doctor(string first_name, string last_name, Speciality speciality)
     : Employee(first_name, last_name)
@@ -64,7 +68,34 @@ std::optional<Speciality> Doctor::parseSpeciality(std::string speciality)
         return {};
 }
 
+std::optional<std::string> Doctor::toSpeciality(int n)
+{
+    switch (n) {
+    case 0:
+        return "Ophthalmologist";
+    case 1:
+        return "Surgeon";
+    case 2:
+        return "Cardiologist";
+    case 3:
+        return "Neurologist";
+    default:
+        return {};
+    }
+}
+
 std::vector<std::string> Doctor::getSpecialities(void)
 {
     return {"Ophthalmologist", "Surgeon", "Cardiologist", "Neurologist"};
+}
+
+std::ostream &operator<<(std::ostream &s, const Doctor &doctor)
+{
+    std::string speciality =
+        Doctor::toSpeciality(doctor.getSpeciality())
+            .value_or(std::to_string(doctor.getSpeciality()));
+    return s << "Doctor{id = " << doctor.getID()
+             << ", first_name = " << doctor.getFirstName()
+             << ", last_name = " << doctor.getLastName()
+             << ", speciality = " << speciality << "}";
 }
