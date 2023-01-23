@@ -14,8 +14,6 @@ void InMemoryDataContainer::AddDoctor(std::string first_name,
                                       std::string last_name,
                                       Speciality speciality)
 {
-    // TODO: parse `std::string speciality` into `enum Specialities` and pass
-    // the resulting value into the Doctor constructor:
     Doctor *doctor =
         new Doctor(first_name, last_name, speciality);
     Doctors_DC.insert({doctor->getID(), doctor});
@@ -232,10 +230,18 @@ void InMemoryDataContainer::PerformExamination(int doctor_id, int patient_id)
             "Patient ID not found in the data base.\nCheck is it correct.\n");
 }
 
-void InMemoryDataContainer::PrescribeMedication(
-    int doctor_id, int patient_id, std::vector<std::string> medicines)
+void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines)
 {
-}
+    if (Doctors_DC.count(doctor_id) != 0 && HospitalizedPatients_DC.count(patient_id) != 0){
+        Doctors_DC[doctor_id]->prescribeMedicine(*Patients_DC[patient_id],medicines);
+    }
+    else if (Doctors_DC.count(doctor_id) == 0) {
+        throw std::out_of_range(
+            "Doctor ID not found in the data base.\nCheck is it correct.\n");
+    } else
+        throw std::out_of_range(
+            "Patient ID not found in the data base.\nCheck is it correct.\n");
+}    
 
 void InMemoryDataContainer::AdministerMedicine(int nurse_id, int patient_id,
                                                std::string medicine)
