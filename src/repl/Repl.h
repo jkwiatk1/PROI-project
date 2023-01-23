@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <antlr4-runtime.h>
+#include <optional>
 
 #include "CommandExecutor.h"
 #include "DataContainer.h"

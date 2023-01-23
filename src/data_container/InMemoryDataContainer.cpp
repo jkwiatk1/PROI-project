@@ -126,45 +126,52 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
 
 void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 {
-    std::cout << modified_patient << std::endl;
     if (Patients_DC.count(id) > 0) {
-        *Patients_DC[id] = modified_patient;
-        std::cout << *Patients_DC[id] << std::endl;
-        *HospitalizedPatients_DC[id] = modified_patient;
+        Patients_DC[id]->setFirstName(modified_patient.getFirstName());
+        Patients_DC[id]->setLastName(modified_patient.getLastName());
+        HospitalizedPatients_DC[id]->setFirstName(modified_patient.getFirstName());
+        HospitalizedPatients_DC[id]->setLastName(modified_patient.getLastName());
     } else
         throw std::out_of_range("Patient ID not found in the data base\n.");
 }
 
 void InMemoryDataContainer::ModifyDoctor(int id, Doctor modified_doctor)
 {
-    if (Doctors_DC.count(id) > 0)
-        *Doctors_DC[id] = modified_doctor;
+    if (Doctors_DC.count(id) > 0){
+        Doctors_DC[id]->setFirstName(modified_doctor.getFirstName());
+        Doctors_DC[id]->setLastName(modified_doctor.getLastName());
+    }
     else
         throw std::out_of_range("Doctor ID not found in the data base\n.");
 }
 
 void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
 {
-    if (Nurses_DC.count(id) > 0)
-        *Nurses_DC[id] = modified_nurse;
+    if (Nurses_DC.count(id) > 0){
+        Nurses_DC[id]->setFirstName(modified_nurse.getFirstName());
+        Nurses_DC[id]->setLastName(modified_nurse.getLastName());
+    }
     else
         throw std::out_of_range("Nurse ID not found in the data base\n.");
 }
 
-void InMemoryDataContainer::ModifyParamedic(int id,
-                                            Paramedic modified_paramedic)
+void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic)
 {
-    if (Paramedics_DC.count(id) > 0)
-        *Paramedics_DC[id] = modified_paramedic;
+    if (Paramedics_DC.count(id) > 0){
+        Paramedics_DC[id]->setFirstName(modified_paramedic.getFirstName());
+        Paramedics_DC[id]->setLastName(modified_paramedic.getLastName());     
+    }
     else
         throw std::out_of_range("Paramedic ID not found in the data base\n.");
 }
 
 void InMemoryDataContainer::ModifyAssistivePersonnel(
-    int id, Assistant modified_assistant)
+                int id, Assistant modified_assistant)
 {
-    if (Assistants_DC.count(id) > 0)
-        *Assistants_DC[id] = modified_assistant;
+    if (Assistants_DC.count(id) > 0){
+        Assistants_DC[id]->setFirstName(modified_assistant.getFirstName());
+        Assistants_DC[id]->setLastName(modified_assistant.getLastName());
+    }
     else
         throw std::out_of_range("Assistant ID not found in the data base\n.");
 }
@@ -172,8 +179,9 @@ void InMemoryDataContainer::ModifyAssistivePersonnel(
 void InMemoryDataContainer::ModifyDepartament(std::string departament_name,
                                               Department modified_departament)
 {
-    if (Department_DC.count(departament_name) > 0)
-        *Department_DC[departament_name] = modified_departament;
+    if (Department_DC.count(departament_name) > 0){
+        Department_DC[departament_name]->setName(modified_departament.getName());
+    }
     else
         throw std::out_of_range(
             "Departament name not found in the data base\n.");
