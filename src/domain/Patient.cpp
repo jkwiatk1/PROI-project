@@ -3,6 +3,7 @@
 
 using namespace std;
 
+Patient::Patient() : Person() {}
 
 Patient::Patient()
 {

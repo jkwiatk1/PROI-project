@@ -4,13 +4,21 @@ using namespace std;
 
 int Person::ID_control = 0;
 
-Person::Person()
+Person::Person(bool do_id)
 {
-    ID_control++;
-    ID = ID_control;
+    if (do_id)
+    {
+        ID_control++;
+        ID = ID_control;
+    }
+    else
+        ID = 0;
+    
 }
 
-Person::Person(std::string first_name, std::string last_name) : Person()
+Person::Person() : Person(false) {}
+
+Person::Person(std::string first_name, std::string last_name) : Person(true)
 {
     this->first_name = first_name;
     this->last_name = last_name;

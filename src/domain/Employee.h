@@ -8,6 +8,7 @@ class Employee : public Person
 {
   private:
   public:
+    Employee();
     Employee(std::string first_name, std::string last_name);
 
     void addEntry(Patient &patient, std::string action);

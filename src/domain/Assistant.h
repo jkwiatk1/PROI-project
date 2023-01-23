@@ -9,6 +9,7 @@ class Assistant : public Employee
 {
   private:
   public:
+    Assistant();
     Assistant(std::string first_name, std::string last_name);
 
     void hospitalizePatient(Patient &patient);

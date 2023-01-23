@@ -17,6 +17,7 @@ class Patient : public Person
     Room *assigned_room;
 
   public:
+    Patient();
     Patient(std::string first_name, std::string last_name);
     Patient();
 

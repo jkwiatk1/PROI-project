@@ -11,6 +11,7 @@ class Person
     std::string last_name;
 
   public:
+    Person(bool do_id);
     Person();
     Person(std::string first_name, std::string last_name);
 
