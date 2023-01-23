@@ -126,10 +126,8 @@ void InMemoryDataContainer::DeleteRoom(int room_no)
 
 void InMemoryDataContainer::ModifyPatient(int id, Patient modified_patient)
 {
-    std::cout << modified_patient << std::endl;
     if (Patients_DC.count(id) > 0) {
         *Patients_DC[id] = modified_patient;
-        std::cout << *Patients_DC[id] << std::endl;
         *HospitalizedPatients_DC[id] = modified_patient;
     } else
         throw std::out_of_range("Patient ID not found in the data base\n.");
@@ -267,7 +265,7 @@ InMemoryDataContainer::findDepartments(std::string department_name_template)
     std::string template_name = department_name_template;
 
     for (const auto &[_, value] : Department_DC) {
-        if (value->getName().rfind(template_name) == 0)
+        if (value->getName().rfind(template_name, 0) == 0)
             foundDepartments.push_back(value);
     }
 

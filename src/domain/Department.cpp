@@ -1,6 +1,7 @@
 #include "Department.h"
 #include "Room.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -30,8 +31,8 @@ void Department::removeRoom(Room room)
     if (!room.isEmpty())
         throw Room_not_empty_exception(room.getNr());
 
-    auto ends = remove(rooms.begin(),rooms.end(),room);
-    rooms.erase(ends,rooms.end());
+    auto ends = remove(rooms.begin(), rooms.end(), room);
+    rooms.erase(ends, rooms.end());
 }
 
 void Department::removeAllRooms()
@@ -45,5 +46,11 @@ void Department::removeAllRooms()
 
 bool Department::fuzzyEquals(const Department &other)
 {
-    return this->name.rfind(other.name,0) == 0;
+    return this->name.rfind(other.name, 0) == 0;
+}
+
+std::ostream &operator<<(std::ostream &s, const Department &patient)
+{
+    return s << "Department{name = " << patient.name
+             << ", room_count = " << patient.rooms.size() << "}";
 }

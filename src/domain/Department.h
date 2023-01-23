@@ -20,5 +20,5 @@ class Department
     void removeAllRooms();
 
     bool fuzzyEquals(const Department &other);
+    friend std::ostream &operator<<(std::ostream &s, const Department &patient);
 };
-

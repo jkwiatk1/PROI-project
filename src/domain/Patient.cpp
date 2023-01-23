@@ -53,6 +53,7 @@ void Patient::addEntry(Entry entry)
 
 std::ostream &operator<<(std::ostream &s, const Patient &patient)
 {
-    return s << "Patient{first_name = " << patient.getFirstName()
+    return s << "Patient{id = " << patient.getID()
+             << ", first_name = " << patient.getFirstName()
              << ", last_name = " << patient.getLastName() << "}";
 }
