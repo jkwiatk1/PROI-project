@@ -52,6 +52,11 @@ void Repl::print_results(Results &results)
     os << "# Results:" << std::endl;
     for (auto p : results.patients) {
         os << "- " << *p << std::endl;
+        if (results.getShowPatientInfo()) {
+            for (auto e : p->getHealthCard()) {
+                os << "\t- " << e << std::endl;
+            }
+        }
     }
     for (auto p : results.doctors) {
         os << "- " << *p << std::endl;

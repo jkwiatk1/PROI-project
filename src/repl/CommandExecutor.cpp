@@ -332,6 +332,8 @@ void CommandExecutor::searchPatient(Command &command, Errors &errors,
         patient.setFirstName(object.getProperty(CommandObject::FIRST_NAME));
     if (object.hasProperty(CommandObject::LAST_NAME))
         patient.setLastName(object.getProperty(CommandObject::LAST_NAME));
+    if (object.hasProperty(CommandObject::SHOW_CARD))
+        results.setShowPatientInfo(true);
 
     auto result = data_container.findPatients(patient);
     if (result.size() != 0)
