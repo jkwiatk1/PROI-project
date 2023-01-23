@@ -54,3 +54,13 @@ std::ostream &operator<<(std::ostream &s, const Department &patient)
     return s << "Department{name = " << patient.name
              << ", room_count = " << patient.rooms.size() << "}";
 }
+
+
+std::vector<Room> Department::getDepartmentRooms() const
+{
+    std::vector<Room> department_rooms;
+    for(auto it : rooms){
+        department_rooms.push_back(it);
+    }
+    return department_rooms;
+}

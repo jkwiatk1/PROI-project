@@ -40,24 +40,37 @@ void InMemoryDataContainer::AddAssistivePersonnel(std::string first_name,
     Assistants_DC.insert({assistant->getID(), assistant});
 }
 
-// TODO: make this throw an exception, when trying to add a department with a
-// name equal to the name of an existing one.
 void InMemoryDataContainer::AddDepartament(std::string departament_name)
 {
-    Department *department = new Department(departament_name);
-    Department_DC.insert({department->getName(), department});
+    if(Department_DC.count(departament_name) == 0){
+        Department *department = new Department(departament_name);
+        Department_DC.insert({department->getName(), department});
+    }
+    else
+        throw std::out_of_range("There is already a department with that name.\n");
 }
 
-// TODO: throw an exception if adding a duplicate room (same department_name and
-// same room_no)
+
 void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no,
                                     int room_capacity)
 {
     if (Department_DC.count(departament_name) != 0) {
+        for (const auto &[key, departament_temp] : Department_DC) {
+            for(auto it : departament_temp->getDepartmentRooms()){
+                if(it.getNr() == room_no)
+                {
+                    throw std::out_of_range("There already exist a department with that number.\nChange the room number.\n");
+                }
+            }
+        }
         Department_DC[departament_name]->addRoom(Room(room_no, room_capacity));
-    } else
+    } 
+   
+    else
         throw std::out_of_range("There is no department with this name.\n");
 }
+
+
 
 void InMemoryDataContainer::DeletePatient(int id)
 {
@@ -118,7 +131,19 @@ void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
 }
 
 void InMemoryDataContainer::DeleteRoom(int room_no)
-{
+{   
+    bool for_exeption_throw = true;
+    for (const auto &[key, departament_temp] : Department_DC) {
+        for(auto it : departament_temp->getDepartmentRooms()){
+            if(it.getNr() == room_no)
+            {
+                for_exeption_throw = false;
+                departament_temp->removeRoom(it);
+            }
+        }
+    }
+    if(for_exeption_throw == true)
+        throw std::out_of_range("Cannot delete this room.\nThis room not found in the data base.\n");  
 }
 
 
@@ -147,8 +172,7 @@ void InMemoryDataContainer::ModifyNurse(int id, Nurse modified_nurse)
         throw std::out_of_range("Nurse ID not found in the data base\n.");
 }
 
-void InMemoryDataContainer::ModifyParamedic(int id,
-                                            Paramedic modified_paramedic)
+void InMemoryDataContainer::ModifyParamedic(int id, Paramedic modified_paramedic)
 {
     if (Paramedics_DC.count(id) > 0)
         *Paramedics_DC[id] = modified_paramedic;
@@ -157,7 +181,7 @@ void InMemoryDataContainer::ModifyParamedic(int id,
 }
 
 void InMemoryDataContainer::ModifyAssistivePersonnel(
-    int id, Assistant modified_assistant)
+                int id, Assistant modified_assistant)
 {
     if (Assistants_DC.count(id) > 0)
         *Assistants_DC[id] = modified_assistant;
@@ -175,8 +199,21 @@ void InMemoryDataContainer::ModifyDepartament(std::string departament_name,
             "Departament name not found in the data base\n.");
 }
 
-void InMemoryDataContainer::ModifyRoom(int room_no, Room)
+void InMemoryDataContainer::ModifyRoom(int room_no, Room modified_room)
 {
+    bool for_exeption_throw = true;
+    for (const auto &[key, departament_temp] : Department_DC) {
+        for(auto it : departament_temp->getDepartmentRooms()){
+            if(it.getNr() == room_no)
+            {
+                for_exeption_throw = false;
+                Department_DC[key]->removeRoom(it);
+                Department_DC[key]->addRoom(modified_room);
+            }
+        }
+    }
+    if(for_exeption_throw == true)
+        throw std::out_of_range("Cannot modify this room.\nThis room not found in the data base.\n");     
 }
 
 
@@ -193,10 +230,18 @@ void InMemoryDataContainer::PerformExamination(int doctor_id, int patient_id)
             "Patient ID not found in the data base.\nCheck is it correct.\n");
 }
 
-void InMemoryDataContainer::PrescribeMedication(
-    int doctor_id, int patient_id, std::vector<std::string> medicines)
+void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, std::vector<std::string> medicines)
 {
-}
+    if (Doctors_DC.count(doctor_id) != 0 && HospitalizedPatients_DC.count(patient_id) != 0){
+        Doctors_DC[doctor_id]->prescribeMedicine(*Patients_DC[patient_id],medicines);
+    }
+    else if (Doctors_DC.count(doctor_id) == 0) {
+        throw std::out_of_range(
+            "Doctor ID not found in the data base.\nCheck is it correct.\n");
+    } else
+        throw std::out_of_range(
+            "Patient ID not found in the data base.\nCheck is it correct.\n");
+}    
 
 void InMemoryDataContainer::AdministerMedicine(int nurse_id, int patient_id,
                                                std::string medicine)
