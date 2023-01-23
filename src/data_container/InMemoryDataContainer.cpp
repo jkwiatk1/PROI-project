@@ -258,11 +258,12 @@ void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
 {
 }
 
-void InMemoryDataContainer::Discharge(int id)
+void InMemoryDataContainer::Discharge(int patient_id, int assistant_id)
 {
-    if (HospitalizedPatients_DC.count(id) > 0) {
-        Patients_DC[id]->discharge();
-        HospitalizedPatients_DC.erase(id);
+    if (HospitalizedPatients_DC.count(patient_id) > 0
+        && Assistants_DC.count(assistant_id) > 0) {
+        Assistants_DC[assistant_id]->dischargePatient(HospitalizedPatients_DC[patient_id]);
+        HospitalizedPatients_DC.erase(patient_id);
     } else
         throw std::out_of_range(
             "ID not found in the map.\nFirst add this patient to data base.\n");
@@ -283,18 +284,22 @@ void InMemoryDataContainer::Hospitalize(int patient_id, int assistant_id)
             "Assistant ID not found in the map.\nFirst add this patient to data base.\n");
 }
 
-void InMemoryDataContainer::AssignRoom(int patient_id, int assistant_id, int room_no)
+void InMemoryDataContainer::AssignRoom(int patient_id, int assistant_id,
+                                       int room_no)
 {
     // auto room = GetRoom(room_no);
     // if (Patients_DC.count(patient_id) != 0
     //     && Assistants_DC.count(assistant_id) != 0 && room.has_value()) {
-    //     Assistants_DC[assistant_id]->putPatient(*Patients_DC[patient_id], *room.value());
+    //     Assistants_DC[assistant_id]->putPatient(*Patients_DC[patient_id],
+    //     *room.value());
     // } else if (Patients_DC.count(patient_id) == 0) {
     //     throw std::out_of_range(
-    //         "Patient ID not found in the data base.\nCheck is it correct.\n");
+    //         "Patient ID not found in the data base.\nCheck is it
+    //         correct.\n");
     // } else
     //     throw std::out_of_range(
-    //         "Assistant ID not found in the map.\nFirst add this patient to data base.\n");
+    //         "Assistant ID not found in the map.\nFirst add this patient to
+    //         data base.\n");
 }
 
 // TODO: make `findX` use fuzzyFind.

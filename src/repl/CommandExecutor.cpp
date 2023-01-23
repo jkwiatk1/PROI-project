@@ -102,6 +102,7 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
     } else if (command_type == Command::ASSIGN_ROOM_COMMAND) {
         assign_room(command, errors);
     } else if (command_type == Command::DISCHARGE_COMMAND) {
+        discharge(command, errors);
     } else {
         std::string error = "Unknown command type: '" + command_type + "'";
         errors.addError(error);
@@ -499,5 +500,16 @@ void CommandExecutor::assign_room(Command &command, Errors &errors)
         data_container.AssignRoom(assistant_id, patient_id, room_no);
     } catch (std::out_of_range &x) {
         errors.addError("Assistant, patient or room with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::discharge(Command &command, Errors &errors)
+{
+    auto assistant_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    try {
+        data_container.Discharge(patient_id, assistant_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Assistant or patient with the specified id does not exist, or the patient is not hospitalized.");
     }
 }

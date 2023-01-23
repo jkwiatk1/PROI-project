@@ -45,6 +45,7 @@ class CommandExecutor
     void surgery(Command &command, Errors &errors);
     void hospitalize(Command &command, Errors &errors);
     void assign_room(Command &command, Errors &errors);
+    void discharge(Command &command, Errors &errors);
 
   public:
     CommandExecutor(DataContainer &container) : data_container(container)
