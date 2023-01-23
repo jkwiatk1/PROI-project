@@ -69,6 +69,7 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
         } else if (object_type == CommandObject::DEPARTMENT) {
             updateDepartment(command, errors);
         } else if (object_type == CommandObject::ROOM) {
+            updateRoom(command, errors);
         }
     } else if (command_type == Command::SEARCH_COMMAND) {
         auto object_type = command.getObject(0).getType();
@@ -304,6 +305,22 @@ void CommandExecutor::updateDepartment(Command &command, Errors &errors)
     auto department = maybe_department.value();
     department.setName(new_name);
     data_container.ModifyDepartament(old_name, department);
+}
+
+void CommandExecutor::updateRoom(Command &command, Errors &errors)
+{
+    auto object = command.getObject(0);
+    auto old_no = object.getProperty(CommandObject::DEPARTMENT_NAME2);
+    auto new_no = object.getProperty(CommandObject::DEPARTMENT_NEW_NAME);
+    auto maybe_room = data_container.GetRoom(std::stoi(old_no));
+    if (!maybe_room.has_value()) {
+        std::string error = "Department '" + old_no + "' does not exist";
+        errors.addError(error);
+        return;
+    }
+    auto room = maybe_room.value();
+    room.setNr(std::stoi(new_no));
+    data_container.ModifyRoom(std::stoi(old_no), room);
 }
 
 void CommandExecutor::searchPatient(Command &command, Errors &errors,
