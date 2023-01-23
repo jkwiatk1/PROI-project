@@ -30,4 +30,5 @@ class CommandValidator
     static void validate_prescribe(Command &command, Errors &errors);
     static void validate_administer(Command &command, Errors &errors);
     static void validate_surgery(Command &command, Errors &errors);
+    static void validate_hospitalize(Command &command, Errors &errors);
 };

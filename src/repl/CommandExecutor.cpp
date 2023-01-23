@@ -98,6 +98,7 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
     } else if (command_type == Command::SURGERY_COMMAND) {
         surgery(command, errors);
     } else if (command_type == Command::HOSPITALIZE_COMMAND) {
+        hospitalize(command, errors);
     } else if (command_type == Command::ASSIGN_ROOM_COMMAND) {
     } else if (command_type == Command::DISCHARGE_COMMAND) {
     } else {
@@ -462,7 +463,7 @@ void CommandExecutor::administer(Command &command, Errors &errors)
     try {
         data_container.AdministerMedicine(doctor_id, patient_id, med);
     } catch (std::out_of_range &x) {
-        errors.addError("Patient or doctor with the specified id does not exist");
+        errors.addError("Patient or nurse with the specified id does not exist");
     }
 }
 
@@ -474,5 +475,16 @@ void CommandExecutor::surgery(Command &command, Errors &errors)
         data_container.PerformSurgery(doctor_id, patient_id);
     } catch (std::out_of_range &x) {
         errors.addError("Patient or doctor with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::hospitalize(Command &command, Errors &errors)
+{
+    auto assistant_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    try {
+        data_container.Hospitalize(patient_id, assistant_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Assistant or patient with the specified id does not exist");
     }
 }
