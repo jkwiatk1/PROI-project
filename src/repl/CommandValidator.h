@@ -27,4 +27,5 @@ class CommandValidator
     static void validate_search(Command &command, Errors &errors);
 
     static void validate_examine(Command &command, Errors &errors);
+    static void validate_prescribe(Command &command, Errors &errors);
 };
