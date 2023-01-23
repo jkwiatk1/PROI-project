@@ -10,8 +10,8 @@
 
 class Results {
     private:
-        bool showPatientInfo;
-        bool showDepartmentInfo;
+        bool showPatientInfo = false;
+        bool showDepartmentInfo = false;
 
     public:
         std::vector<Patient *> patients;

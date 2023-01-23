@@ -63,3 +63,16 @@ bool Room::operator==(const Room &other)
         return true;
     return nr == other.nr && capacity == other.capacity;
 }
+
+std::ostream &operator<<(std::ostream &s, const Room &room)
+{
+    s << "Room{room_no = " << room.nr << ", capacity = " << room.capacity
+      << ", patients = [";
+    bool first = true;
+    for (auto p : room.patients) {
+        if (!first) s << ", ";
+        s << *p;
+        first = false;
+    }
+    return s << "]}";
+}

@@ -25,5 +25,6 @@ class Room
 
     bool fuzzyEquals(const Room &other);
     bool operator==(const Room &other);
+    friend std::ostream &operator<<(std::ostream &s, const Room &room);
 };
 

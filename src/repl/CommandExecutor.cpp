@@ -366,6 +366,8 @@ void CommandExecutor::searchDepartment(Command &command, Errors &errors,
     std::string department;
     if (object.hasProperty(CommandObject::DEPARTMENT_NAME))
         department = object.getProperty(CommandObject::DEPARTMENT_NAME);
+    if (object.hasProperty(CommandObject::INFO))
+        results.setShowDepartmentInfo(true);
 
     auto result = data_container.findDepartments(department);
     if (result.size() != 0)

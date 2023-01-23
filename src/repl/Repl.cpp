@@ -72,6 +72,11 @@ void Repl::print_results(Results &results)
     }
     for (auto p : results.departments) {
         os << "- " << *p << std::endl;
+        if (results.getShowDepartmentInfo()) {
+            for (auto e : p->getDepartmentRooms()) {
+                os << "\t- " << e << std::endl;
+            }
+        }
     }
 }
 
