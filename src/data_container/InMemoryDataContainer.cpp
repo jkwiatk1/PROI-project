@@ -246,10 +246,28 @@ void InMemoryDataContainer::PrescribeMedication(int doctor_id, int patient_id, s
 void InMemoryDataContainer::AdministerMedicine(int nurse_id, int patient_id,
                                                std::string medicine)
 {
+    if (Nurses_DC.count(nurse_id) != 0 && HospitalizedPatients_DC.count(patient_id) != 0){
+        Nurses_DC[nurse_id]->administerMedicine(*Patients_DC[patient_id],medicine);
+    }
+    else if (Nurses_DC.count(nurse_id) == 0) {
+        throw std::out_of_range(
+            "Nurse ID not found in the data base.\nCheck is it correct.\n");
+    } else
+        throw std::out_of_range(
+            "Patient ID not found in the data base.\nCheck is it correct.\n");    
 }
 
 void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
 {
+    if (Doctors_DC.count(doctor_id) != 0 && HospitalizedPatients_DC.count(patient_id) != 0){
+        Doctors_DC[doctor_id]->performSurgery(*Patients_DC[patient_id]);
+    }
+    else if (Doctors_DC.count(doctor_id) == 0) {
+        throw std::out_of_range(
+            "Doctor ID not found in the data base.\nCheck is it correct.\n");
+    } else
+        throw std::out_of_range(
+            "Patient ID not found in the data base.\nCheck is it correct.\n");  
 }
 
 void InMemoryDataContainer::Discharge(int id)
@@ -373,6 +391,14 @@ std::optional<Department> InMemoryDataContainer::GetDepartment(std::string depar
 };
 std::optional<Room> InMemoryDataContainer::GetRoom(int room_no)
 {
-    // TODO: implement
+    for (const auto &[key, departament_temp] : Department_DC) {
+        for(auto it : departament_temp->getDepartmentRooms()){
+            if(it.getNr() == room_no)
+            {
+                //return Department_DC[key]->getDepartmentRooms()[room_no];
+                return it;
+            }
+        }
+    }
     return {};
 };
