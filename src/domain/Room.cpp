@@ -8,7 +8,6 @@ Room::Room(int nr, int capacity)
 {
     this->nr = nr;
     this->capacity = capacity;
-    patients = vector<Patient *>();
 }
 
 int Room::getNr() const
@@ -33,7 +32,7 @@ void Room::setCapacity(int capacity)
 
 void Room::addPatient(Patient *patient)
 {
-    if (patients.size() >= capacity)
+    if (patients.size() > capacity)
         throw Full_room_exception(nr);
 
     patients.push_back(patient);

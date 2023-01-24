@@ -8,7 +8,6 @@ using namespace std;
 Department::Department(string name)
 {
     this->name = name;
-    rooms = vector<Room>();
 }
 
 std::string Department::getName() const
@@ -56,11 +55,7 @@ std::ostream &operator<<(std::ostream &s, const Department &patient)
 }
 
 
-std::vector<Room> Department::getDepartmentRooms() const
+std::vector<Room> &Department::getRooms()
 {
-    std::vector<Room> department_rooms;
-    for(auto it : rooms){
-        department_rooms.push_back(it);
-    }
-    return department_rooms;
+    return rooms;
 }

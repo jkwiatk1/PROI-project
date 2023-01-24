@@ -5,6 +5,7 @@
 #include "Patient.h"
 #include "Results.h"
 #include "Errors.h"
+#include "room_not_empty_exception.h"
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -89,6 +90,20 @@ std::pair<Results, Errors> CommandExecutor::executeCommand(Command &command)
             std::string error = "You can't search for rooms!";
             errors.addError(error);
         }
+    } else if (command_type == Command::EXAMINE_COMMAND) {
+        examine(command, errors);
+    } else if (command_type == Command::PRESCRIBE_COMMAND) {
+        prescribe(command, errors);
+    } else if (command_type == Command::ADMINISTER_COMMAND) {
+        administer(command, errors);
+    } else if (command_type == Command::SURGERY_COMMAND) {
+        surgery(command, errors);
+    } else if (command_type == Command::HOSPITALIZE_COMMAND) {
+        hospitalize(command, errors);
+    } else if (command_type == Command::ASSIGN_ROOM_COMMAND) {
+        assign_room(command, errors);
+    } else if (command_type == Command::DISCHARGE_COMMAND) {
+        discharge(command, errors);
     } else {
         std::string error = "Unknown command type: '" + command_type + "'";
         errors.addError(error);
@@ -183,6 +198,9 @@ void CommandExecutor::deleteRoom(Command &command, Errors &errors)
         data_container.DeleteRoom(std::stoi(room_no));
     } catch (std::out_of_range &e) {
         std::string error = "Room '" + room_no + "' does not exist";
+        errors.addError(error);
+    } catch (Room_not_empty_exception &e) {
+        std::string error = "Room '" + room_no + "' is not empty";
         errors.addError(error);
     }
 }
@@ -310,11 +328,11 @@ void CommandExecutor::updateDepartment(Command &command, Errors &errors)
 void CommandExecutor::updateRoom(Command &command, Errors &errors)
 {
     auto object = command.getObject(0);
-    auto old_no = object.getProperty(CommandObject::DEPARTMENT_NAME2);
-    auto new_no = object.getProperty(CommandObject::DEPARTMENT_NEW_NAME);
+    auto old_no = object.getProperty(CommandObject::ROOM_NO);
+    auto new_no = object.getProperty(CommandObject::ROOM_NEW_NO);
     auto maybe_room = data_container.GetRoom(std::stoi(old_no));
     if (!maybe_room.has_value()) {
-        std::string error = "Department '" + old_no + "' does not exist";
+        std::string error = "Room '" + old_no + "' does not exist";
         errors.addError(error);
         return;
     }
@@ -417,4 +435,85 @@ void CommandExecutor::searchAssistant(Command &command, Errors &errors,
     auto result = data_container.findAssistants(assistant);
     if (result.size() != 0)
         results.addResult(result);
+}
+
+void CommandExecutor::examine(Command &command, Errors &errors)
+{
+    auto doctor_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    try {
+        data_container.PerformExamination(doctor_id, patient_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Patient or doctor with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::prescribe(Command &command, Errors &errors)
+{
+    auto doctor_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    auto meds = command.getArray(0);
+    try {
+        data_container.PrescribeMedication(doctor_id, patient_id, meds);
+    } catch (std::out_of_range &x) {
+        errors.addError("Patient or doctor with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::administer(Command &command, Errors &errors)
+{
+    auto doctor_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    auto keyvals = command.getKeyvals();
+    auto med = keyvals[Command::MEDICINE];
+    try {
+        data_container.AdministerMedicine(doctor_id, patient_id, med);
+    } catch (std::out_of_range &x) {
+        errors.addError("Patient or nurse with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::surgery(Command &command, Errors &errors)
+{
+    auto doctor_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    try {
+        data_container.PerformSurgery(doctor_id, patient_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Patient or doctor with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::hospitalize(Command &command, Errors &errors)
+{
+    auto assistant_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    try {
+        data_container.Hospitalize(patient_id, assistant_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Assistant or patient with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::assign_room(Command &command, Errors &errors)
+{
+    auto assistant_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    auto room_no = std::stoi(command.getKeyvals()[Command::ROOM_NO]);
+    try {
+        data_container.AssignRoom(assistant_id, patient_id, room_no);
+    } catch (std::out_of_range &x) {
+        errors.addError("Assistant, patient or room with the specified id does not exist");
+    }
+}
+
+void CommandExecutor::discharge(Command &command, Errors &errors)
+{
+    auto assistant_id = std::stoi(command.getObject(0).getProperty(CommandObject::ID));
+    auto patient_id = std::stoi(command.getObject(1).getProperty(CommandObject::ID));
+    try {
+        data_container.Discharge(patient_id, assistant_id);
+    } catch (std::out_of_range &x) {
+        errors.addError("Assistant or patient with the specified id does not exist, or the patient is not hospitalized.");
+    }
 }
