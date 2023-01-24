@@ -26,6 +26,7 @@ private:
 
     template<class Object>
     std::vector<Object *> FindInContainer(Object object_template, const std::map<int, Object *>&  dataBase);
+    std::optional<Room *> GetRoom_(int room_no);
 public:
     static InMemoryDataContainer& getInstance() {
         static InMemoryDataContainer s_instance;
@@ -62,7 +63,7 @@ public:
     void PerformSurgery(int doctor_id, int patient_id) override;
     void Discharge(int patient_id, int assistant_id) override;
     void Hospitalize(int patient_id, int assistant_id) override;
-    void AssignRoom(int patient_id, int assistant_id, int room_no) override;
+    void AssignRoom(int assistant_id, int patient_id, int room_no) override;
 
     std::vector<Patient *> findPatients(Patient patient_template) override;
     std::vector<Doctor *> findDoctors(Doctor doctor_template) override;

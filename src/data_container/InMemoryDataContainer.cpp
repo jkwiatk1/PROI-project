@@ -54,11 +54,11 @@ void InMemoryDataContainer::AddRoom(std::string departament_name, int room_no,
                                     int room_capacity)
 {
     if (Department_DC.count(departament_name) != 0) {
-        for (const auto &[key, departament_temp] : Department_DC) {
-            for (auto it : departament_temp->getDepartmentRooms()) {
-                if (it.getNr() == room_no) {
+        for (auto [_, department] : Department_DC) {
+            for (auto &room : department->getRooms()) {
+                if (room.getNr() == room_no) {
                     throw std::out_of_range(
-                        "There already exist a department with that number.\nChange the room number.\n");
+                        "There already exist a room with that number.\nChange the room number.\n");
                 }
             }
         }
@@ -130,18 +130,16 @@ void InMemoryDataContainer::DeleteDepartament(std::string departament_name)
 
 void InMemoryDataContainer::DeleteRoom(int room_no)
 {
-    bool for_exeption_throw = true;
-    for (const auto &[key, departament_temp] : Department_DC) {
-        for (auto it : departament_temp->getDepartmentRooms()) {
-            if (it.getNr() == room_no) {
-                for_exeption_throw = false;
-                departament_temp->removeRoom(it);
+    for (auto [_, department] : Department_DC) {
+        for (auto &room : department->getRooms()) {
+            if (room.getNr() == room_no) {
+                department->removeRoom(room);
+                return;
             }
         }
     }
-    if (for_exeption_throw == true)
-        throw std::out_of_range(
-            "Cannot delete this room.\nThis room not found in the data base.\n");
+    throw std::out_of_range(
+        "Cannot delete this room.\nThis room not found in the data base.\n");
 }
 
 
@@ -205,19 +203,16 @@ void InMemoryDataContainer::ModifyDepartament(std::string departament_name,
 
 void InMemoryDataContainer::ModifyRoom(int room_no, Room modified_room)
 {
-    bool for_exeption_throw = true;
-    for (const auto &[key, departament_temp] : Department_DC) {
-        for (auto it : departament_temp->getDepartmentRooms()) {
-            if (it.getNr() == room_no) {
-                for_exeption_throw = false;
-                Department_DC[key]->removeRoom(it);
-                Department_DC[key]->addRoom(modified_room);
+    for (auto [key, department] : Department_DC) {
+        for (auto &room : department->getRooms()) {
+            if (room.getNr() == room_no) {
+                room = modified_room;
+                return;
             }
         }
     }
-    if (for_exeption_throw == true)
-        throw std::out_of_range(
-            "Cannot modify this room.\nThis room not found in the data base.\n");
+    throw std::out_of_range(
+        "Cannot modify this room.\nThis room not found in the data base.\n");
 }
 
 
@@ -260,7 +255,7 @@ void InMemoryDataContainer::AdministerMedicine(int nurse_id, int patient_id,
             "Nurse ID not found in the data base.\nCheck is it correct.\n");
     } else
         throw std::out_of_range(
-            "Patient ID not found in the data base.\nCheck is it correct.\n");    
+            "Patient ID not found in the data base.\nCheck is it correct.\n");
 }
 
 void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
@@ -273,7 +268,7 @@ void InMemoryDataContainer::PerformSurgery(int doctor_id, int patient_id)
             "Doctor ID not found in the data base.\nCheck is it correct.\n");
     } else
         throw std::out_of_range(
-            "Patient ID not found in the data base.\nCheck is it correct.\n");  
+            "Patient ID not found in the data base.\nCheck is it correct.\n");
 }
 
 void InMemoryDataContainer::Discharge(int patient_id, int assistant_id)
@@ -302,22 +297,22 @@ void InMemoryDataContainer::Hospitalize(int patient_id, int assistant_id)
             "Assistant ID not found in the map.\nFirst add this patient to data base.\n");
 }
 
-void InMemoryDataContainer::AssignRoom(int patient_id, int assistant_id,
+void InMemoryDataContainer::AssignRoom(int assistant_id, int patient_id,
                                        int room_no)
 {
-    // auto room = GetRoom(room_no);
-    // if (Patients_DC.count(patient_id) != 0
-    //     && Assistants_DC.count(assistant_id) != 0 && room.has_value()) {
-    //     Assistants_DC[assistant_id]->putPatient(*Patients_DC[patient_id],
-    //     *room.value());
-    // } else if (Patients_DC.count(patient_id) == 0) {
-    //     throw std::out_of_range(
-    //         "Patient ID not found in the data base.\nCheck is it
-    //         correct.\n");
-    // } else
-    //     throw std::out_of_range(
-    //         "Assistant ID not found in the map.\nFirst add this patient to
-    //         data base.\n");
+    auto maybe_room = GetRoom_(room_no);
+    if (Patients_DC.count(patient_id) != 0
+        && Assistants_DC.count(assistant_id) != 0 && maybe_room.has_value()) {
+        auto assistant = Assistants_DC[assistant_id];
+        auto patient = Patients_DC[patient_id];
+        auto room = maybe_room.value();
+        assistant->putPatient(patient, room);
+    } else if (Patients_DC.count(patient_id) == 0) {
+        throw std::out_of_range(
+            "Patient ID not found in the data base.\nCheck is it correct.\n");
+    } else
+        throw std::out_of_range(
+            "Assistant ID not found in the map.\nFirst add this patient to data base.\n");
 }
 
 // TODO: make `findX` use fuzzyFind.
@@ -421,14 +416,20 @@ InMemoryDataContainer::GetDepartment(std::string department_name)
 };
 std::optional<Room> InMemoryDataContainer::GetRoom(int room_no)
 {
-    for (const auto &[key, departament_temp] : Department_DC) {
-        for(auto it : departament_temp->getDepartmentRooms()){
-            if(it.getNr() == room_no)
-            {
-                //return Department_DC[key]->getDepartmentRooms()[room_no];
-                return it;
+    auto maybe_room = GetRoom_(room_no);
+    if (maybe_room.has_value())
+        return *maybe_room.value();
+    else
+        return {};
+};
+
+std::optional<Room *> InMemoryDataContainer::GetRoom_(int room_no) {
+    for (auto [_, department] : Department_DC) {
+        for (auto &room : department->getRooms()) {
+            if (room.getNr() == room_no) {
+                return &room;
             }
         }
     }
     return {};
-};
+}

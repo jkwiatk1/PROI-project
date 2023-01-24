@@ -5,6 +5,7 @@
 #include "Patient.h"
 #include "Results.h"
 #include "Errors.h"
+#include "room_not_empty_exception.h"
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -198,6 +199,9 @@ void CommandExecutor::deleteRoom(Command &command, Errors &errors)
     } catch (std::out_of_range &e) {
         std::string error = "Room '" + room_no + "' does not exist";
         errors.addError(error);
+    } catch (Room_not_empty_exception &e) {
+        std::string error = "Room '" + room_no + "' is not empty";
+        errors.addError(error);
     }
 }
 
@@ -324,11 +328,11 @@ void CommandExecutor::updateDepartment(Command &command, Errors &errors)
 void CommandExecutor::updateRoom(Command &command, Errors &errors)
 {
     auto object = command.getObject(0);
-    auto old_no = object.getProperty(CommandObject::DEPARTMENT_NAME2);
-    auto new_no = object.getProperty(CommandObject::DEPARTMENT_NEW_NAME);
+    auto old_no = object.getProperty(CommandObject::ROOM_NO);
+    auto new_no = object.getProperty(CommandObject::ROOM_NEW_NO);
     auto maybe_room = data_container.GetRoom(std::stoi(old_no));
     if (!maybe_room.has_value()) {
-        std::string error = "Department '" + old_no + "' does not exist";
+        std::string error = "Room '" + old_no + "' does not exist";
         errors.addError(error);
         return;
     }
