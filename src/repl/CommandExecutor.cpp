@@ -504,6 +504,9 @@ void CommandExecutor::assign_room(Command &command, Errors &errors)
         data_container.AssignRoom(assistant_id, patient_id, room_no);
     } catch (std::out_of_range &x) {
         errors.addError("Assistant, patient or room with the specified id does not exist");
+    } catch (Full_room_exception &x) {
+        std::string error = "Room '" + std::to_string(room_no) + "' is full";
+        errors.addError(error);
     }
 }
 
