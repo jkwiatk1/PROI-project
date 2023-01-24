@@ -75,8 +75,6 @@ void InMemoryDataContainer::DeletePatient(int id)
     if (Patients_DC.count(id) != 0) {
         delete Patients_DC[id];
         Patients_DC.erase(id);
-
-        delete HospitalizedPatients_DC[id];
         HospitalizedPatients_DC.erase(id);
     } else
         throw std::out_of_range("Patient ID not found in the data base.\n");
