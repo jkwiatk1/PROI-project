@@ -20,6 +20,12 @@ void Assistant::hospitalizePatient(Patient &patient)
 
 void Assistant::putPatient(Patient *patient, Room *room)
 {
+    if (patient->getRoom() != nullptr)
+    {
+        patient->getRoom()->removePatient(patient);
+        patient->exitRoom();
+    }
+    
     room->addPatient(patient);
     patient->assignRoom(room);
     addEntry(*patient, "Put in room " + to_string(room->getNr()));
