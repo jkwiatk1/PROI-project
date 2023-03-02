@@ -7,3 +7,5 @@ Zasymulować działanie szpitala, przyjmując następujące założenia:
 * Pacjenci rozmieszczeni są w salach znajdujących się na odpowiednich oddziałach. Sale mają różną liczbę miejsc. W szpitalu mogą pojawiać się nowi pacjenci (przywiezieni karetką lub tacy, którzy samodzielnie dotarli do szpitala), ze szpitala mogą również wychodzić zdrowi pacjenci.
 * Pacjenci przebywający w szpitalu mogą być wysłani na badania, mieć konsultację ze specjalistą z innego oddziału oraz przechodzić operację. Czas pobytu pacjenta w szpitalu może trwać różną liczbę jednostek czasu. 
 * Szpital przechowuje karty zdrowia pacjentów. Karta każdego pacjenta jest uzupełniana przez osoby wykonujące przy nim czynności medyczne. Pacjent może chorować naraz na wiele schorzeń.
+
+Dokumentacja projektu: https://github.com/jkwiatk1/PROI-project/blob/master/doc/doc.pdf
